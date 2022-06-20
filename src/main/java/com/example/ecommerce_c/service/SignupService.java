@@ -30,4 +30,19 @@ public class SignupService {
 		
 		return userRepository.findByMailAddress(email);
 	}
+	
+	/**
+	 * ユーザを新規登録する.
+	 * 
+	 * @param user 登録したいユーザ情報、idはnull
+	 * @return idが付与されたユーザ情報
+	 */
+	public User registerUser(User user) {
+		
+		Integer id = userRepository.insertOne(user);
+		
+		user.setId(id);
+		
+		return user;
+	}
 }
