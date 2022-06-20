@@ -37,6 +37,27 @@ public class UserRepository {
 
 		return user;
 	};
+	
+	/**
+	 * idからUserを検索する.
+	 * 
+	 * @param id 検索したいID
+	 * @return　該当するUser、存在しなければnull
+	 */
+	public User findById(int id) {
+		String sql = "Select id, name, email, password, zipcode, address, telephone "
+				+ "From users Where id=:id;";
+		SqlParameterSource param = new MapSqlParameterSource().addValue("id", id);
+		
+		List<User> userList = jdbcTemplate.query(sql, param, USER_ROW_MAPPER);
+		
+		if(userList.size() == 0) {
+			return null;
+		}
+		
+		return userList.get(0);
+		
+	}
 
 	/**
 	 * emailからUserを検索する.
