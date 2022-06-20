@@ -20,12 +20,26 @@ public class SignupController {
 	private SignupService signupService;
 	
 	
+	/**
+	 * 新規登録ページを返す.
+	 * 
+	 * @param form 新規登録フォーム
+	 * @return　新規登録ページへのパス
+	 */
 	@GetMapping("/signup")
 	public String getSignupPage(UserForm form) {
 		
 		return "login/signup";
 	}
 	
+	
+	/**
+	 * 新規登録を行なう.
+	 * 
+	 * @param form 新規登録フォーム
+	 * @param result バリデーション結果
+	 * @return　ログインページへのパス、エラーがあれば新規登録ページのパス
+	 */
 	@PostMapping("/signup")
 	public String registerUser(@Validated UserForm form, BindingResult result) {
 		
