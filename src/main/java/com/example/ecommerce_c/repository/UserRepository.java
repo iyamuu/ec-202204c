@@ -69,7 +69,7 @@ public class UserRepository {
 	public Integer insertOne(User user) {
 		
 		String sql = "Insert Into users(name, email, password, zipcode, address, telephone) "
-					+ "Values(:name, :email, :password, :zipcode, :address, :telephone) Returning id;";
+					+ "Values(:name, :email, :password, :zipCode, :address, :telephone) Returning id;";
 		SqlParameterSource param = new BeanPropertySqlParameterSource(user);
 		
 		Integer userid = jdbcTemplate.queryForObject(sql, param, Integer.class);
