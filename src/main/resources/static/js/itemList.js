@@ -19,8 +19,8 @@ function getInitialItemList() {
     type: "post",
     dataType: "json",
     data: {
-      first: 0,
-      last: 10,
+      from: 0,
+      to: 10,
     },
     async: true,
   }).done(function (data) {
