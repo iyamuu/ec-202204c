@@ -8,8 +8,6 @@ package com.example.ecommerce_c.form;
  *
  */
 public class UserForm {
-	/** ID */
-	private Integer id;
 	/** 名前 */
 	private String name;
 	/** メールアドレス */
@@ -27,13 +25,6 @@ public class UserForm {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Integer getId() {
-		return id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
-	}
 
 	public String getName() {
 		return name;
@@ -85,7 +76,7 @@ public class UserForm {
 
 	@Override
 	public String toString() {
-		return "User [id=" + id + ", name=" + name + ", email=" + email + ", password=" + password + ", zipCode="
+		return "User [name=" + name + ", email=" + email + ", password=" + password + ", zipCode="
 				+ zipCode + ", address=" + address + ", telephone=" + telephone + "]";
 	}
 
