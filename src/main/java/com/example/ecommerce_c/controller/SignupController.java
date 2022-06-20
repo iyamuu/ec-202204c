@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.example.ecommerce_c.domain.User;
-import com.example.ecommerce_c.form.UserForm;
+import com.example.ecommerce_c.form.SignupForm;
 import com.example.ecommerce_c.service.SignupService;
 
 @Controller
@@ -25,7 +25,7 @@ public class SignupController {
 	 * @return 新規登録ページへのパス
 	 */
 	@GetMapping("/signup")
-	public String getSignupPage(UserForm form) {
+	public String getSignupPage(SignupForm form) {
 
 		return "login/signup";
 	}
@@ -38,7 +38,7 @@ public class SignupController {
 	 * @return ログインページへのパス、エラーがあれば新規登録ページのパス
 	 */
 	@PostMapping("/signup")
-	public String registerUser(@Validated UserForm form, BindingResult result) {
+	public String registerUser(@Validated SignupForm form, BindingResult result) {
 
 		// emailの重複チェック、存在していればバリデーション結果にエラーを追加
 		User existsUser = signupService.checkSameMailAddress(form.getEmail());

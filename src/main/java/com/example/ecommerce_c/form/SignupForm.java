@@ -7,7 +7,7 @@ package com.example.ecommerce_c.form;
  * @author daina.teranishi
  *
  */
-public class UserForm {
+public class SignupForm {
 	/** 名前 */
 	private String name;
 	/** メールアドレス */
@@ -21,7 +21,7 @@ public class UserForm {
 	/** 電話番号 */
 	private String telephone;
 
-	public UserForm() {
+	public SignupForm() {
 		// TODO Auto-generated constructor stub
 	}
 
