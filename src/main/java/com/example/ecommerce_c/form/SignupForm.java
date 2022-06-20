@@ -1,6 +1,5 @@
 package com.example.ecommerce_c.form;
 
-
 /**
  * ユーザ情報のFormクラス.
  * 
@@ -14,6 +13,8 @@ public class SignupForm {
 	private String email;
 	/** パスワード */
 	private String password;
+	/** 確認用パスワード */
+	private String confirmPassword;
 	/** 郵便番号 */
 	private String zipCode;
 	/** 住所 */
@@ -24,7 +25,6 @@ public class SignupForm {
 	public SignupForm() {
 		// TODO Auto-generated constructor stub
 	}
-
 
 	public String getName() {
 		return name;
@@ -74,10 +74,18 @@ public class SignupForm {
 		this.telephone = telephone;
 	}
 
+	public String getConfirmPassword() {
+		return confirmPassword;
+	}
+
+	public void setConfirmPassword(String confirmPassword) {
+		this.confirmPassword = confirmPassword;
+	}
+
 	@Override
 	public String toString() {
-		return "User [name=" + name + ", email=" + email + ", password=" + password + ", zipCode="
-				+ zipCode + ", address=" + address + ", telephone=" + telephone + "]";
+		return "SignupForm [name=" + name + ", email=" + email + ", password=" + password + ", confirmPassword="
+				+ confirmPassword + ", zipCode=" + zipCode + ", address=" + address + ", telephone=" + telephone + "]";
 	}
 
 }
