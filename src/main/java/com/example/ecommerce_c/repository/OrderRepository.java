@@ -66,8 +66,9 @@ public class OrderRepository {
 	 */
 	public int insert(Order order) {
 		String sql = 
-			"INSERT INTO orders( id,  user_id,  status,  total_price,  order_date,  destination_name,  destination_email,  destination_zipcode,  destination_address,  destination_tel,  delivery_time,  payment_method) "
-				+ "VALUES      (:id, :user_id, :status, :total_price, :order_date, :destination_name, :destination_email, :destination_zipcode, :destination_address, :destination_tel, :delivery_time, :payment_method)";
+			"INSERT INTO orders( user_id,  status,  total_price,  order_date,  destination_name,  destination_email,  destination_zipcode,  destination_address,  destination_tel,  delivery_time,  payment_method) "
+				+ "VALUES      (:userId, :status, :totalPrice, :orderDate, :destinationName, :destinationEmail, :destinationZipcode, :destinationAddress, :destinationTel, :deliveryTime, :paymentMethod) "
+				+ "RETURNING id";
 
 		SqlParameterSource param = new BeanPropertySqlParameterSource(order);
 
@@ -82,7 +83,7 @@ public class OrderRepository {
 	 * @param order 注文
 	 */
 	public void update(Order order) {
-		String sql = "UPDATE orders SET user_id=:user_id, status=:status, total_price=:total_price, order_date=:order_date, destination_name=:destination_name, destination_email=:destination_email, destination_zipcode=:destination_zipcode, destination_address=:destination_address, destination_tel=:destination_tel, delivery_time=:delivery_time, payment_method=:payment_method WHERE id=:id";
+		String sql = "UPDATE orders SET user_id=:userId, status=:status, total_price=:totalPrice, order_date=:orderDate, destination_name=:destinationName, destination_email=:destinationEmail, destination_zipcode=:destinationZipcode, destination_address=:destinationAddress, destination_tel=:destinationTel, delivery_time=:deliveryTime, payment_method=:paymentMethod WHERE id=:id";
 
 		SqlParameterSource param = new BeanPropertySqlParameterSource(order);
 
