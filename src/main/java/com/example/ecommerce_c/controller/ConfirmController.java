@@ -59,7 +59,8 @@ public class ConfirmController {
 		order.setStatus(0);
 		order.setTotalPrice(0);
 		
-		System.out.println(order);
+		System.out.println("totalPrice (expected '0'): " + order.getCalcTotalPrice());
+		System.out.println("tax (expected '0'): " + order.getTax());
 
 		System.out.println("orderService.insert (expected '1')" + orderService.insert(order));
 		Order order2 = orderService.findById(1);
