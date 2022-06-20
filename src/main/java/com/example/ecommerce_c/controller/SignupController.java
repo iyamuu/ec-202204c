@@ -46,6 +46,13 @@ public class SignupController {
 			result.rejectValue("email", null, "このメールアドレスは既に存在しています");
 		}
 
+		// パスワードと確認用パスワードの一致チェック
+		String password = form.getPassword();
+		String confirmPassword = form.getConfirmPassword();
+		if (!password.equals(confirmPassword)) {
+			result.rejectValue("confirmPassword", null, "パスワードが一致していません");
+		}
+
 		if (result.hasErrors()) {
 			return getSignupPage(form);
 		}
