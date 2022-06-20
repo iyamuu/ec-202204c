@@ -36,7 +36,7 @@
 				</div>
 
 				<div class="header-right">
-					<a href="item_list.html">商品一覧</a> <a th:href="@{/signup]">会員登録</a>
+					<a href="item_list.html">商品一覧</a> <a th:href="@{/signup}">会員登録</a>
 					<a href="login.html" class="login"> <i
 						class="fas fa-sign-in-alt"></i>ログイン
 					</a>
@@ -48,7 +48,7 @@
 	<div class="top-wrapper">
 		<div class="container">
 			<div class="row register-page">
-				<form th:action="@{/signup}" method="post" th:object="*{signupForm}">
+				<form th:action="@{/signup}" method="post" th:object="${signupForm}">
 					<!-- 名前 -->
 					<div>
 						<label th:if="${#fields.hasErrors('name')}" th:errors="*{name}"
@@ -63,8 +63,7 @@
 					<!-- メールアドレス -->
 					<div>
 						<label th:if="${#fields.hasErrors('email')}" th:errors="*{email}"
-							class="error-messages"> メールアドレスを入力してください
-						</label>
+							class="error-messages"> メールアドレスを入力してください </label>
 					</div>
 					<div class="row">
 						<div class="input-field col s12">
@@ -74,80 +73,88 @@
 						</div>
 						<label for="email">メールアドレス</label>
 					</div>
-			</div>
 
-			<!-- 郵便番号 -->
-			<div>
-				<label th:if="${#fields.hasErrors('zipCode')}"
-					th:errors="*{zipCode}" class="error-messages">郵便番号はXXX-XXXXの形式で入力してください</label>
-			</div>
-			<div class="row">
-				<div class="input-field col s12">
-					<input id="zipcode" name="zipCode" class="form-control"
-						placeholder="xxx-yyyy" th:field="*{zipCode}"
-						th:errorclass="error-input" type="text" maxlength="7" /> <label
-						for="zipcode">郵便番号</label>
-					<button class="btn" type="button">
-						<span>住所検索</span>
-					</button>
-				</div>
-			</div>
+					<!-- 郵便番号 -->
+					<div>
+						<label th:if="${#fields.hasErrors('zipCode')}"
+							th:errors="*{zipCode}" class="error-messages">郵便番号はXXX-XXXXの形式で入力してください</label>
+					</div>
+					<div class="row">
+						<div class="input-field col s12">
+							<input id="zipCode" name="zipCode" class="form-control"
+								placeholder="xxx-yyyy" th:field="*{zipCode}"
+								th:errorclass="error-input" type="text" maxlength="7" /> <label
+								for="zipCode">郵便番号</label>
+							<button class="btn" type="button">
+								<span>住所検索</span>
+							</button>
+						</div>
+					</div>
 
-			<!-- 住所 -->
-			<div>
-				<label th:if="${#fields.hasErrors('address')}"
-					th:errors="*{address}" class="error-messages">住所を入力して下さい</label>
-			</div>
-			<div class="row">
-				<div class="input-field col s12">
-					<input id="address" type="text" name="address" class="form-control"
-						th:field="*{address}" th:errorclass="error-input" /> <label
-						for="address">住所</label>
-				</div>
-			</div>
+					<!-- 住所 -->
+					<div>
+						<label th:if="${#fields.hasErrors('address')}"
+							th:errors="*{address}" class="error-messages">住所を入力して下さい</label>
+					</div>
+					<div class="row">
+						<div class="input-field col s12">
+							<input id="address" type="text" name="address"
+								class="form-control" th:field="*{address}"
+								th:errorclass="error-input" /> <label for="address">住所</label>
+						</div>
+					</div>
 
-            <!-- 電話番号 -->
-			<div><label th:if="${#fields.hasErrors('telephone')}"
-                th:errors="*{telephone}" class="error-messages">電話番号はXXXX-XXXX-XXXXの形式で入力してください</label></div>
-			<div class="row">
-				<div class="input-field col s12">
-					<input id="tel" type="tel" name="telephone" class="form-control"
-                    th:field="*{telephone}" th:errorclass="error-input"/> <label for="tel">電話番号</label>
-				</div>
-			</div>
+					<!-- 電話番号 -->
+					<div>
+						<label th:if="${#fields.hasErrors('telephone')}"
+							th:errors="*{telephone}" class="error-messages">電話番号はXXXX-XXXX-XXXXの形式で入力してください</label>
+					</div>
+					<div class="row">
+						<div class="input-field col s12">
+							<input id="tel" type="tel" name="telephone" class="form-control"
+								th:field="*{telephone}" th:errorclass="error-input" /> <label
+								for="tel">電話番号</label>
+						</div>
+					</div>
 
-            
-            <!-- パスワード -->
-			<div><label th:if="${#fields.hasErrors('password')}"
-                th:errors="*{password}" class="error-messages">パスワードは８文字以上１６文字以内で設定してください</label></div>
-			<div class="row">
-				<div class="input-field col s12">
-					<input id="password" type="password" class="validate" minlength="8" name="password" class="form-control"
-                    th:field="*{password}" th:errorclass="error-input"
-						required /> <label for="password">パスワード</label>
-				</div>
-			</div>
 
-            <!-- 確認用パスワード -->
-			<div><label th:if="${#fields.hasErrors('confirmPassword')}"
-                th:errors="*{confirmPassword}" class="error-messages">パスワードと確認用パスワードが不一致です</div>
-			<div class="row">
-				<div class="input-field col s12">
-					<input id="confirmation_password" type="password" class="validate" name="confirmPassword" class="form-control"
-                    th:field="*{confirmPassword}" th:errorclass="error-input"
-						minlength="8" required /> <label
-						for="confirmation_password">確認用パスワード</label>
-				</div>
+					<!-- パスワード -->
+					<div>
+						<label th:if="${#fields.hasErrors('password')}"
+							th:errors="*{password}" class="error-messages">パスワードは８文字以上１６文字以内で設定してください</label>
+					</div>
+					<div class="row">
+						<div class="input-field col s12">
+							<input id="password" type="password" class="validate"
+								minlength="8" name="password"
+								th:field="*{password}" th:errorclass="error-input" required />
+							<label for="password">パスワード</label>
+						</div>
+					</div>
+
+					<!-- 確認用パスワード -->
+					<div>
+						<label th:if="${#fields.hasErrors('confirmPassword')}"
+							th:errors="*{confirmPassword}" class="error-messages">パスワードと確認用パスワードが不一致です
+						
+					</div>
+					<div class="row">
+						<div class="input-field col s12">
+							<input id="confirmation_password" type="password"
+								class="validate" name="confirmPassword"
+								th:field="*{confirmPassword}" th:errorclass="error-input"
+								minlength="8" required /> <label for="confirmation_password">確認用パスワード</label>
+						</div>
+					</div>
+					<div class="row register-admin-btn">
+						<button class="btn" type="submit">
+							<span>登録<i class="material-icons right">done</i></span>
+						</button>
+					</div>
+				</form>
 			</div>
-			<div class="row register-admin-btn">
-				<button class="btn" type="submit">
-					<span>登録<i class="material-icons right">done</i></span>
-				</button>
-			</div>
-			</form>
 		</div>
-	</div>
-	<!-- end container-->
+		<!-- end container-->
 	</div>
 
 	<footer>
