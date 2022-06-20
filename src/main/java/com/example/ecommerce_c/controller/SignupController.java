@@ -1,6 +1,5 @@
 package com.example.ecommerce_c.controller;
 
-import org.graalvm.compiler.lir.LIRInstruction.Use;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,53 +14,48 @@ import com.example.ecommerce_c.service.SignupService;
 
 @Controller
 public class SignupController {
-	
+
 	@Autowired
 	private SignupService signupService;
-	
-	
+
 	/**
 	 * 新規登録ページを返す.
 	 * 
 	 * @param form 新規登録フォーム
-	 * @return　新規登録ページへのパス
+	 * @return 新規登録ページへのパス
 	 */
 	@GetMapping("/signup")
 	public String getSignupPage(UserForm form) {
-		
+
 		return "login/signup";
 	}
-	
-	
+
 	/**
 	 * 新規登録を行なう.
 	 * 
-	 * @param form 新規登録フォーム
+	 * @param form   新規登録フォーム
 	 * @param result バリデーション結果
-	 * @return　ログインページへのパス、エラーがあれば新規登録ページのパス
+	 * @return ログインページへのパス、エラーがあれば新規登録ページのパス
 	 */
 	@PostMapping("/signup")
 	public String registerUser(@Validated UserForm form, BindingResult result) {
-		
-		//emailの重複チェック、存在していればバリデーション結果にエラーを追加
+
+		// emailの重複チェック、存在していればバリデーション結果にエラーを追加
 		User existsUser = signupService.checkSameMailAddress(form.getEmail());
-		if(existsUser != null) {
+		if (existsUser != null) {
 			result.rejectValue("email", null, "このメールアドレスは既に存在しています");
 		}
-		
-		
-		if(result.hasErrors()) {
+
+		if (result.hasErrors()) {
 			return getSignupPage(form);
 		}
-		
-		
+
 		User newUser = new User();
 		BeanUtils.copyProperties(form, newUser);
-		newUser = signupService.registerUser(newUser);  //登録処理、ここでidが付与される
-		
-		
+		newUser = signupService.registerUser(newUser); // 登録処理、ここでidが付与される
+
 		return "login/login";
-		
+
 	}
-	
+
 }
