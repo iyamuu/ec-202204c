@@ -12,8 +12,7 @@ import org.springframework.stereotype.Repository;
 
 import com.example.ecommerce_c.domain.OrderItem;
 import com.example.ecommerce_c.domain.OrderTopping;
-import com.example.ecommerce_c.form.OrderItemForm;
-import com.example.ecommerce_c.form.OrderToppingForm;
+import com.example.ecommerce_c.domain.Topping;
 
 /**
  * 注文トッピング情報を扱うリポジトリ.
@@ -36,10 +35,10 @@ public class OrderToppingRepository {
 	@Autowired 
 	private NamedParameterJdbcTemplate template;
 	
-	public Integer insertOrderTopping(OrderItemForm orderItemForm){
+	public Integer insertOrderTopping(OrderItem orderItem){
 		String sql = "INSERT INTO order_toppings(topping_id,order_item_id) values (:toppingId, :orderItemId) return id;";
 		Integer id = null;
-		for ( Integer toppingId : orderItemForm.getToppingIdList()) {
+		for ( Topping toppingId : orderItem.getOrderToppingList()) {
 			SqlParameterSource param = new MapSqlParameterSource().addValue("toppingId", toppingId);
 			id = template.queryForObject(sql, param, Integer.class);
 		}
