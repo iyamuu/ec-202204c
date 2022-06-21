@@ -56,13 +56,21 @@
       <div class="container">
         <div class="row login-page">
           <div class="col s12 z-depth-6 card-panel">
-            <div class="error">エラーメッセージ</div>
-            <form class="login-form" action="employeeList.html">
+            <form
+              class="login-form"
+              th:action="@{/top}"
+              th:object="${loginForm}"
+            >
               <div class="row"></div>
               <div class="row">
                 <div class="input-field col s12">
                   <i class="material-icons prefix">mail_outline</i>
-                  <input class="validate" id="mailAddress" type="email" />
+                  <input
+                    class="validate"
+                    id="mailAddress"
+                    type="email"
+                    th:field="*{email}"
+                  />
                   <label
                     for="mailAddress"
                     data-error="wrong"
@@ -74,16 +82,12 @@
               <div class="row">
                 <div class="input-field col s12">
                   <i class="material-icons prefix">lock_outline</i>
-                  <input id="password" type="password" />
+                  <input id="password" type="password" th:field="*{password}" />
                   <label for="password">パスワード</label>
                 </div>
               </div>
               <div class="row login-btn">
-                <button
-                  class="btn"
-                  type="button"
-                  onclick="location.href='item_list.html'"
-                >
+                <button class="btn" type="submit">
                   <span>ログイン</span>
                 </button>
               </div>
