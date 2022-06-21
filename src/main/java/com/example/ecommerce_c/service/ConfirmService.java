@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 import com.example.ecommerce_c.domain.Order;
 import com.example.ecommerce_c.domain.OrderItem;
 import com.example.ecommerce_c.domain.User;
-import com.example.ecommerce_c.repository.OrderItemRepository;
 import com.example.ecommerce_c.repository.OrderRepository;
 import com.example.ecommerce_c.repository.UserRepository;
 
@@ -19,8 +18,8 @@ public class ConfirmService {
 	private UserRepository userRepository;
 	@Autowired
 	private OrderRepository orderRepository;
-	@Autowired
-	private OrderItemRepository orderItemRepository;
+//	@Autowired
+//	private OrderItemRepository orderItemRepository;
 	
 	/**
 	 * 注文を検索する
