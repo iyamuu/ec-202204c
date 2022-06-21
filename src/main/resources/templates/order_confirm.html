@@ -103,6 +103,7 @@
           <div th:text="'合計: ' + ${order.totalPrice + order.getTax()}">ご注文金額合計：38,000円 (税込)</div>
         </div>
 		<form th:action="@{/purchase}" th:object="${confirmForm}" method="post">
+		<input type="hidden" name="id" th:value="${order.id}">
         <h2 class="page-title">お届け先情報</h2>
         <div class="order-confirm-delivery-info">
           <div class="row">
