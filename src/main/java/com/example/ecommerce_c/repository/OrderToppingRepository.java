@@ -53,7 +53,7 @@ public class OrderToppingRepository {
 	 * @return
 	 */
 	public Integer insertOrderTopping(OrderTopping orderTopping) {
-		String sql = "INSERT INTO order_toppings(topping_id,order_item_id) values (:toppingId, :orderItemId) return id;";
+		String sql = "INSERT INTO order_toppings(topping_id,order_item_id) values (:toppingId, :orderItemId) Returning id;";
 
 		SqlParameterSource param = new BeanPropertySqlParameterSource(orderTopping);
 		Integer id = template.queryForObject(sql, param, Integer.class);

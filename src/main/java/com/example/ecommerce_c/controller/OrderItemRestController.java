@@ -7,6 +7,8 @@ import java.util.Map;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.ecommerce_c.domain.OrderItem;
@@ -25,9 +27,16 @@ public class OrderItemRestController {
 	private  OrderItemService orderItemService;
 	
 	@PostMapping("/add")
-	public OrderItem addToOrder (OrderItemForm orderItemForm){
+	@ResponseBody
+	public OrderItem addToOrder (@RequestBody OrderItemForm orderItemForm){
+		
+		System.out.println(orderItemForm);
+		
 		OrderItem orderItem = new OrderItem();
 		BeanUtils.copyProperties(orderItemForm, orderItem);
+		
+		System.out.println(orderItemForm);
+		System.out.println(orderItem);
 		
 		List<Integer> toppingIdList = orderItemForm.getToppingIdList();
 		
