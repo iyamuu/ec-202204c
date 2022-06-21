@@ -71,41 +71,6 @@
             </thead>
             
             <tbody>
-<!--               <tr th:each="orderItem: ${order.orderItemList}">
-                <td class="cart-item-name">
-                  <div class="cart-item-icon">
-                    <img src="img/1.jpg" th:src="${orderItem.item.imagePath}"/>
-                  </div>
-                  <span th:text="${orderItem.item.name}">ハワイアンパラダイス</span>
-                </td>
-                <td>
-                	<span th:if="${orderItem.size == 'M'}" th:text="${orderItem.Item.priceM}" class="price">M : 1,000円</span>
-                	<span th:if="${orderItem.size == 'L'}" th:text="${orderItem.Item.priceL}" class="price">L : 2,000円</span>
-                	<span>
-                		<button th:if="${orderItem.size > 1}" onclick="">―</button>
-                		<span th:unless="${orderItem.size > 1}">―</span>
-                		<span th:text="orderItem.size"></span>
-                		<button th:if="${orderItem.size < 9}" onclick="">＋</button>
-                		<span th:unless="${orderItem.size < 9}">+</span>
-                	</span>
-                </td>
-                <td>
-                  <ul>
-                    <li th:each="orderTopping: ${orderItem.orderToppingList}">
-                    	<span th:text="${orderTopping.topping.name}">ピーマン</span>
-                    	<span th:if="${orderItem.size == 'M'}" th:text="${orderTopping.topping.priceM}">200円</span>
-                    	<span th:if="${orderItem.size == 'L'}" th:text="${orderTopping.topping.priceL}">300円</span>
-                    </li>
-                  </ul>
-                </td>
-                <td><div class="text-center">3,280円</div></td>
-                <td>
-                  <button class="btn" type="button">
-                    <span>削除</span>
-                  </button>
-                </td>
-              </tr>
- -->            
  				<tr th:each="orderItem: ${order.orderItemList}">
  	              <td class="cart-item-name">
                     <div class="cart-item-icon">
@@ -151,16 +116,9 @@
           <div th:text="'合計: ' + ${order.totalPrice + order.getTax()}">ご注文金額合計：38,000円 (税込)</div>
         </div>
         <div class="row order-confirm-btn">
-          <button
-            class="btn"
-            type="button"
-            onclick="location.href='order_confirm.html'" 
-          >
-            <span>注文に進む</span>
-          </button>
-          <form th:action="@{/confirm}" method="post">
-          	<input type="hidden" name="orderId" th:value="${orderId}">
-          	<button>注文に進む</button>
+          <form th:action="@{/confirm}" method="get">
+          	<input type="hidden" name="orderId" th:value="${order.id}">
+          	<button class="btn">注文に進む</button>
           </form>
         </div>
       </div>
