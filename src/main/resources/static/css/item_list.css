@@ -77,14 +77,13 @@
 .item-wrapper {
   padding-top: 200px; /* 上はヘッダや検索フォームが来るのでその分空ける */
   padding-bottom: 80px;
-  padding-left: 15%;
+  padding-left: 5%;
   padding-right: 5%;
   background-color: #f7f7f7;
   text-align: center;
 }
 
 .items {
-  display: flex;
   flex-wrap: wrap; /* 表示内容が多かった時に自動的に複数行に分割される */
 }
 
