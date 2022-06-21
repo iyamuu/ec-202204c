@@ -12,7 +12,7 @@ $(function () {
 });
 
 function getInitialItemList() {
-  let hostUrl = "https://localhost:8080/ec-202204c/getItemByPage";
+  let hostUrl = "http://localhost:8080/ec-202204c/getItemByPage";
 
   $.ajax({
     url: hostUrl,
@@ -27,20 +27,18 @@ function getInitialItemList() {
     console.log(data);
     console.dir(JSON.stringify(data));
     $("#itemList").empty();
-    data.itemList.array.forEach((item) => {
-      genarateItemCell(item);
-    });
+    data.forEach((item) => genarateItemCell(item));
   });
 }
 
 function genarateItemCell(item) {
   $("#itemList").append(`
-        <div class="mb-2 position-relative">
-            <input type="hidden" value="${item.id}"
-            <div class="item-icon col s4">
-              <img src="${item.imagePath}" />
+         <div class="mb-2 row d-flex">
+            <input type="hidden" value="${item.id}" />
+            <div class="item-icon col-6">
+              <img src="/ec-202204c/img/${item.imagePath}"/>
             </div>
-            <div class="col s8">
+            <div class="col-6">
               <div class="left">
                 <a data-bs-toggle="modal" data-bs-target="#item-${item.id}"
                 >${item.name}</a
@@ -52,7 +50,8 @@ function genarateItemCell(item) {
               </div>
               <br />
               <a
-                class="waves-effect waves-light btn-large orange position-absolute bottom-0 end-0"
+                class="waves-effect waves-light btn-large orange"
+                style="z-index:0"
               >
                 <i class="material-icons left">add_shopping_cart</i>
                 <span class="cart_button add_cart-${item.id}">カートに追加</span></a

@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.example.ecommerce_c.domain.Item;
 import com.example.ecommerce_c.repository.ItemRepository;
@@ -22,7 +23,7 @@ public class TopService {
 	 * @return アイテム
 	 */
 	public List<Item> getItemsByPage (int from, int to, String name){
-		if (name.isBlank()) {
+		if (name == null || name.isBlank()) {
 			return itemRepository.findPages(from, to);
 		}
 		return itemRepository.findByName(name);
