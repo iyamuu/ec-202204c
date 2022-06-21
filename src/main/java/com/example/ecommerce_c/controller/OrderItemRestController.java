@@ -6,8 +6,8 @@ import java.util.List;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -39,7 +39,7 @@ public class OrderItemRestController {
 	 * @param orderId オーダID
 	 * @return　orderドメイン
 	 */
-	@PostMapping("/show")
+	@GetMapping("/show")
 	public Order showOrderItem(@RequestParam("orderId")Integer orderId) {
 		Order order = cartService.getOrder(orderId);
 		return order;
