@@ -9,6 +9,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.stereotype.Service;
 
 import com.example.ecommerce_c.domain.User;
 import com.example.ecommerce_c.repository.UserRepository;
@@ -19,6 +20,7 @@ import com.example.ecommerce_c.repository.UserRepository;
  * @author daina.teranishi
  *
  */
+@Service
 public class FormLoginService implements UserDetailsService {
 
 	@Autowired
