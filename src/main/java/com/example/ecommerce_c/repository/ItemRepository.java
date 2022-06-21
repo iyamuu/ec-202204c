@@ -1,6 +1,5 @@
 package com.example.ecommerce_c.repository;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +10,6 @@ import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.stereotype.Repository;
 
 import com.example.ecommerce_c.domain.Item;
-import com.example.ecommerce_c.domain.Order;
 
 @Repository
 public class ItemRepository {
@@ -57,10 +55,22 @@ public class ItemRepository {
 	 * @param name
 	 * @return
 	 */
-	public List<Item> findByName(String name) {
-		List<Item> pages = new ArrayList<>();
+	public List<Item> findByName(int from, int to, String name) {
+		String sql = 
+				"select id, name, description, price_m, price_l, image_path, deleted"
+				+ " from items"
+				+ " where name like :name"
+				+ " order by id"
+				+ " offset :from rows"
+				+ " fetch next :to rows only";
+		SqlParameterSource param = new MapSqlParameterSource()
+				.addValue("name", '%'+name+'%')
+				.addValue("from", from)
+				.addValue("to", to);
 		
-		return pages;
+		List<Item> itemList = template.query(sql, param, ROW_MAPPER);
+		
+		return itemList;
 	}
 
 }

@@ -26,7 +26,7 @@ public class OrderItemRestController {
 	
 	@PostMapping("/add")
 	@ResponseBody
-	public OrderItem addToOrder (@RequestBody OrderItemForm orderItemForm){
+	public OrderItem addToOrder (OrderItemForm orderItemForm){
 		
 		System.out.println(orderItemForm);
 		

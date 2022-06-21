@@ -52,10 +52,10 @@
             <a href="login.html"> ログイン </a>
             <a href="login.html"> ログアウト </a>
             <a href="order_history.html"> 注文履歴 </a>
-            <a href="cart_list.html">
+            <a th:href="@{/cart(orderId=${orderId})}">
               <i class="fas fa-sign-in-alt"></i>カート
             </a>
-            <div class="d-none" th:value="${orderId}"></div>
+            <input id="orderId" type="hidden" th:value="${orderId}" />
           </div>
         </div>
       </div>

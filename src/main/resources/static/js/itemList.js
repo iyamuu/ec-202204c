@@ -4,12 +4,32 @@
 $(function () {
   //ページが読み込まれた際の処理
   getInitialItemList();
-  //検索をかけられた際の処理
-  $("#search").click(function () {
-    let name = $(".search-name-input").val();
-    getItemByName(name);
-  });
 });
+
+$(".search-btn").click(function () {
+  console.log("aaaa");
+  let name = $(".search-name-input").val();
+  getItemByName(name);
+});
+
+function getItemByName(name) {
+  let hostUrl = "http://localhost:8080/ec-202204c/getItemByPage";
+  console.log("呼び出された");
+  $.ajax({
+    url: hostUrl,
+    type: "post",
+    dataType: "json",
+    data: {
+      from: 0,
+      to: 10,
+      name: name,
+    },
+    async: true,
+  }).done(function (data) {
+    $("#itemList").empty();
+    data.forEach((item) => genarateItemCell(item));
+  });
+}
 
 function getInitialItemList() {
   let hostUrl = "http://localhost:8080/ec-202204c/getItemByPage";
@@ -24,8 +44,6 @@ function getInitialItemList() {
     },
     async: true,
   }).done(function (data) {
-    console.log(data);
-    console.dir(JSON.stringify(data));
     $("#itemList").empty();
     data.forEach((item) => genarateItemCell(item));
   });
@@ -52,7 +70,7 @@ function genarateItemCell(item) {
               <a
                 class="waves-effect waves-light btn-large orange cart_button add_cart_${item.id}"
                 style="z-index:0"
-                onclick="postCart(${item.id}, ${item.priceM}, 1, [])"
+                onclick="postCart(${item.id}, 'M', 1, [])"
               >
                 <i class="material-icons left">add_shopping_cart</i>
                 <span>カートに追加</span></a

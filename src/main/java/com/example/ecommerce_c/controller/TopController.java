@@ -22,7 +22,6 @@ public class TopController {
 		order.setTotalPrice(order.getCalcTotalPrice());
 		order.setUserId(-1);
 		Integer orderId = orderService.insert(order);
-		System.out.println("orderId: "+ orderId);
 		model.addAttribute("orderId", orderId);
 		return "item_list_toy";
 	}
