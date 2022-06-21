@@ -1,5 +1,6 @@
 package com.example.ecommerce_c.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.BeanUtils;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.ecommerce_c.domain.OrderItem;
 import com.example.ecommerce_c.form.OrderItemForm;
+import com.example.ecommerce_c.form.UpdateOrderItemForm;
 import com.example.ecommerce_c.service.OrderItemService;
 
 /**
@@ -28,15 +30,14 @@ public class OrderItemRestController {
 	@ResponseBody
 	public OrderItem addToOrder (OrderItemForm orderItemForm){
 		
-		System.out.println(orderItemForm);
-		
 		OrderItem orderItem = new OrderItem();
 		BeanUtils.copyProperties(orderItemForm, orderItem);
 		
-		System.out.println(orderItemForm);
-		System.out.println(orderItem);
-		
 		List<Integer> toppingIdList = orderItemForm.getToppingIdList();
+		
+		if(toppingIdList == null) {
+			toppingIdList = new ArrayList<>();
+		}
 		
 		orderItem = orderItemService.addToOrder(orderItem, toppingIdList);
 		
@@ -44,7 +45,15 @@ public class OrderItemRestController {
 	}
 	
 	@PostMapping("/delete")
+	@ResponseBody
 	public void deleteOrderItem(Integer orderItemId) {
 		orderItemService.deleteOrderItem(orderItemId);
+	}
+	
+	@PostMapping("/update")
+	@ResponseBody
+	public OrderItem updateToOrder(UpdateOrderItemForm updateOrderItemForm) {
+		OrderItem orderItem = orderItemService.updateToOrder(updateOrderItemForm.getOrderItemId(), updateOrderItemForm.getQuantity());
+		return orderItem;
 	}
 }
