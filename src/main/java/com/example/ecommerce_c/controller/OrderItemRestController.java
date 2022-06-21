@@ -12,9 +12,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.ecommerce_c.domain.Order;
 import com.example.ecommerce_c.domain.OrderItem;
 import com.example.ecommerce_c.form.OrderItemForm;
 import com.example.ecommerce_c.form.UpdateOrderItemForm;
+import com.example.ecommerce_c.service.CartService;
 import com.example.ecommerce_c.service.OrderItemService;
 
 /**
@@ -27,6 +29,21 @@ import com.example.ecommerce_c.service.OrderItemService;
 public class OrderItemRestController {
 	@Autowired
 	private  OrderItemService orderItemService;
+	@Autowired
+	private CartService cartService;
+	
+	
+	/**
+	 * Orderを返す.
+	 * 
+	 * @param orderId オーダID
+	 * @return　orderドメイン
+	 */
+	@PostMapping("/show")
+	public Order showOrderItem(@RequestParam("orderId")Integer orderId) {
+		Order order = cartService.getOrder(orderId);
+		return order;
+	}
 	
 	@PostMapping("/add")
 	@ResponseBody
