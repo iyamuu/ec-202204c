@@ -1,27 +1,13 @@
-package com.example.ecommerce_c.domain;
+package com.example.ecommerce_c.form;
 
-/**
- * 注文トッピングを操作するドメイン.
- * 
- * @author hvthinh
- *
- */
-public class OrderTopping {
-	/** 注文トッピングID */
+public class OrderToppingForm {
 	private Integer id;
-	/** トッピングID */
 	private Integer toppingId;
-	/** 注文商品ID */
 	private Integer orderItemId;
-	/** トッピング */
-	private Topping topping;
 
-	public Topping getTopping() {
-		return topping;
-	}
-
-	public void setTopping(Topping topping) {
-		this.topping = topping;
+	@Override
+	public String toString() {
+		return "OrderToppingForm [id=" + id + ", toppingId=" + toppingId + ", orderItemId=" + orderItemId + "]";
 	}
 
 	public Integer getId() {

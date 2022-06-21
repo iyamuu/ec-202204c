@@ -61,7 +61,7 @@ public class SignupController {
 		BeanUtils.copyProperties(form, newUser);
 		newUser = signupService.registerUser(newUser); // 登録処理、ここでidが付与される
 
-		return "login/login";
+		return "redirect:/login";
 
 	}
 

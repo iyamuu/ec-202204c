@@ -67,6 +67,10 @@ public class Order {
 	 * @return 合計金額
 	 */
 	public int getCalcTotalPrice() {
+		if(orderItemList == null) {
+			return 0;
+		}
+		
 		int sum = 0;
 		for(OrderItem orderItem: orderItemList) {
 //			TODO: orderItemドメインを作ったら切り替える
