@@ -1,13 +1,8 @@
 package com.example.ecommerce_c.form;
 
-import java.sql.Timestamp;
-import java.util.Date;
-
 public class ConfirmForm {
 	/** ID */
 	private Integer id;
-	/** 注文日 */
-	private Date orderDate;
 	/** 宛先氏名 */
 	private String destinationName;
 	/** 宛先Eメール */
@@ -18,8 +13,11 @@ public class ConfirmForm {
 	private String destinationAddress;
 	/** 宛先TEL */
 	private String destinationTel;
+	/** 配達日時 */
+	private String deliveryDate;
 	/** 配達時間 */
-	private Timestamp deliveryTime;
+	private String deliveryTime;
+
 	/** 支払方法 */
 	private Integer paymentMethod;
 
@@ -29,14 +27,6 @@ public class ConfirmForm {
 
 	public void setId(Integer id) {
 		this.id = id;
-	}
-
-	public Date getOrderDate() {
-		return orderDate;
-	}
-
-	public void setOrderDate(Date orderDate) {
-		this.orderDate = orderDate;
 	}
 
 	public String getDestinationName() {
@@ -79,11 +69,19 @@ public class ConfirmForm {
 		this.destinationTel = destinationTel;
 	}
 
-	public Timestamp getDeliveryTime() {
+	public String getDeliveryDate() {
+		return deliveryDate;
+	}
+
+	public void setDeliveryDate(String deliveryDate) {
+		this.deliveryDate = deliveryDate;
+	}
+
+	public String getDeliveryTime() {
 		return deliveryTime;
 	}
 
-	public void setDeliveryTime(Timestamp deliveryTime) {
+	public void setDeliveryTime(String deliveryTime) {
 		this.deliveryTime = deliveryTime;
 	}
 
@@ -97,10 +95,11 @@ public class ConfirmForm {
 
 	@Override
 	public String toString() {
-		return "ConfirmForm [id=" + id + ", orderDate=" + orderDate + ", destinationName=" + destinationName
+		return "ConfirmForm [id=" + id + ", destinationName=" + destinationName
 				+ ", destinationEmail=" + destinationEmail + ", destinationZipcode=" + destinationZipcode
 				+ ", destinationAddress=" + destinationAddress + ", destinationTel=" + destinationTel
-				+ ", deliveryTime=" + deliveryTime + ", paymentMethod=" + paymentMethod + "]";
+				+ ", deliveryDate=" + deliveryDate + ", deliveryTime=" + deliveryTime + ", paymentMethod="
+				+ paymentMethod + "]";
 	}
 
 }
