@@ -36,7 +36,7 @@ public class OrderItemRepository {
 	 * @return 注文商品Id
 	 */
 	public Integer insertOne(OrderItem orderItem) {
-		String sql = "Insert into order_items(item_id, order_id, quantity, size) values (:itemId, :orderId, :quantity, :size) return id ";
+		String sql = "Insert into order_items(item_id, order_id, quantity, size) values (:itemId, :orderId, :quantity, :size) Returning id ";
 		SqlParameterSource param = new BeanPropertySqlParameterSource(orderItem);
 
 		return jdbcTemplate.queryForObject(sql, param, Integer.class);
