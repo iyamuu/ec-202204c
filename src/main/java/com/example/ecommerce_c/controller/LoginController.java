@@ -36,29 +36,4 @@ public class LoginController {
 
 		return "login/login";
 	}
-
-//	@PostMapping("/login")
-//	public String login(@Validated LoginForm form, BindingResult result, Model model) {
-//
-//		// formのバリデーションチェック
-//		if (result.hasErrors()) {
-//			return getLoginPage(form, model);
-//		}
-//
-//		// ログイン成功したかのチェック
-//		User loginUser = loginService.login(form.getEmail(), form.getPassword());
-//		if (loginUser == null) {
-//			model.addAttribute("loginStatus", "メールアドレスかパスワードが異なります");
-//			return getLoginPage(form, model);
-//		}
-//
-//		model.addAttribute("loginStatus", "ログインに成功しました");
-//		return "login/login";
-//
-//	}
-	
-	@GetMapping("/logout")
-	public String logout() {
-		return "redirect:/login";
-	}
 }

@@ -28,7 +28,7 @@ public class OrderItemRestController {
 	
 	@PostMapping("/add")
 	@ResponseBody
-	public OrderItem addToOrder (@RequestBody OrderItemForm orderItemForm){
+	public OrderItem addToOrder (OrderItemForm orderItemForm){
 		
 		OrderItem orderItem = new OrderItem();
 		BeanUtils.copyProperties(orderItemForm, orderItem);
