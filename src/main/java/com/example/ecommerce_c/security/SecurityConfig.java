@@ -1,6 +1,7 @@
 package com.example.ecommerce_c.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -8,6 +9,7 @@ import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 
 @EnableWebSecurity
@@ -29,7 +31,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 		http.authorizeRequests().antMatchers("/login").permitAll().antMatchers("/signup").permitAll().anyRequest()
 				.authenticated().and().formLogin().loginPage("/login").loginProcessingUrl("/login") // ログインボタンのURL
-				.failureForwardUrl("/login?error=true").defaultSuccessUrl("/login", false)
+				.failureForwardUrl("/login?error=true").defaultSuccessUrl("/top", false)
 				.usernameParameter("email").passwordParameter("password");
 	}
 
@@ -37,6 +39,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	public void configure(AuthenticationManagerBuilder auth) throws Exception {
 
 		auth.userDetailsService(formLoginService).passwordEncoder(new BCryptPasswordEncoder());
+	}
+	
+	@Bean
+	public PasswordEncoder passwordEncoder() {
+		return new BCryptPasswordEncoder();
 	}
 
 }
