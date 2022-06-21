@@ -56,12 +56,24 @@
       <div class="container">
         <div class="row login-page">
           <div class="col s12 z-depth-6 card-panel">
+            <div class="error" th:if="${loginStatus}">
+              <label th:text="${loginStatus}">エラーメッセージ</label>
+            </div>
             <form
               class="login-form"
-              th:action="@{/top}"
+              th:action="@{/login}"
               th:object="${loginForm}"
+              method="post"
             >
-              <div class="row"></div>
+              <div>
+                <label
+                  th:if="${#fields.hasErrors('email')}"
+                  th:errors="*{email}"
+                  class="error-messages"
+                >
+                  メールアドレスを入力してください
+                </label>
+              </div>
               <div class="row">
                 <div class="input-field col s12">
                   <i class="material-icons prefix">mail_outline</i>
@@ -78,6 +90,14 @@
                     >メールアドレス</label
                   >
                 </div>
+              </div>
+              <div>
+                <label
+                  th:if="${#fields.hasErrors('password')}"
+                  th:errors="*{password}"
+                  class="error-messages"
+                  >パスワードは８文字以上１６文字以内で設定してください</label
+                >
               </div>
               <div class="row">
                 <div class="input-field col s12">
