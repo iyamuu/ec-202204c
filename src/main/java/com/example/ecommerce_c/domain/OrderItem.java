@@ -23,6 +23,27 @@ public class OrderItem {
 	private List<OrderTopping> orderToppingList;
 	/** 商品情報. */
 	private Item item;
+	
+	/**
+	 * 商品の合計金額を計算する.
+	 * 
+	 * @return トッピングを含めた合計金額
+	 */
+	public int getSubTotal() {
+		int subTotal = 0;
+		if(size == 'M') {
+			subTotal += item.getPriceM();
+			for(OrderTopping orderTopping: orderToppingList) {
+				subTotal += orderTopping.getTopping().getPriceM();
+			}
+		}else {
+			subTotal += item.getPriceL();
+			for(OrderTopping orderTopping: orderToppingList) {
+				subTotal += orderTopping.getTopping().getPriceL();
+			}
+		}
+		return subTotal;
+	}
 
 	@Override
 	public String toString() {
