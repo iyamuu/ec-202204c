@@ -73,9 +73,7 @@ public class Order {
 		
 		int sum = 0;
 		for(OrderItem orderItem: orderItemList) {
-//			TODO: orderItemドメインを作ったら切り替える
-//			sum += orderItem.getSubTotal();
-			sum += 0;
+			sum += orderItem.getSubTotal();
 		}
 		totalPrice = sum;
 		return totalPrice;
