@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
@@ -41,23 +42,22 @@ public class OrderToppingRepository {
 //		
 //		return orderTopping;
 //	};
-	
-	@Autowired 
+
+	@Autowired
 	private NamedParameterJdbcTemplate template;
-	
+
 	/**
 	 * 注文トッピング情報を格納する.
 	 * 
 	 * @param orderItem
 	 * @return
 	 */
-	public Integer insertOrderTopping(OrderItem orderItem){
-		String sql = "INSERT INTO order_toppings(topping_id,order_item_id) values (:toppingId, :orderItemId) return id;";
-		Integer id = null;
-		for ( Topping toppingId : orderItem.getOrderToppingList()) {
-			SqlParameterSource param = new MapSqlParameterSource().addValue("toppingId", toppingId);
-			id = template.queryForObject(sql, param, Integer.class);
-		}
+	public Integer insertOrderTopping(OrderTopping orderTopping) {
+		String sql = "INSERT INTO order_toppings(topping_id,order_item_id) values (:toppingId, :orderItemId) Returning id;";
+
+		SqlParameterSource param = new BeanPropertySqlParameterSource(orderTopping);
+		Integer id = template.queryForObject(sql, param, Integer.class);
+
 		return id;
 	}
 }

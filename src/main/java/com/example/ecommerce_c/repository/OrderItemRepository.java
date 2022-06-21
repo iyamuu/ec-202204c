@@ -17,33 +17,10 @@ import com.example.ecommerce_c.form.OrderItemForm;
 
 @Repository
 public class OrderItemRepository {
-	private static final ResultSetExtractor<OrderItem> ORDER_ITEM_RESULT_SET_EXTRACTOR = (rs) -> {
-		List<OrderItem> orderItemsList = new LinkedList<>();
-		List<OrderTopping> orderToppingList = null;
-		
-		while (rs.next()) {
-			
-			
-			OrderItem orderItem = new OrderItem();
-			orderItem.setId(rs.getInt("o.id"));
-			orderItem.setItemId(rs.getInt("o.item_id"));
-			orderItem.setQuantity(rs.getInt("o.quantity"));
-			orderItem.setSize(rs.getString("o.size").toCharArray()[0]);
-			
-			OrderTopping orderTopping = new OrderTopping();
-			orderTopping.setId(rs.getInt("t.id"));
-//			orderTopping.setOrderItemId(rs.get);
-			
-			
-		}
-		
-		return orderItemsList.get(0); 
-		
-	};
-	
+
 	@Autowired
 	private NamedParameterJdbcTemplate jdbcTemplate;
-	
+
 //	public OrderItem findOrderItemById (Integer orderItemId) {
 //		String sql = "SELECT id, item_id, order_id, quantity, size FROM order_items WHERE id = :orderItemId";
 //		SqlParameterSource param = new MapSqlParameterSource().addValue("orderItemId", orderItemId);
@@ -52,14 +29,28 @@ public class OrderItemRepository {
 //		return orderItem;
 //	}
 //	
+	/**
+	 * 注文商品情報を格納する.
+	 * 
+	 * @param orderItem
+	 * @return 注文商品Id
+	 */
 	public Integer insertOne(OrderItem orderItem) {
-		String sql = "Insert into order_items(item_id, order_id, quantity, size) values (:itemId, :orderId, :quantity, :size) return id ";
+		String sql = "Insert into order_items(item_id, order_id, quantity, size) values (:itemId, :orderId, :quantity, :size) Returning id ";
 		SqlParameterSource param = new BeanPropertySqlParameterSource(orderItem);
 
 		return jdbcTemplate.queryForObject(sql, param, Integer.class);
 	}
-	
-	
-	
+
+	/**
+	 * 注文商品を削除する.
+	 * 
+	 * @param orderItemId
+	 */
+	public void deleteOrderItem(Integer orderItemId) {
+		String sql = "DELETE FROM order_items where id = :orderItemId";
+		SqlParameterSource param = new MapSqlParameterSource().addValue("orderItemId", orderItemId);
+		jdbcTemplate.update(sql, param);
+	}
 
 }

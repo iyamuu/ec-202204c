@@ -19,13 +19,31 @@ public class OrderItem {
 	private Integer quantity;
 	/** 注文商品サイズ */
 	private Character size;
-	/**注文トッピングリスト*/
-	private List<Topping> orderToppingList;
+	/** 注文トッピングリスト */
+	private List<OrderTopping> orderToppingList;
+	/** 商品情報. */
+	private Item item;
 
 	@Override
 	public String toString() {
 		return "OrderItem [id=" + id + ", itemId=" + itemId + ", orderId=" + orderId + ", quantity=" + quantity
-				+ ", size=" + size + ", orderToppingList=" + orderToppingList + "]";
+				+ ", size=" + size + ", orderToppingList=" + orderToppingList + ", item=" + item + "]";
+	}
+
+	public List<OrderTopping> getOrderToppingList() {
+		return orderToppingList;
+	}
+
+	public void setOrderToppingList(List<OrderTopping> orderToppingList) {
+		this.orderToppingList = orderToppingList;
+	}
+
+	public Item getItem() {
+		return item;
+	}
+
+	public void setItem(Item item) {
+		this.item = item;
 	}
 
 	public Integer getSubtotal() {
@@ -70,14 +88,6 @@ public class OrderItem {
 
 	public void setSize(Character size) {
 		this.size = size;
-	}
-
-	public List<Topping> getOrderToppingList() {
-		return orderToppingList;
-	}
-
-	public void setOrderToppingList(List<Topping> orderToppingList) {
-		this.orderToppingList = orderToppingList;
 	}
 
 }
