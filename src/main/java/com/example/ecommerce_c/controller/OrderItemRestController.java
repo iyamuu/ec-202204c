@@ -1,8 +1,6 @@
 package com.example.ecommerce_c.controller;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,5 +32,10 @@ public class OrderItemRestController {
 		orderItem = orderItemService.addToOrder(orderItem, toppingIdList);
 		
 		return orderItem;
+	}
+	
+	@PostMapping("/delete")
+	public void deleteOrderItem(Integer orderItemId) {
+		orderItemService.deleteOrderItem(orderItemId);
 	}
 }

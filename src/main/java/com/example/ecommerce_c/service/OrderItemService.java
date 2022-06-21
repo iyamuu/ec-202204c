@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 
 import com.example.ecommerce_c.domain.OrderItem;
 import com.example.ecommerce_c.domain.OrderTopping;
-import com.example.ecommerce_c.domain.Topping;
 import com.example.ecommerce_c.repository.OrderItemRepository;
 import com.example.ecommerce_c.repository.OrderToppingRepository;
 
@@ -27,6 +26,13 @@ public class OrderItemService {
 	@Autowired
 	private OrderToppingRepository orderToppingRepository;
 
+	/**
+	 * OrderItemとorderToppingを追加するサービス.
+	 * 
+	 * @param orderItem
+	 * @param toppingIdList
+	 * @return 注文商品情報
+	 */
 	public OrderItem addToOrder(OrderItem orderItem, List<Integer> toppingIdList) {
 		Integer orderItemId = orderItemRepository.insertOne(orderItem);
 		orderItem.setId(orderItemId);
@@ -45,7 +51,16 @@ public class OrderItemService {
 		}
 
 		orderItem.setOrderToppingList(orderToppingList);
-		
+
 		return orderItem;
+	}
+
+	/**
+	 * 注文商品削除するサービス.
+	 * 
+	 * @param orderItemId
+	 */
+	public void deleteOrderItem(Integer orderItemId) {
+		orderItemRepository.deleteOrderItem(orderItemId);
 	}
 }
