@@ -1,10 +1,6 @@
 package com.example.ecommerce_c.repository;
 
-import java.util.LinkedList;
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
@@ -13,8 +9,6 @@ import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.stereotype.Repository;
 
 import com.example.ecommerce_c.domain.OrderItem;
-import com.example.ecommerce_c.domain.OrderTopping;
-import com.example.ecommerce_c.form.OrderItemForm;
 
 @Repository
 public class OrderItemRepository {
@@ -78,7 +72,7 @@ public class OrderItemRepository {
 	 * @return 注文商品情報
 	 */
 	public OrderItem findOrderItembyId(Integer orderItemId) {
-		String sql = "SELECT id, item_id, order_id, quantity, sise from order_items where id = :orderItemId";
+		String sql = "SELECT id, item_id, order_id, quantity, size from order_items where id = :orderItemId";
 		SqlParameterSource param = new MapSqlParameterSource().addValue("orderItemId", orderItemId);
 
 		OrderItem orderItem = jdbcTemplate.queryForObject(sql, param, ORDER_ITEM_ROW_MAPPER);
