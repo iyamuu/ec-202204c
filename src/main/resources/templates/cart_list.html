@@ -74,7 +74,7 @@
  				<tr th:each="orderItem: ${order.orderItemList}">
  	              <td class="cart-item-name">
                     <div class="cart-item-icon">
-                      <img src="img/1.jpg" th:src="${orderItem.item.imagePath}"/>
+                      <img src="img/1.jpg" th:src="@{/img/} + ${orderItem.item.imagePath}"/>
                     </div>
                     <span th:text="${orderItem.item.name}">ハワイアンパラダイス</span>
                   </td>
