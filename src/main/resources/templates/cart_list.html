@@ -121,7 +121,8 @@
                		  <button th:if="${orderItem.quantity > 1}" onclick="">-</button>
                		  <span th:unless="${orderItem.quantity > 1}">-</span>
                		  <span th:text="${orderItem.quantity}"></span>
-               		  <button th:if="${orderItem.quantity < 9}" onclick="">+</button>
+               		  <button th:if="${orderItem.quantity < 9}" th:attr="onclick='updateOrderItem('+ ${orderItem.id} + ', \'' + ${orderItem.quantity} + '\');'" >+</button>
+               		  <label th:text ="${orderItem.quantity}"></label>
                		  <span th:unless="${orderItem.quantity < 9}">+</span>
               	    </span>
                   </td>
@@ -136,7 +137,7 @@
                   </td>
                 <td><div class="text-center" th:text="${orderItem.getSubTotal()}">3,280円</div></td>
                 <td>
-                  <button class="btn" type="button">
+                  <button class="btn" type="button" th:onclick="'deleteOrderItem(' + ${orderItem.id} +');'">
                     <span>削除</span>
                   </button>
                 </td>
@@ -174,6 +175,12 @@
       </div>
     </footer>
     <!-- Compiled and minified JavaScript -->
+    <script
+    src="https://code.jquery.com/jquery-3.6.0.min.js"
+    integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+    crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script src="js/updateOrderItem.js"></script>
+    <script src="js/deleteOrderItem.js"></script>
   </body>
 </html>

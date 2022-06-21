@@ -48,6 +48,7 @@ public class OrderItemRepository {
 		String sql = "DELETE FROM order_items where id = :orderItemId";
 		SqlParameterSource param = new MapSqlParameterSource().addValue("orderItemId", orderItemId);
 		jdbcTemplate.update(sql, param);
+		
 	}
 
 	/**
@@ -61,8 +62,11 @@ public class OrderItemRepository {
 		String sql = "UPDATE order_items SET quantity = :quantity WHERE id = :orderItemId Returning id";
 		SqlParameterSource param = new MapSqlParameterSource().addValue("quantity", quantity).addValue("orderItemId",
 				orderItemId);
+		System.out.println("repositoy ");
+		
+		Integer id =  jdbcTemplate.queryForObject(sql, param, Integer.class);
 
-		return jdbcTemplate.queryForObject(sql, param, Integer.class);
+		return id;
 	}
 
 	/**
