@@ -78,7 +78,7 @@ public class OrderItemRepository {
 	 * @return 注文商品情報
 	 */
 	public OrderItem findOrderItembyId(Integer orderItemId) {
-		String sql = "SELECT id, item_id, order_id, quantity, sise from order_items where id = :orderItemId";
+		String sql = "SELECT id, item_id, order_id, quantity, size from order_items where id = :orderItemId";
 		SqlParameterSource param = new MapSqlParameterSource().addValue("orderItemId", orderItemId);
 
 		OrderItem orderItem = jdbcTemplate.queryForObject(sql, param, ORDER_ITEM_ROW_MAPPER);
