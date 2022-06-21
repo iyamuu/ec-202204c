@@ -40,7 +40,7 @@ function genarateItemCell(item) {
             </div>
             <div class="col-6">
               <div class="left">
-                <a data-bs-toggle="modal" data-bs-target="#item-${item.id}"
+                <a data-bs-toggle="modal" data-bs-target="#item_${item.id}"
                 >${item.name}</a
                 >
               </div>
@@ -50,11 +50,12 @@ function genarateItemCell(item) {
               </div>
               <br />
               <a
-                class="waves-effect waves-light btn-large orange"
+                class="waves-effect waves-light btn-large orange cart_button add_cart_${item.id}"
                 style="z-index:0"
+                onclick="postCart(${item.id}, ${item.priceM}, 1, [])"
               >
                 <i class="material-icons left">add_shopping_cart</i>
-                <span class="cart_button add_cart-${item.id}">カートに追加</span></a
+                <span>カートに追加</span></a
               >
             </div>
           </div>
