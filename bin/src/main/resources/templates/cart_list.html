@@ -157,14 +157,10 @@
           <button
             class="btn"
             type="button"
-            onclick="location.href='order_confirm.html'" 
+            onclick="location.href='order_confirm.html'"
           >
             <span>注文に進む</span>
           </button>
-          <form th:action="@{/confirm}" method="post">
-          	<input type="hidden" name="orderId" value="0">
-          	<button>注文に進む</button>
-          </form>
         </div>
       </div>
       <!-- end container -->

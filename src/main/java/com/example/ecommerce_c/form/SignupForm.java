@@ -1,22 +1,20 @@
-package com.example.ecommerce_c.domain;
+package com.example.ecommerce_c.form;
 
-
- /**
-  * Userを表すドメインクラス.
-  * 
+/**
+ * ユーザ情報のFormクラス.
+ * 
  * @author daina.teranishi
  *
  */
-public class User {
-
-	/** ID */
-	private Integer id;
+public class SignupForm {
 	/** 名前 */
 	private String name;
 	/** メールアドレス */
 	private String email;
 	/** パスワード */
 	private String password;
+	/** 確認用パスワード */
+	private String confirmPassword;
 	/** 郵便番号 */
 	private String zipCode;
 	/** 住所 */
@@ -24,16 +22,8 @@ public class User {
 	/** 電話番号 */
 	private String telephone;
 
-	public User() {
+	public SignupForm() {
 		// TODO Auto-generated constructor stub
-	}
-
-	public Integer getId() {
-		return id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
 	}
 
 	public String getName() {
@@ -84,10 +74,18 @@ public class User {
 		this.telephone = telephone;
 	}
 
+	public String getConfirmPassword() {
+		return confirmPassword;
+	}
+
+	public void setConfirmPassword(String confirmPassword) {
+		this.confirmPassword = confirmPassword;
+	}
+
 	@Override
 	public String toString() {
-		return "User [id=" + id + ", name=" + name + ", email=" + email + ", password=" + password + ", zipCode="
-				+ zipCode + ", address=" + address + ", telephone=" + telephone + "]";
+		return "SignupForm [name=" + name + ", email=" + email + ", password=" + password + ", confirmPassword="
+				+ confirmPassword + ", zipCode=" + zipCode + ", address=" + address + ", telephone=" + telephone + "]";
 	}
 
 }
