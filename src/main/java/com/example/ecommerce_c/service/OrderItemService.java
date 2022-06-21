@@ -41,7 +41,6 @@ public class OrderItemService {
 		for (Integer toppingId : toppingIdList) {
 			OrderTopping orderTopping = new OrderTopping();
 			orderTopping.setToppingId(toppingId);
-			;
 			orderTopping.setOrderItemId(orderItemId);
 
 			Integer orderToppingId = orderToppingRepository.insertOrderTopping(orderTopping);
@@ -52,6 +51,20 @@ public class OrderItemService {
 
 		orderItem.setOrderToppingList(orderToppingList);
 
+		return orderItem;
+	}
+
+	/**
+	 * 注文商品情報を更新するサービス.
+	 * 
+	 * @param orderItem
+	 * @param quantity
+	 * @return 更新した注文商品情報
+	 */
+	public OrderItem updateToOrder(Integer orderItemID, Integer quantity) {
+
+		orderItemRepository.updateOrderItem(orderItemID, quantity);
+		OrderItem orderItem = orderItemRepository.findOrderItembyId(orderItemID);
 		return orderItem;
 	}
 
