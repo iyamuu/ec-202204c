@@ -102,7 +102,7 @@
           <div th:text="'消費税: ' + ${order.getTax()}">消費税：8,000円</div>
           <div th:text="'合計: ' + ${order.totalPrice + order.getTax()}">ご注文金額合計：38,000円 (税込)</div>
         </div>
-		<form th:action="@{/purchase}" th:object="*{confirmForm}" method="post">
+		<form th:action="@{/purchase}" th:object="${confirmForm}" method="post">
         <h2 class="page-title">お届け先情報</h2>
         <div class="order-confirm-delivery-info">
           <div class="row">
@@ -206,7 +206,7 @@
           </span>
         </div>
         <div class="row order-confirm-btn">
-          <button class="btn" type="button">
+          <button class="btn">
             <span>この内容で注文する</span>
           </button>
         </div>
