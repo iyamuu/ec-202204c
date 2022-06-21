@@ -12,6 +12,8 @@ public class CartService {
 	private OrderRepository repository;
 	
 	public Order getOrder(int orderId) {
-		return repository.findFullOrderById(orderId);
+		Order order = repository.findFullOrderById(orderId);
+		order.getCalcTotalPrice();
+		return order;
 	}
 }
