@@ -18,10 +18,9 @@ import com.example.ecommerce_c.form.OrderItemForm;
 @Repository
 public class OrderItemRepository {
 
-	
 	@Autowired
 	private NamedParameterJdbcTemplate jdbcTemplate;
-	
+
 //	public OrderItem findOrderItemById (Integer orderItemId) {
 //		String sql = "SELECT id, item_id, order_id, quantity, size FROM order_items WHERE id = :orderItemId";
 //		SqlParameterSource param = new MapSqlParameterSource().addValue("orderItemId", orderItemId);
@@ -30,14 +29,28 @@ public class OrderItemRepository {
 //		return orderItem;
 //	}
 //	
+	/**
+	 * 注文商品情報を格納する.
+	 * 
+	 * @param orderItem
+	 * @return 注文商品Id
+	 */
 	public Integer insertOne(OrderItem orderItem) {
 		String sql = "Insert into order_items(item_id, order_id, quantity, size) values (:itemId, :orderId, :quantity, :size) Returning id ";
 		SqlParameterSource param = new BeanPropertySqlParameterSource(orderItem);
 
 		return jdbcTemplate.queryForObject(sql, param, Integer.class);
 	}
-	
-	
-	
+
+	/**
+	 * 注文商品を削除する.
+	 * 
+	 * @param orderItemId
+	 */
+	public void deleteOrderItem(Integer orderItemId) {
+		String sql = "DELETE FROM order_items where id = :orderItemId";
+		SqlParameterSource param = new MapSqlParameterSource().addValue("orderItemId", orderItemId);
+		jdbcTemplate.update(sql, param);
+	}
 
 }
