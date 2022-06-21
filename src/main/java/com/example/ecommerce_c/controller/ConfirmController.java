@@ -1,13 +1,20 @@
 package com.example.ecommerce_c.controller;
 
+import java.sql.Timestamp;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.example.ecommerce_c.domain.Order;
-import com.example.ecommerce_c.domain.User;
 import com.example.ecommerce_c.form.ConfirmForm;
 import com.example.ecommerce_c.service.ConfirmService;
 
@@ -18,7 +25,7 @@ import com.example.ecommerce_c.service.ConfirmService;
  *
  */
 @Controller
-@RequestMapping("/confirm")
+@RequestMapping("")
 public class ConfirmController {
 	@Autowired
 	private ConfirmService service;
@@ -35,25 +42,47 @@ public class ConfirmController {
 	 * @param model   モデル
 	 * @return 注文確認画面/ログイン画面
 	 */
-	@RequestMapping("")
+	@GetMapping("/confirm")
 	public String showConfirm(int orderId, Model model) {
 		Order order = service.searchOrder(orderId);
-		User user = service.searchUser(order.getUserId());
 
-		if (user == null) {
-			return "login/login";
-		}
+//		ログインしていなかったらログインページに遷移
+//		if (order.getUserId() == -1) {
+//			return "login/login";
+//		}
 
-//		たぶん必要
-		model.addAttribute("orderId", orderId);
-//		注文商品一覧
-		model.addAttribute("orderItemList", service.stab_searchOrderItemByOrderId(orderId));
+//		注文内容
+		model.addAttribute("order", service.getFullOrder(orderId));
 
 		return "order_confirm";
 	}
 	
-	@RequestMapping("/test")
-	public String stab_showCartList() {
-		return "cart_list";
+	/**
+	 * 注文を確定して注文完了画面を表示する.
+	 * 
+	 * @param form　宛先フォーム
+	 * @return 注文完了画面
+	 */
+	@PostMapping("/purchase")
+	public String finished(ConfirmForm form) {
+		Order order = service.getFullOrder(form.getId());
+//		NOTE: クレジット決済ならstatusを入金済(2)にする？
+		order.setStatus(1); //未入金
+		
+//		フォームの内容をコピー
+		BeanUtils.copyProperties(form, order);
+		order.setOrderDate(new Date());
+		try {
+			Date deliveryTime = new SimpleDateFormat("yyyy-MM-dd-hh時").parse(form.getDeliveryDate() + "-" + form.getDeliveryTime());
+			order.setDeliveryTime(new Timestamp(deliveryTime.getTime()));
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+//		System.out.println(order);
+		
+		service.update(order);
+		
+		return "order_finished";
 	}
+
 }
