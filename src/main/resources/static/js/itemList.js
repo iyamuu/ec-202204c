@@ -5,7 +5,7 @@ $(function () {
   //ページが読み込まれた際の処理
   getInitialItemList();
   //検索をかけられた際の処理
-  $("#search").clink(function () {
+  $("#search").click(function () {
     let name = $(".search-name-input").val();
     getItemByName(name);
   });
@@ -40,7 +40,7 @@ function genarateItemCell(item) {
             <div class="item-icon col s4">
               <img src="${item.imagePath}" />
             </div>
-            <div class="col s8 mb-2">
+            <div class="col s8">
               <div class="left">
                 <a data-bs-toggle="modal" data-bs-target="#item-${item.id}"
                 >${item.name}</a

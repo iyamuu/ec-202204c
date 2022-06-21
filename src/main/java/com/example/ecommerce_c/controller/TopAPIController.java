@@ -20,5 +20,10 @@ public class TopAPIController {
 	public List<Item> getItemsByPage(int from, int to, String name) {
 		return topService.getItemsByPage(from, to, name);
 	}
+	
+	@RequestMapping("")
+	public String getTop() {
+		return "item_list_toy";
+	}
 
 }

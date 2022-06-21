@@ -61,7 +61,7 @@
     </header>
     <div class="search-wrapper">
       <div class="container">
-        <form th:action="" method="post" class="search-form">
+        <form method="post" class="search-form">
           <input type="text" name="name" class="search-name-input" />
           <button class="btn search-btn" type="button">
             <span>検 索</span>
@@ -72,35 +72,17 @@
     <!--item list-->
     <div class="item-wrapper">
       <div class="container">
-        <div class="items row" th:each="item : ${items}">
-          <div class="mb-2 position-relative">
-            <div class="item-icon col s4">
-              <img src="img/1.jpg" th:src="*{imagePath}" />
-            </div>
-            <div class="col s8 mb-2">
-              <div class="left">
-                <a href="item_detail.html" th:text="*{name}" class=""
-                  >ハワイアンパラダイス</a
-                >
-              </div>
-              <br />
-              <div class="left">
-                <span th:text="*{priceM}">1,380</span>円（税抜）
-              </div>
-              <br />
-              <a
-                class="waves-effect waves-light btn-large orange position-absolute bottom-0 end-0"
-              >
-                <i class="material-icons left">add_shopping_cart</i>
-                <span class="cart_button">カートに追加</span></a
-              >
-            </div>
-          </div>
-          <hr />
+        <div id="itemList" class="items row">
+          
         </div>
       </div>
     </div>
 
+	<script
+    src="https://code.jquery.com/jquery-3.6.0.min.js"
+    integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+    crossorigin="anonymous"></script>
+	<script src="js/itemList.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <script
       src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
