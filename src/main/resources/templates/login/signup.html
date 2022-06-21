@@ -52,7 +52,7 @@
 					<!-- 名前 -->
 					<div>
 						<label th:if="${#fields.hasErrors('name')}" th:errors="*{name}"
-						class="error"> 氏名を入力してください </label>
+							class="error"> 氏名を入力してください </label>
 					</div>
 					<div class="row">
 						<input type="text" name="name" id="name" class="form-control"
@@ -82,9 +82,9 @@
 					<div class="row">
 						<div class="input-field col s12">
 							<input id="zipCode" name="zipCode" class="form-control"
-								placeholder="xxx-yyyy" th:field="*{zipCode}"
-								th:errorclass="error-input" type="text" maxlength="8" /> <label
-								for="zipCode">郵便番号</label>
+								placeholder="xxxyyyy" th:field="*{zipCode}"
+								th:errorclass="error-input" type="text"
+								list="zipList" /> <label for="zipCode">郵便番号</label>
 							<button class="btn" type="button">
 								<span>住所検索</span>
 							</button>
@@ -126,9 +126,8 @@
 					<div class="row">
 						<div class="input-field col s12">
 							<input id="password" type="password" class="validate"
-								minlength="8" name="password"
-								th:field="*{password}" th:errorclass="error-input" required />
-							<label for="password">パスワード</label>
+								minlength="8" name="password" th:field="*{password}"
+								th:errorclass="error-input" required /> <label for="password">パスワード</label>
 						</div>
 					</div>
 
@@ -136,6 +135,7 @@
 					<div>
 						<label th:if="${#fields.hasErrors('confirmPassword')}"
 							th:errors="*{confirmPassword}" class="error">パスワードと確認用パスワードが不一致です
+
 						
 					</div>
 					<div class="row">
@@ -157,6 +157,10 @@
 		<!-- end container-->
 	</div>
 
+
+	<datalist id="zipList">
+	</datalist>
+
 	<footer>
 		<div class="container">
 			<p>ラクラクトイ</p>
@@ -164,6 +168,15 @@
 	</footer>
 	<!-- Compiled and minified JavaScript -->
 	<script
-		src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+		src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js">
+		
+	</script>
+
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"
+		integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+		crossorigin="anonymous">
+		
+	</script>
+	<script th:src="@{/js/zipcode.js}"></script>
 </body>
 </html>
