@@ -17,29 +17,7 @@ import com.example.ecommerce_c.form.OrderItemForm;
 
 @Repository
 public class OrderItemRepository {
-	private static final ResultSetExtractor<OrderItem> ORDER_ITEM_RESULT_SET_EXTRACTOR = (rs) -> {
-		List<OrderItem> orderItemsList = new LinkedList<>();
-		List<OrderTopping> orderToppingList = null;
-		
-		while (rs.next()) {
-			
-			
-			OrderItem orderItem = new OrderItem();
-			orderItem.setId(rs.getInt("o.id"));
-			orderItem.setItemId(rs.getInt("o.item_id"));
-			orderItem.setQuantity(rs.getInt("o.quantity"));
-			orderItem.setSize(rs.getString("o.size").toCharArray()[0]);
-			
-			OrderTopping orderTopping = new OrderTopping();
-			orderTopping.setId(rs.getInt("t.id"));
-//			orderTopping.setOrderItemId(rs.get);
-			
-			
-		}
-		
-		return orderItemsList.get(0); 
-		
-	};
+
 	
 	@Autowired
 	private NamedParameterJdbcTemplate jdbcTemplate;
