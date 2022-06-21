@@ -63,24 +63,47 @@ public class UserRepository {
 	 * emailからUserを検索する.
 	 * 
 	 * @param email 検索したいemail
-	 * @return　該当するUser、存在しなければnull
+	 * @return 該当するUser、存在しなければnull
 	 */
 	public User findByMailAddress(String email) {
 
 		String sql = "Select id, name, email, password, zipcode, address, telephone "
-					+ "From users Where email=:email;";
+				+ "From users Where email=:email;";
 		SqlParameterSource param = new MapSqlParameterSource().addValue("email", email);
-		
+
 		List<User> userList = jdbcTemplate.query(sql, param, USER_ROW_MAPPER);
-		
-		if(userList.size() == 0) {
+
+		if (userList.size() == 0) {
 			return null;
 		}
-		
+
 		return userList.get(0);
 	}
+
 	
-	
+	/**
+	 * メールアドレスとパスワードから検索を行う（ログイン処理用）
+	 *  
+	 * @param email メールアドレス
+	 * @param password　パスワード
+	 * @return　該当するUser、存在しなければnull
+	 */
+	public User findByMailAddressAndPassword(String email, String password) {
+
+		String sql = "Select id, name, email, password, zipcode, address, telephone "
+				+ "From users Where email=:email ANd password=:password;";
+		SqlParameterSource param = new MapSqlParameterSource().addValue("email", email).addValue("password", password);
+
+		List<User> userList = jdbcTemplate.query(sql, param, USER_ROW_MAPPER);
+
+		if (userList.size() == 0) {
+			return null;
+		}
+
+		return userList.get(0);
+
+	}
+
 	/**
 	 * Usersテーブルに新規追加をする.
 	 * 
@@ -88,13 +111,13 @@ public class UserRepository {
 	 * @return 自動採番されたユーザID
 	 */
 	public Integer insertOne(User user) {
-		
+
 		String sql = "Insert Into users(name, email, password, zipcode, address, telephone) "
-					+ "Values(:name, :email, :password, :zipCode, :address, :telephone) Returning id;";
+				+ "Values(:name, :email, :password, :zipCode, :address, :telephone) Returning id;";
 		SqlParameterSource param = new BeanPropertySqlParameterSource(user);
-		
+
 		Integer userid = jdbcTemplate.queryForObject(sql, param, Integer.class);
-		
+
 		return userid;
 	}
 }
