@@ -14,7 +14,7 @@ function postCart(id, size, quantity, topping) {
       itemId: id,
       size: size,
       quantity: quantity,
-      toppingIdList: [2, 3],
+      toppingIdList: [],
     },
     async: true,
   }).done(function (data) {
