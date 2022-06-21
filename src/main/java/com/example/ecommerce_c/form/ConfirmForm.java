@@ -1,7 +1,5 @@
 package com.example.ecommerce_c.form;
 
-import java.util.Date;
-
 public class ConfirmForm {
 	/** ID */
 	private Integer id;

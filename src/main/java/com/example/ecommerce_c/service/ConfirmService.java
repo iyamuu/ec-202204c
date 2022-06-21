@@ -70,6 +70,7 @@ public class ConfirmService {
 	 */
 	public Order getFullOrder(int orderId) {
 		Order order = orderRepository.findFullOrderById(orderId);
+		order.getCalcTotalPrice();
 		return order;
 	}
 }
