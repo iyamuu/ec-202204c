@@ -19,26 +19,18 @@ public class OrderItem {
 	private Integer quantity;
 	/** 注文商品サイズ */
 	private Character size;
+	/**注文トッピングリスト*/
 	private List<Topping> orderToppingList;
-
-	private Integer subTotal;
-	
-	
 
 	@Override
 	public String toString() {
 		return "OrderItem [id=" + id + ", itemId=" + itemId + ", orderId=" + orderId + ", quantity=" + quantity
-				+ ", size=" + size + ", orderToppingList=" + orderToppingList + ", subTotal=" + subTotal + "]";
+				+ ", size=" + size + ", orderToppingList=" + orderToppingList + "]";
 	}
 
-	public Integer getSubTotal() {
-		return subTotal;
+	public Integer getSubtotal() {
+		return null;
 	}
-
-	public void setSubTotal(Integer subTotal) {
-		this.subTotal = subTotal;
-	}
-
 
 	public Integer getId() {
 		return id;
