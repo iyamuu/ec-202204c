@@ -1,7 +1,9 @@
 package com.example.ecommerce_c.controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -63,10 +65,14 @@ public class OrderItemRestController {
 		return orderItem;
 	}
 	
-	@DeleteMapping("/delete")
-	@ResponseBody
-	public void deleteOrderItem(@RequestParam("orderItemId") Integer orderItemId) {
+	@GetMapping("/delete")
+	public Map<String, String> deleteOrderItem(@RequestParam("orderItemId")Integer orderItemId) {
 		orderItemService.deleteOrderItem(orderItemId);
+		Map<String, String> resultMap = new HashMap<>();
+		resultMap.put("result", "success");
+		
+		return resultMap;
+		
 	}
 	
 	@PostMapping("/update")
