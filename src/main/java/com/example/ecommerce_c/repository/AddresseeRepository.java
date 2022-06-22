@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
@@ -59,5 +60,23 @@ public class AddresseeRepository {
 		
 		//HACK 複数件の宛先情報があれば不具合がある
 		return addresseeList.get(0);
+	}
+	
+	/**
+	 * 支払情報を登録する.
+	 * 
+	 * @param addressee 登録する支払情報　（IDはnull）
+	 * @return 支払情報　（IDはsetされている）
+	 */
+	public Addressee insertOne(Addressee addressee) {
+		
+		String sql = "Insert Into addressees(user_id, name, zipcode, address, telephone)"
+					+ "Values(:userId, :name, :zipCode, :address, :telephone) Returning id;";
+		SqlParameterSource param = new BeanPropertySqlParameterSource(addressee);
+		
+		Integer id = jdbcTemplate.queryForObject(sql, param, Integer.class); 
+		addressee.setId(id);
+		
+		return addressee;
 	}
 }
