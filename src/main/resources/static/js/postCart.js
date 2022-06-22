@@ -21,10 +21,8 @@ function postCart(id) {
       itemId: id,
       size: size,
       quantity: quantity,
-      toppingIdList: [],
+      toppingIdList: toppingList,
     },
     async: true,
-  }).done(function (data) {
-
-  });
+  }).done(function (data) {});
 }
