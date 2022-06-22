@@ -32,8 +32,41 @@ public class LoginController {
 	 * @return ログインページのパス
 	 */
 	@GetMapping("/login")
-	public String getLoginPage(LoginForm form, Model model) {
-
+	public String getLoginPage(LoginForm form, Integer userId, Model model) {
+		model.addAttribute("userId", userId);
 		return "login/login";
 	}
+
+
+//	@PostMapping("/login")
+//	public String login(@Validated LoginForm form, Integer userId, BindingResult result, Model model) {
+//
+//		// formのバリデーションチェック
+//		if (result.hasErrors()) {
+//			return getLoginPage(form, userId, model);
+//		}
+//
+//		// ログイン成功したかのチェック
+//		User loginUser = loginService.login(form.getEmail(), form.getPassword());
+//		if (loginUser == null) {
+//			model.addAttribute("loginStatus", "メールアドレスかパスワードが異なります");
+//			return getLoginPage(form, userId, model);
+//		}
+//		
+////		ゲストユーザだったら(別のアカウントでログインしている場合を除外)
+//		if(userId < 0) {
+////		ゲストユーザのときにカートに追加した商品を、ログインしたユーザのカートに移動
+//			loginService.mergeOrder(loginUser.getId(), userId);
+//		}
+//		model.addAttribute("loginStatus", "ログインに成功しました");
+////		HACK: あまりきれいな形じゃない
+//		return "redirect:/top?userId=" + loginUser.getId();
+//
+//	}
+//	
+//	@GetMapping("/logout")
+//	public String logout() {
+//		return "redirect:/login";
+//	}
+
 }
