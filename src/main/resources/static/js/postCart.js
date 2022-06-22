@@ -2,16 +2,23 @@
  * カートに追加ボタンを押した際の処理
  */
 function postCart(id) {
+  //各要素の取得
   let orderId = $("#orderId").val();
-  let size = $('input:radio[name="size"]:checked').val();
-  let quantity = $(".spinner").val();
+  let size = $("#modal" + id + " input:radio[name='size']:checked").val();
+  let quantity = $("#modal" + id + " .spinner").val();
   let toppingList = [];
-  $("input[name=option]:checked").each(function () {
+  $("#modal" + id + " input[name=option]:checked").each(function () {
     toppingList.push($(this).val());
   });
+  //各要素の初期化
+  if (size === "L") {
+    $("#modal" + id + " input:radio[name='size']:eq(0)").prop("checked", true);
+  }
+  $("#modal" + id + " .spinner").val(1);
+  $("#modal" + id + " .spinner-sub").addClass("disabled");
+  $("#modal" + id + " input[name=option]").prop("checked", false);
 
   let hostUrl = "http://localhost:8080/ec-202204c/add";
-
   $.ajax({
     url: hostUrl,
     type: "post",
