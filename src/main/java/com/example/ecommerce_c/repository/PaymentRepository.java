@@ -72,7 +72,7 @@ public class PaymentRepository {
 	 */
 	public Payment insertOne(Payment payment) {
 		
-		String sql = "Insert Into addressees(user_id, pay, card_number, card_exp_year, card_exp_month, card_name, card_cvv)"
+		String sql = "Insert Into payments(user_id, pay, card_number, card_exp_year, card_exp_month, card_name, card_cvv)"
 					+ "Values(:userId, :pay, :cardNumber, :cardExpYear, :cardExpMonth, :cardName, :cardCvv) Returning id;";
 		SqlParameterSource param = new BeanPropertySqlParameterSource(payment);
 		
