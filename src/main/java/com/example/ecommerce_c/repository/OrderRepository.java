@@ -245,4 +245,22 @@ public class OrderRepository {
 		return orderList.get(0);
 
 	}
+	
+	/**
+	 * ユーザーIDから注文IDを検索する.
+	 * 
+	 * @param userId ユーザーID
+	 * @return 注文ID 該当する注文が無ければnullを返す
+	 */
+	public Integer findOrderIdByUserId(int userId) {
+		String sql = "SELECT * FROM orders WHERE user_id = :userId AND status = 0 ORDER BY id DESC";
+		
+		SqlParameterSource param = new MapSqlParameterSource().addValue("userId", userId);
+
+		List<Order> orderList = template.query(sql, param, ROW_MAPPER);
+		if(orderList.size() == 0) {
+			return null;
+		}
+		return orderList.get(0).getId();
+	}
 }
