@@ -1,5 +1,6 @@
 package com.example.ecommerce_c.domain;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -23,7 +24,7 @@ public class OrderItem {
 	private List<OrderTopping> orderToppingList;
 	/** 商品情報. */
 	private Item item;
-	
+
 	/**
 	 * 商品の合計金額を計算する.
 	 * 
@@ -31,16 +32,22 @@ public class OrderItem {
 	 */
 	public int getSubTotal() {
 		int subTotal = 0;
-		if(size == 'M') {
-			subTotal += item.getPriceM();
-			for(OrderTopping orderTopping: orderToppingList) {
-				subTotal += orderTopping.getTopping().getPriceM();
+
+		if (item != null && orderToppingList != null) {
+
+			if (size == 'M') {
+				subTotal += item.getPriceM();
+				for (OrderTopping orderTopping : orderToppingList) {
+					subTotal += orderTopping.getTopping().getPriceM();
+				}
+			} else {
+				subTotal += item.getPriceL();
+				for (OrderTopping orderTopping : orderToppingList) {
+					subTotal += orderTopping.getTopping().getPriceL();
+				}
 			}
-		}else {
-			subTotal += item.getPriceL();
-			for(OrderTopping orderTopping: orderToppingList) {
-				subTotal += orderTopping.getTopping().getPriceL();
-			}
+			
+			subTotal = subTotal * quantity;
 		}
 		return subTotal;
 	}
@@ -65,10 +72,6 @@ public class OrderItem {
 
 	public void setItem(Item item) {
 		this.item = item;
-	}
-
-	public Integer getSubtotal() {
-		return null;
 	}
 
 	public Integer getId() {
