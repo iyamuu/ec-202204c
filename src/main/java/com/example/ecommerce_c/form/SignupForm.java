@@ -1,5 +1,8 @@
 package com.example.ecommerce_c.form;
 
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Pattern;
+
 /**
  * ユーザ情報のFormクラス.
  * 
@@ -8,18 +11,31 @@ package com.example.ecommerce_c.form;
  */
 public class SignupForm {
 	/** 名前 */
+	@NotEmpty(message = "名前を入力してください")
 	private String name;
+	
 	/** メールアドレス */
+	@Pattern(regexp = "^[a-zA-Z0-9_.+-]+@([a-zA-Z0-9][a-zA-Z0-9-]*[a-zA-Z0-9]*\\.)+[a-zA-Z]{2,}$", message = "メールアドレスは xxx@yyy.zzz 形式で入力してください")
 	private String email;
+	
 	/** パスワード */
+	@Pattern(regexp = "^[a-z\\d]{8,16}$", message = "パスワードは8文字以上１６文字以下で入力してください")
 	private String password;
+	
 	/** 確認用パスワード */
+	@NotEmpty(message = "上のパスワードと同じパスワードをここに入力してください")
 	private String confirmPassword;
+	
 	/** 郵便番号 */
+	@Pattern(regexp = "^[0-9]{3}-[0-9]{4}$", message = "郵便番号を入力してください (ハイフンあり）")
 	private String zipCode;
+	
 	/** 住所 */
+	@NotEmpty(message = "住所を入力してください (建物名まで)")
 	private String address;
+	
 	/** 電話番号 */
+	@Pattern(regexp = "^[0-9]{3}-[0-9]{4}-[0-9]{4}$", message = "電話番号を入力してください (ハイフンあり)")
 	private String telephone;
 
 	public SignupForm() {
