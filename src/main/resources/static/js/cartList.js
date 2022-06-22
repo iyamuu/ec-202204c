@@ -50,7 +50,7 @@ let buildOrderItemRow = function (orderItem) {
 
   let size = orderItem.size;
   let priceAndQuantityCell = buildPriceAndQuantityCell(
-    size === "M" ? orderItem.item.priceM : orderitem.Item.priceL,
+    size === "M" ? orderItem.item.priceM : orderItem.item.priceL,
     orderItem.quantity,
     orderItem.id
   );
