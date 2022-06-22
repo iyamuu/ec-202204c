@@ -46,6 +46,8 @@ public class OrderItem {
 					subTotal += orderTopping.getTopping().getPriceL();
 				}
 			}
+			
+			subTotal = subTotal * quantity;
 		}
 		return subTotal;
 	}
@@ -70,10 +72,6 @@ public class OrderItem {
 
 	public void setItem(Item item) {
 		this.item = item;
-	}
-
-	public Integer getSubtotal() {
-		return null;
 	}
 
 	public Integer getId() {
