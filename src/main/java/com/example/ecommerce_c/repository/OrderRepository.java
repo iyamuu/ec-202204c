@@ -87,8 +87,6 @@ public class OrderRepository {
 				user.setName("user_name");
 				user.setEmail(rs.getString("user_email"));
 				user.setPassword(rs.getString("user_password"));
-				user.setZipCode(rs.getString("user_zipcode"));
-				user.setAddress(rs.getString("user_address"));
 				user.setTelephone(rs.getString("user_telephone"));
 				
 //				注文ドメインにユーザードメインを格納

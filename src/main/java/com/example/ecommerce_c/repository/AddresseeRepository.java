@@ -1,8 +1,12 @@
 package com.example.ecommerce_c.repository;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.stereotype.Repository;
 
 import com.example.ecommerce_c.domain.Addressee;
@@ -32,4 +36,28 @@ public class AddresseeRepository {
 		return addressee;
 		
 	};
+	
+	
+	/**
+	 * ユーザIDから支払情報を取得する.
+	 * 
+	 * 
+	 * @param userId ユーザID
+	 * @return　支払情報
+	 */
+	public Addressee findOneByUserId(Integer userId) {
+		
+		String sql = "Select id, user_id, name, zipcode, address, telephone From addressees Where user_id=:userId;";
+		SqlParameterSource param = new MapSqlParameterSource().addValue("userId", userId);
+		
+		List<Addressee> addresseeList = jdbcTemplate.query(sql, param, ADDRESSEE_ROW_MAPPER);
+		
+		if(addresseeList.size() == 0) {
+			return null;
+		}
+		
+		
+		//HACK 複数件の宛先情報があれば不具合がある
+		return addresseeList.get(0);
+	}
 }
