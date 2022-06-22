@@ -7,6 +7,7 @@ package com.example.ecommerce_c.domain;
  *
  */
 public class Topping {
+	
 	/** トッピングid */
 	private Integer id;
 	/** トッピング名前 */
@@ -47,4 +48,10 @@ public class Topping {
 	public void setPriceL(Integer priceL) {
 		this.priceL = priceL;
 	}
+	
+	@Override
+	public String toString() {
+		return "Topping [id=" + id + ", name=" + name + ", priceM=" + priceM + ", priceL=" + priceL + "]";
+	}
+
 }
