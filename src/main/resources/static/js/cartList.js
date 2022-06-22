@@ -7,7 +7,6 @@ $(function () {
 
 //注文一覧の表示  合計金額の変更も行う
 let showOrderItemList = function () {
-  console.log("show");
   let orderId = $("#orderId").text();
   let showUrl = "http://localhost:8080/ec-202204c/show?orderId=" + orderId;
 
