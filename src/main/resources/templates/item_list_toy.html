@@ -44,13 +44,13 @@
       <div class="container">
         <div class="header">
           <div class="header-left">
-            <a href="item_list_toy.html">
+            <a href="item_list_toy.html" th:href="@{/top(userId=${userId})}">
               <img src="img/header_logo.png" class="logo" />
             </a>
           </div>
           <div class="header-right">
-            <a href="login.html"> ログイン </a>
-            <a href="login.html"> ログアウト </a>
+            <a href="login.html" th:href="@{/login}"> ログイン </a>
+            <a href="login.html" th:href="@{/logout}"> ログアウト </a>
             <a href="order_history.html"> 注文履歴 </a>
             <a th:href="@{/cart(orderId=${orderId})}">
               <i class="fas fa-sign-in-alt"></i>カート
