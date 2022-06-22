@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ラクラクトイ</title>
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
+    <!-- Import Materialize CSS -->
+
+    <!-- Import Font Wesome -->
+    <link
+      href="https://use.fontawesome.com/releases/v5.6.1/css/all.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+      crossorigin="anonymous"
+    />
+
+    <link rel="stylesheet" href="css/common.css" />
+    <link rel="stylesheet" href="css/header.css" />
+    <link rel="stylesheet" href="css/footer.css" />
+    <link rel="stylesheet" href="css/register_admin.css" />
+    <link rel="stylesheet" href="css/login.css" />
+    <link rel="stylesheet" href="css/item_list.css" />
+    <link rel="stylesheet" href="css/item_detail.css" />
+    <link rel="stylesheet" href="css/cart_list.css" />
+    <link rel="stylesheet" href="css/order_confirm.css" />
+    <link rel="stylesheet" href="css/order_finished.css" />
+    <link rel="stylesheet" href="css/responsive.css" />
+  </head>
+<body>
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+  Launch demo modal
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+This is some placeholder content to show the scrolling behavior for modals. We use repeated line breaks to demonstrate how content can exceed minimum inner height, thereby showing inner scrolling. When content becomes longer than the prefedined max-height of modal, content will be cropped and scrollable within the modal.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+<br>
+
+This content should appear at the bottom after you scroll.      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="mb-2 row d-flex">
+            <input type="hidden" value="1">
+            <div class="item-icon col-6" data-bs-toggle="modal" data-bs-target="#item_1">
+              <img src="/ec-202204c/img/1.jpg">
+            </div>
+            <div class="col-6">
+              <div class="left">
+                <a data-bs-toggle="modal" data-bs-target="#item_1">ビニールプール</a>
+              </div>
+              <br>
+              <div class="left">
+                <span>1490</span>円（税抜）
+              </div>
+              <br>
+              <a class="waves-effect waves-light btn-large orange cart_button add_cart_1" style="z-index:0" onclick="postCart(1, 'M', 1, [])">
+                <i class="material-icons left">add_shopping_cart</i>
+                <span>カートに追加</span></a>
+            </div>
+          </div>
+<div class="modal fade" id="item_1" tabindex="-1" aria-labelledby="ModalLabel" style="display: none;" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-scrollable modal-lg">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="ModalLabel_1">ビニールプール</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                  <div class="item-icon mb-5">
+                  <img src="/ec-202204c/img/1.jpg">
+                  </div>
+                  <div class="mb-2">
+                    製品サイズ:(約)幅157×奥行157×高さ122cm
+材質:塩化ビニル樹脂(非フタル酸系可塑剤使用)
+水量目安:高さ22cmまで入れて295L
+付属品:修理用パッチ
+対象年齢:2歳以上
+原産国:中国
+INTEX社製のサンシェード付プール。
+高さのある壁で安定します。
+サンシェードは取り外し可能です。
+プール底に排水口付き。
+修理用パッチ付。
+ご注意:子供は必ず、監視者のもとで遊ばせてください。
+レンタル等による貸出、オークション等による販売や中古販売、
+及び譲渡によって発生した故障・破損・損害・事故などにつきましては
+一切責任を負いかねますので予めご了承ください。
+                  </div>
+                  <div class="modal-option">
+                  <h5 class="options">オプション</h5>
+                  <form name="options">
+                      <label class="m-1">
+                         <input type="checkbox" class="filled-in">
+                         <span>男の子用シールM 200円 </span>
+                      </label>
+                      <label class="m-1">
+                      <input type="checkbox" class="filled-in">
+                      <span>男の子用シールL 300円 </span>
+                      </label>
+                      <label class="m-1">
+                         <input type="checkbox" class="filled-in">
+                         <span>女の子用シールM 200円 </span>
+                      </label>
+                      <label class="m-1">
+                      <input type="checkbox" class="filled-in">
+                      <span>女の子用シールL 300円 </span>
+                      <label class="m-1">
+                         <input type="checkbox" class="filled-in">
+                         <span>AC電源ケーブルM 200円 </span>
+                      </label>
+                      <label class="m-1">
+                      <input type="checkbox" class="filled-in">
+                      <span>AC電源ケーブルL 300円 </span>
+                      </label>
+                      <label class="m-1">
+                         <input type="checkbox" class="filled-in">
+                         <span>片付け用きんちゃく袋M 200円 </span>
+                      </label>
+                      <label class="m-1">
+                         <input type="checkbox" class="filled-in">
+                         <span>片付け用きんちゃく袋L 300円 </span>
+                      </label>
+                      <label class="m-1">
+                         <input type="checkbox" class="filled-in">
+                         <span>単一電池４本M 200円 </span>
+                      </label>
+                      <label class="m-1">
+                         <input type="checkbox" class="filled-in">
+                         <span>単一電池４本L 300円 </span>
+                      </label>
+                      <label class="m-1">
+                         <input type="checkbox" class="filled-in">
+                         <span>単二電池４本M 200円 </span>
+                      </label>
+                      <label class="m-1">
+                         <input type="checkbox" class="filled-in">
+                         <span>単二電池４本L 300円 </span>
+                      </label>
+                      <label class="m-1">
+                         <input type="checkbox" class="filled-in">
+                         <span>単三電池４本M 200円 </span>
+                      </label>
+                      <label class="m-1">
+                         <input type="checkbox" class="filled-in">
+                         <span>単三電池４本L 300円 </span>
+                      </label>
+                      <label class="m-1">
+                         <input type="checkbox" class="filled-in">
+                         <span>単四電池２本M 200円 </span>
+                      </label>
+                      <label class="m-1">
+                         <input type="checkbox" class="filled-in">
+                         <span>単四電池２本L 300円 </span>
+                      </label>
+                      <label class="m-1">
+                         <input type="checkbox" class="filled-in">
+                         <span>おもちゃ腕時計M 200円 </span>
+                      </label>
+                      <label class="m-1">
+                         <input type="checkbox" class="filled-in">
+                         <span>おもちゃ腕時計L 300円 </span>
+                      </label>
+                      <label class="m-1">
+                         <input type="checkbox" class="filled-in">
+                         <span>変身ベルトM 200円 </span>
+                      </label>
+                      <label class="m-1">
+                         <input type="checkbox" class="filled-in">
+                         <span>変身ベルトL 300円 </span>
+                      </label>
+                      <label class="m-1">
+                         <input type="checkbox" class="filled-in">
+                         <span>ゆびわの形の飴M 200円 </span>
+                      </label>
+                      <label class="m-1">
+                         <input type="checkbox" class="filled-in">
+                         <span>ゆびわの形の飴L 300円 </span>
+                      </label>
+                      <label class="m-1">
+                         <input type="checkbox" class="filled-in">
+                         <span>ビックリマンチョコレートM 200円 </span>
+                      </label>
+                      <label class="m-1">
+                         <input type="checkbox" class="filled-in">
+                         <span>ビックリマンチョコレートL 300円 </span>
+                      </label>
+                      <label class="m-1">
+                         <input type="checkbox" class="filled-in">
+                         <span>ヘルメットM 200円 </span>
+                      </label>
+                      <label class="m-1">
+                         <input type="checkbox" class="filled-in">
+                         <span>ヘルメットL 300円 </span>
+                      </label>
+                      <label class="m-1">
+                         <input type="checkbox" class="filled-in">
+                         <span>ベビーシートM 200円 </span>
+                      </label>
+                      <label class="m-1">
+                         <input type="checkbox" class="filled-in">
+                         <span>ベビーシートL 300円 </span>
+                      </label>
+                      <label class="m-1">
+                         <input type="checkbox" class="filled-in">
+                         <span>USBケーブルM 200円 </span>
+                      </label>
+                      <label class="m-1">
+                         <input type="checkbox" class="filled-in">
+                         <span>USBケーブルL 300円 </span>
+                      </label>
+                      <label class="m-1">
+                         <input type="checkbox" class="filled-in">
+                         <span>携帯用ストラップM 200円 </span>
+                      </label>
+                      <label class="m-1">
+                         <input type="checkbox" class="filled-in">
+                         <span>携帯用ストラップL 300円 </span>
+                      </label>
+                      <label class="m-1">
+                         <input type="checkbox" class="filled-in">
+                         <span>男の子用下敷きM 200円 </span>
+                      </label>
+                      <label class="m-1">
+                         <input type="checkbox" class="filled-in">
+                         <span>男の子用下敷きL 300円 </span>
+                      </label>
+                      <label class="m-1">
+                         <input type="checkbox" class="filled-in">
+                         <span>女の子用下敷きM 200円 </span>
+                      </label>
+                      <label class="m-1">
+                         <input type="checkbox" class="filled-in">
+                         <span>女の子用下敷きL 300円 </span>
+                      </label>
+                      <label class="m-1">
+                         <input type="checkbox" class="filled-in">
+                         <span>おもちゃ用ボタン電池4枚M 200円 </span>
+                      </label>
+                      <label class="m-1">
+                         <input type="checkbox" class="filled-in">
+                         <span>おもちゃ用ボタン電池4枚L 300円 </span>
+                      </label>
+                      <label class="m-1">
+                         <input type="checkbox" class="filled-in">
+                         <span>おもちゃ携帯M 200円 </span>
+                      </label>
+                      <label class="m-1">
+                         <input type="checkbox" class="filled-in">
+                         <span>おもちゃ携帯L 300円 </span>
+                      </label>
+                      <label class="m-1">
+                         <input type="checkbox" class="filled-in">
+                         <span>ニンテンドーSwitchM 200円 </span>
+                      </label>
+                      <label class="m-1">
+                         <input type="checkbox" class="filled-in">
+                         <span>ニンテンドーSwitchL 300円 </span>
+                      </label>
+                  
+                  </label></form></div>
+            
+                    
+                </div>
+           
+                <div class="modal-footer">
+                    <a class="waves-effect waves-light btn-large orange mr-3 mt-1">
+                    <i class="material-icons left">add_shopping_cart</i>
+                    <span id="class=&quot;cart_button" add_cart-1"="">カートに追加</span></a>
+                </div>
+              </div>
+            </div>
+          </div>
+<script
+    src="https://code.jquery.com/jquery-3.6.0.min.js"
+    integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+    crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
+      integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"
+      integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF"
+      crossorigin="anonymous"
+    ></script>
+</body>
+</html>
