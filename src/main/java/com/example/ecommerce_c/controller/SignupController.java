@@ -34,7 +34,7 @@ public class SignupController {
 	@GetMapping("/signup")
 	public String getSignupPage(SignupForm form, Integer userId, Model model) {
 		model.addAttribute("userId", userId);
-		return "login/signup";
+		return "login/signup_stepper";
 	}
 
 	/**
