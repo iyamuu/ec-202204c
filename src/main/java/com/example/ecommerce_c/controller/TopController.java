@@ -27,6 +27,7 @@ public class TopController {
 		order.setUserId(userId);
 		Integer orderId = orderService.insert(order);
 		model.addAttribute("orderId", orderId);
+		model.addAttribute("userId", userId);
 		return "item_list_toy";
 	}
 	
