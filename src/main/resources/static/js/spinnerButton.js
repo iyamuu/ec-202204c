@@ -2,10 +2,10 @@
  * 個数を変更するスピナーボタンを操作する
  */
 //個数をプラスする処理
-function spinnerPlus() {
+function spinnerPlus(id) {
   var add = $(this);
-  var sub = $(".spinner-sub");
-  var el = $(".spinner");
+  var sub = $("#modal" + id + " .spinner-sub");
+  var el = $("#modal" + id + " .spinner");
 
   el.val(function (i, oldval) {
     return ++oldval;
@@ -14,9 +14,9 @@ function spinnerPlus() {
 }
 
 //個数をマイナスする処理
-function spinnerMinus() {
-  var sub = $(".spinner-sub");
-  var el = $(".spinner");
+function spinnerMinus(id) {
+  var sub = $("#modal" + id + " .spinner-sub");
+  var el = $("#modal" + id + " .spinner");
 
   if (el.val() > parseInt(el.attr("min"))) {
     el.val(function (i, oldval) {
@@ -25,7 +25,6 @@ function spinnerMinus() {
   }
 
   if (el.val() == parseInt(el.attr("min"))) {
-    console.log("aaa");
     sub.addClass("disabled");
   }
 }
