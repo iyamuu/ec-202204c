@@ -68,7 +68,8 @@ public class Order {
 	 */
 	public int getCalcTotalPrice() {
 		if(orderItemList == null) {
-			return 0;
+			totalPrice = 0;
+			return totalPrice;
 		}
 		
 		int sum = 0;

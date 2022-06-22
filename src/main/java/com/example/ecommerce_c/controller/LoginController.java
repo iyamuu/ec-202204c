@@ -53,7 +53,8 @@ public class LoginController {
 		}
 
 		model.addAttribute("loginStatus", "ログインに成功しました");
-		return "redirect:/top";
+//		HACK: あまりきれいな形じゃない
+		return "redirect:/top?userId=" + loginUser.getId();
 
 	}
 	

@@ -27,13 +27,18 @@ public class TopController {
 	 * @return 商品一覧画面パース
 	 */
 	@GetMapping("/top")
-	public String index(Model model) {
+	public String index(Integer userId, Model model) {
+		if(userId == null) {
+			userId = -1;
+		}
+		
 		Order order = new Order();
 		order.setStatus(0);
-		order.setTotalPrice(order.getCalcTotalPrice());
-		order.setUserId(-1);
+		order.getCalcTotalPrice();
+		order.setUserId(userId);
 		Integer orderId = orderService.insert(order);
 		model.addAttribute("orderId", orderId);
+		model.addAttribute("userId", userId);
 		return "item_list_toy";
 	}
 
