@@ -68,18 +68,18 @@ public class PaymentRepository {
 	 * 支払情報を登録する.
 	 * 
 	 * @param apayment 登録する支払情報　（IDはnull）
-	 * @return 支払情報　（IDはsetされている）
+	 * @return 支払情報のID
 	 */
-	public Payment insertOne(Payment payment) {
+	public Integer insertOne(Payment payment) {
 		
 		String sql = "Insert Into payments(user_id, pay, card_number, card_exp_year, card_exp_month, card_name, card_cvv)"
 					+ "Values(:userId, :pay, :cardNumber, :cardExpYear, :cardExpMonth, :cardName, :cardCvv) Returning id;";
 		SqlParameterSource param = new BeanPropertySqlParameterSource(payment);
 		
 		Integer id = jdbcTemplate.queryForObject(sql, param, Integer.class); 
-		payment.setId(id);
+
 		
-		return payment;
+		return id;
 	}
 
 }

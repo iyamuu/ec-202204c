@@ -74,22 +74,11 @@ public class SignupController {
 		
 		BeanUtils.copyProperties(form.getUserForm(), user);
 		BeanUtils.copyProperties(form.getAddresseeForm(), addressee);
-		BeanUtils.copyProperties(form.getPaymentForm(), payment);
 		BeanUtils.copyProperties(form.getGiftInfoForm(), giftInformation);
+		BeanUtils.copyProperties(form.getPaymentForm(), payment);
 		
-		System.out.println(form);
-		System.out.println(user);
-		System.out.println(addressee);
-		System.out.println(payment);
-		System.out.println(giftInformation);
-		
-		
-		return "login/signup_stepper";
-		
-//		BeanUtils.copyProperties(form.getUserForm(), user);
-//		user = signupService.registerUser(user); // 登録処理、ここでidが付与される
-//
-//		return "redirect:/login";
+		user = signupService.registerUser(user, addressee, giftInformation, payment); // 登録処理、ここでidが付与される
+		return "redirect:/login";
 
 	}
 

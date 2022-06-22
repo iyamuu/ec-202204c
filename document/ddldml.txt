@@ -16,6 +16,7 @@ create table users (
 create table addressees(
 	id serial primary key,
 	user_id Integer not null,
+	name text not null,
 	zipcode varchar(8) not null,
 	address varchar(100) not null,
 	telephone varchar(100) not null,
@@ -31,7 +32,7 @@ create table payments(
 	card_exp_year text,
 	card_exp_month text,
 	card_name text,
-	code_cvv text,
+	card_cvv text,
 	
 	foreign key (user_id) references users(id)
 );

@@ -21,7 +21,7 @@ public class GiftInformation {
 	/** 予算の下限 */
 	private Integer lowerBudget;
 	/** 予算の上限 */
-	private Integer upperBudger;
+	private Integer upperBudget;
 
 	public Integer getId() {
 		return id;
@@ -71,17 +71,17 @@ public class GiftInformation {
 		this.lowerBudget = lowerBudget;
 	}
 
-	public Integer getUpperBudger() {
-		return upperBudger;
+	public Integer getUpperBudget() {
+		return upperBudget;
 	}
 
-	public void setUpperBudger(Integer upperBudger) {
-		this.upperBudger = upperBudger;
+	public void setUpperBudget(Integer upperBudger) {
+		this.upperBudget = upperBudger;
 	}
 
 	@Override
 	public String toString() {
 		return "GitInformation [id=" + id + ", userId=" + userId + ", lowerAge=" + lowerAge + ", upperAge=" + upperAge
-				+ ", gender=" + gender + ", lowerBudget=" + lowerBudget + ", upperBudger=" + upperBudger + "]";
+				+ ", gender=" + gender + ", lowerBudget=" + lowerBudget + ", upperBudger=" + upperBudget + "]";
 	}
 }

@@ -66,17 +66,16 @@ public class AddresseeRepository {
 	 * 宛先情報を登録する.
 	 * 
 	 * @param addressee 登録する宛先情報　（IDはnull）
-	 * @return 宛先情報　（IDはsetされている）
+	 * @return 宛先情報のID
 	 */
-	public Addressee insertOne(Addressee addressee) {
+	public Integer insertOne(Addressee addressee) {
 		
 		String sql = "Insert Into addressees(user_id, name, zipcode, address, telephone)"
 					+ "Values(:userId, :name, :zipCode, :address, :telephone) Returning id;";
 		SqlParameterSource param = new BeanPropertySqlParameterSource(addressee);
 		
 		Integer id = jdbcTemplate.queryForObject(sql, param, Integer.class); 
-		addressee.setId(id);
 		
-		return addressee;
+		return id;
 	}
 }

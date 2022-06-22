@@ -33,7 +33,7 @@ public class GifInformationRepository {
 		information.setUpperAge(rs.getInt("upper_age"));
 		information.setGender(rs.getString("gender"));
 		information.setLowerBudget(rs.getInt("lower_budget"));
-		information.setUpperBudger(rs.getInt("upper_budget"));
+		information.setUpperBudget(rs.getInt("upper_budget"));
 		
 		return information;
 	};
@@ -66,17 +66,17 @@ public class GifInformationRepository {
 	 * 絞り込み情報を登録する.
 	 * 
 	 * @param info 登録する絞り込み情報　（IDはnull）
-	 * @return 絞り込み情報　（IDはsetされている）
+	 * @return 絞り込み情報のID
 	 */
-	public GiftInformation insertOne(GiftInformation info) {
+	public Integer insertOne(GiftInformation info) {
 		
-		String sql = "Insert Into addressees(user_id, lower_age, upper_age, gender, lower_budget, upper_budget)"
+		String sql = "Insert Into gift_informations(user_id, lower_age, upper_age, gender, lower_budget, upper_budget)"
 					+ "Values(:userId, :lowerAge, :upperAge, :gender, :lowerBudget, :upperBudget) Returning id;";
 		SqlParameterSource param = new BeanPropertySqlParameterSource(info);
 		
 		Integer id = jdbcTemplate.queryForObject(sql, param, Integer.class); 
-		info.setId(id);
 		
-		return info;
+		
+		return id;
 	}
 }
