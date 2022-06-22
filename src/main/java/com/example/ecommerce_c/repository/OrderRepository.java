@@ -47,24 +47,24 @@ public class OrderRepository {
 		order.setPaymentMethod(rs.getInt("payment_method"));
 		return order;
 	};
-
-	private static ResultSetExtractor<List<Order>> FULL_ORDER_MAPPER = (rs) -> {
+	
+	private static ResultSetExtractor<List<Order>> FULL_ORDER_MAPPER = (rs) ->{
 		List<Order> orderList = new ArrayList<>();
 		Order order = null;
 		OrderItem orderItem = null;
 		OrderTopping orderTopping = null;
-
-		int beforeOrderId = -1;
-		int beforeOrderItemId = -1;
-		int beforeOrderToppingId = -1;
-
-		while (rs.next()) {
+		
+		int beforeOrderId=-1;
+		int beforeOrderItemId=-1;
+		int beforeOrderToppingId=-1;
+		
+		while(rs.next()) {
 			int orderId = rs.getInt("id");
 			int orderItemId = rs.getInt("orderitem_id");
 			int orderToppingId = rs.getInt("ordertopping_id");
-
+			
 //			新しい注文だったら
-			if (beforeOrderId != orderId) {
+			if(beforeOrderId != orderId) {
 //				注文ドメインを作成
 				order = new Order();
 				order.setId(orderId);
@@ -80,7 +80,7 @@ public class OrderRepository {
 				order.setDeliveryTime(rs.getTimestamp("delivery_time"));
 				order.setPaymentMethod(rs.getInt("payment_method"));
 				order.setOrderItemList(new ArrayList<OrderItem>());
-
+				
 //				ユーザードメインを作成
 				User user = new User();
 				user.setId(order.getUserId());
@@ -90,23 +90,23 @@ public class OrderRepository {
 				user.setZipCode(rs.getString("user_zipcode"));
 				user.setAddress(rs.getString("user_address"));
 				user.setTelephone(rs.getString("user_telephone"));
-
+				
 //				注文ドメインにユーザードメインを格納
 				order.setUser(user);
-
+				
 //				注文リストに追加
 				orderList.add(order);
-
+				
 //				今処理している注文を更新
 				beforeOrderId = orderId;
 //				注文商品を初期化
 				beforeOrderItemId = -1;
 			}
-
+			
 //			注文商品が1つもない場合を除外
-			if (orderItemId != 0) {
+			if(orderItemId != 0) {
 //				新しい注文商品だったら
-				if (beforeOrderItemId != orderItemId) {
+				if(beforeOrderItemId != orderItemId) {
 //					注文商品ドメインを作成
 					orderItem = new OrderItem();
 					orderItem.setId(orderItemId);
@@ -115,7 +115,7 @@ public class OrderRepository {
 					orderItem.setQuantity(rs.getInt("orderitem_quantity"));
 					orderItem.setSize(rs.getString("orderitem_size").charAt(0));
 					orderItem.setOrderToppingList(new ArrayList<OrderTopping>());
-
+					
 //					商品ドメインを作成
 					Item item = new Item();
 					item.setId(orderItem.getItemId());
@@ -125,12 +125,12 @@ public class OrderRepository {
 					item.setPriceL(rs.getInt("item_price_l"));
 					item.setImagePath(rs.getString("item_image_path"));
 					item.setDeleted(rs.getBoolean("item_deleted"));
-
+					
 //					商品ドメインを注文商品ドメインに格納
 					orderItem.setItem(item);
-
+					
 					order.getOrderItemList().add(orderItem);
-
+					
 //					今処理している商品を更新
 					beforeOrderItemId = orderItemId;
 //					トッピングを初期化
@@ -138,26 +138,26 @@ public class OrderRepository {
 				}
 			}
 //			トッピングが1つもない場合を除外
-			if (orderToppingId != 0) {
-				if (beforeOrderToppingId != orderToppingId) {
+			if(orderToppingId != 0) {
+				if(beforeOrderToppingId != orderToppingId) {
 //					注文トッピングドメインを作成
 					orderTopping = new OrderTopping();
 					orderTopping.setId(orderToppingId);
 					orderTopping.setToppingId(rs.getInt("ordertopping_topping_id"));
 					orderTopping.setOrderItemId(orderItemId);
-
+					
 //					トッピングドメインを作成
 					Topping topping = new Topping();
 					topping.setId(orderTopping.getToppingId());
 					topping.setName(rs.getString("topping_name"));
 					topping.setPriceM(rs.getInt("topping_price_m"));
 					topping.setPriceL(rs.getInt("topping_price_l"));
-
+					
 //					トッピングドメインを注文トッピングドメインに格納
 					orderTopping.setTopping(topping);
-
+					
 					orderItem.getOrderToppingList().add(orderTopping);
-
+					
 //					今処理しているトッピングを更新
 					beforeOrderToppingId = orderToppingId;
 				}
@@ -190,7 +190,8 @@ public class OrderRepository {
 	 * @return 挿入した行のID
 	 */
 	public int insert(Order order) {
-		String sql = "INSERT INTO orders( user_id,  status,  total_price,  order_date,  destination_name,  destination_email,  destination_zipcode,  destination_address,  destination_tel,  delivery_time,  payment_method) "
+		String sql = 
+			"INSERT INTO orders( user_id,  status,  total_price,  order_date,  destination_name,  destination_email,  destination_zipcode,  destination_address,  destination_tel,  delivery_time,  payment_method) "
 				+ "VALUES      (:userId, :status, :totalPrice, :orderDate, :destinationName, :destinationEmail, :destinationZipcode, :destinationAddress, :destinationTel, :deliveryTime, :paymentMethod) "
 				+ "RETURNING id";
 
@@ -213,12 +214,12 @@ public class OrderRepository {
 
 		template.update(sql, param);
 	}
-
+	
 	/**
-	 * Order情報を取得する.
+	 * Order情報を取得するローマッパー.
 	 * 
 	 * @param id
-	 * @return Orderドメイン
+	 * @return
 	 */
 	public Order findFullOrderById(int id) {
 		String sql = "SELECT "
@@ -228,11 +229,13 @@ public class OrderRepository {
 				+ "i.name as item_name, i.description as item_description, i.price_m as item_price_m, i.price_l as item_price_l, i.image_path as item_image_path, i.deleted as item_deleted, "
 				+ "ot.id as ordertopping_id, ot.topping_id as ordertopping_topping_id, "
 				+ "t.name as topping_name, t.price_m as topping_price_m, t.price_l as topping_price_l "
-				+ "FROM orders as o " + "LEFT OUTER JOIN users          as  u ON  u.id = o.user_id "
+				+ "FROM orders as o "
+				+ "LEFT OUTER JOIN users          as  u ON  u.id = o.user_id "
 				+ "LEFT OUTER JOIN order_items    as oi ON  o.id = oi.order_id "
 				+ "LEFT OUTER JOIN items          as  i ON  i.id = oi.item_id "
 				+ "LEFT OUTER JOIN order_toppings as ot ON oi.id = ot.order_item_id "
-				+ "LEFT OUTER JOIN toppings       as  t ON  t.id = ot.topping_id " + "WHERE o.id=:id";
+				+ "LEFT OUTER JOIN toppings       as  t ON  t.id = ot.topping_id "
+				+ "WHERE o.id=:id";
 		SqlParameterSource param = new MapSqlParameterSource().addValue("id", id);
 
 		List<Order> orderList = template.query(sql, param, FULL_ORDER_MAPPER);

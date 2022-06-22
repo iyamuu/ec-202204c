@@ -29,8 +29,4 @@ public class CartController {
 		return "cart_list";
 	}
 
-	@GetMapping("/test")
-	public String test_showTop() {
-		return "top";
-	}
 }

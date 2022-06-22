@@ -1,56 +1,54 @@
 /**
  * アイテムリストを作成する
  */
-$(function () {
-  //ページが読み込まれた際の処理
-  getInitialItemList();
+$(function() {
+	//ページが読み込まれた際の処理
+	getInitialItemList();
 });
 
-$(".search-btn").click(function () {
-  console.log("aaaa");
-  let name = $(".search-name-input").val();
-  getItemByName(name);
+$(".search-btn").click(function() {
+	let name = $(".search-name-input").val();
+	getItemByName(name);
 });
 
 function getItemByName(name) {
-  let hostUrl = "http://localhost:8080/ec-202204c/getItemByPage";
-  console.log("呼び出された");
-  $.ajax({
-    url: hostUrl,
-    type: "post",
-    dataType: "json",
-    data: {
-      from: 0,
-      to: 10,
-      name: name,
-    },
-    async: true,
-  }).done(function (data) {
-    $("#itemList").empty();
-    data.forEach((item) => genarateItemCell(item));
-  });
+	let hostUrl = "http://localhost:8080/ec-202204c/getItemByPage";
+	$.ajax({
+		url: hostUrl,
+		type: "post",
+		dataType: "json",
+		data: {
+			from: 0,
+			to: 10,
+			name: name,
+		},
+		async: true,
+	}).done(function(data) {
+		$("#itemList").empty();
+		data.forEach((item) => genarateItemCell(item));
+	});
 }
 
 function getInitialItemList() {
-  let hostUrl = "http://localhost:8080/ec-202204c/getItemByPage";
+	let hostUrl = "http://localhost:8080/ec-202204c/getItemByPage";
 
-  $.ajax({
-    url: hostUrl,
-    type: "post",
-    dataType: "json",
-    data: {
-      from: 0,
-      to: 10,
-    },
-    async: true,
-  }).done(function (data) {
-    $("#itemList").empty();
-    data.forEach((item) => genarateItemCell(item));
-  });
+	$.ajax({
+		url: hostUrl,
+		type: "post",
+		dataType: "json",
+		data: {
+			from: 0,
+			to: 10,
+		},
+		async: true,
+	}).done(function(data) {
+		$("#itemList").empty();
+		data.forEach((item) => genarateItemCell(item));
+	});
 }
 
 function genarateItemCell(item) {
-  $("#itemList").append(`
+	$("#itemList").append(`
          <div class="mb-2 row d-flex">
             <input type="hidden" value="${item.id}" />
             <div class="item-icon col-6">
