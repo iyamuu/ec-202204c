@@ -1,8 +1,5 @@
 package com.example.ecommerce_c.domain;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * ユーザ情報をを表すドメインクラス.
  * 
@@ -21,17 +18,6 @@ public class User {
 	private String password;
 	/** 電話番号 */
 	private String telephone;
-
-	private List<Addressee> addressees;
-	private List<Payment> payments;
-	private GitInformation giftInformation;
-	
-	public User() {
-		
-		addressees = new ArrayList<>();
-		payments = new ArrayList<>();
-		giftInformation = new GitInformation();
-	}
 
 	public Integer getId() {
 		return id;
@@ -73,53 +59,10 @@ public class User {
 		this.telephone = telephone;
 	}
 
-	public List<Addressee> getAddressees() {
-		return addressees;
-	}
-
-	public void setAddressees(List<Addressee> addressees) {
-		this.addressees = addressees;
-	}
-
-	public List<Payment> getPayments() {
-		return payments;
-	}
-
-	public void setPayments(List<Payment> payments) {
-		this.payments = payments;
-	}
-
-	public GitInformation getGiftInformation() {
-		return giftInformation;
-	}
-
-	public void setGiftInformation(GitInformation giftInformation) {
-		this.giftInformation = giftInformation;
-	}
-	
-	/**
-	 * 宛先情報を追加する.
-	 * 
-	 * @param addressee 追加したい宛先情報
-	 */
-	public void addAddressees(Addressee addressee) {
-		addressees.add(addressee);
-	}
-	
-	/**
-	 * 支払情報を追加する.
-	 * 
-	 * @param payment 追加したい支払情報
-	 */
-	public void addPayment(Payment payment) {
-		payments.add(payment);
-	}
-
 	@Override
 	public String toString() {
 		return "User [id=" + id + ", name=" + name + ", email=" + email + ", password=" + password + ", telephone="
-				+ telephone + ", addressees=" + addressees + ", payments=" + payments + ", giftInformation="
-				+ giftInformation + "]";
+				+ telephone + "]";
 	}
 
 }
