@@ -25,6 +25,6 @@ function postCart(id) {
     },
     async: true,
   }).done(function (data) {
-    console.log(data);
+
   });
 }

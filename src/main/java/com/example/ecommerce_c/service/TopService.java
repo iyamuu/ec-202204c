@@ -16,20 +16,20 @@ public class TopService {
 
 	@Autowired
 	ItemRepository itemRepository;
-	
 	@Autowired
 	ToppingRepository toppingRepository;
+
 	/**
-	 * アイテムを取得する処理
+	 * アイテムを取得する処理.
+	 * 
 	 * @param from スタート
-	 * @param to ゴール
+	 * @param to   ゴール
 	 * @param name 入力値
 	 * @return アイテム
 	 */
-	public List<Item> getItemsByPage (int from, int to, String name){
+	public List<Item> getItemsByPage(int from, int to, String name) {
 		List<Topping> toppingList = toppingRepository.getTopping();
 		List<Item> itemList = new ArrayList<>();
-		
 		if (name == null || name.isBlank()) {
 			itemList = itemRepository.findPages(from, to);
 		}else {
@@ -42,4 +42,4 @@ public class TopService {
 		System.out.println(toppingList);
 		return itemList;
 	}
- }
+}

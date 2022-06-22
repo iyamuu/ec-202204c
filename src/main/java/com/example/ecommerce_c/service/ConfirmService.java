@@ -1,24 +1,26 @@
 package com.example.ecommerce_c.service;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.ecommerce_c.domain.Order;
-import com.example.ecommerce_c.domain.OrderItem;
 import com.example.ecommerce_c.domain.User;
 import com.example.ecommerce_c.repository.OrderRepository;
 import com.example.ecommerce_c.repository.UserRepository;
 
+/**
+ * オーダー情報を扱うサービス.
+ * 
+ * @author hvthinh
+ *
+ */
 @Service
 public class ConfirmService {
 	@Autowired
 	private UserRepository userRepository;
 	@Autowired
 	private OrderRepository orderRepository;
-	
+
 	/**
 	 * 注文を検索する
 	 * 
@@ -50,7 +52,6 @@ public class ConfirmService {
 		orderRepository.update(order);
 	}
 
-	
 	/**
 	 * ユーザーを検索する.
 	 * 
@@ -61,7 +62,7 @@ public class ConfirmService {
 		User user = userRepository.findById(id);
 		return user;
 	}
-	
+
 	/**
 	 * 注文を取得する.
 	 * 

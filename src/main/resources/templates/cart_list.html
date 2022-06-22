@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="ja">
   <head>
+    <meta charset="utf-8" />
     <!--Import Google Icon Font-->
     <link
       href="https://fonts.googleapis.com/icon?family=Material+Icons"
@@ -30,23 +31,23 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>ラクラクアロハ</title>
+    <title>ラクラクトイ</title>
   </head>
   <body>
     <header>
       <div class="container">
         <div class="header">
           <div class="header-left">
-            <a href="top.html">
+            <a href="top.html" th:href="@{/top(userId=${userId})}">
               <img class="logo" src="img/header_logo.png" />
             </a>
           </div>
 
           <div class="header-right">
-            <a href="item_list.html">商品一覧</a>
-            <a href="register_admin.html">会員登録</a>
+            <a href="item_list.html" th:href="@{/top(userId=${userId})}">商品一覧</a>
+            <a href="register_admin.html"  th:href="@{/signup}">会員登録</a>
             <a href="#"><i class="fas fa-shopping-cart"></i>カート</a>
-            <a href="login.html" class="login">
+            <a href="login.html" th:href="@{/login}" class="login">
               <i class="fas fa-sign-in-alt"></i>ログイン
             </a>
 
@@ -69,57 +70,21 @@
                 <th>小計</th>
               </tr>
             </thead>
-            
-            <tbody>
- 				<tr th:each="orderItem: ${order.orderItemList}">
- 	              <td class="cart-item-name">
-                    <div class="cart-item-icon">
-                      <img src="img/1.jpg" th:src="@{/img/} + ${orderItem.item.imagePath}"/>
-                    </div>
-                    <span th:text="${orderItem.item.name}">ハワイアンパラダイス</span>
-                  </td>
- 			      <td>
-                	<span th:if="${#strings.equals(orderItem.size, 'M')}" th:text="'M: ' + ${orderItem.Item.priceM} + '円'">M : 1,000円</span>
-                	<span th:if="${#strings.equals(orderItem.size, 'L')}" th:text="'L: ' + ${orderItem.Item.priceL} + '円'">L : 2,000円</span>
-                	<br>
-            	    <span>
-               		  <button th:if="${orderItem.quantity > 1}" onclick="">-</button>
-               		  <span th:unless="${orderItem.quantity > 1}">-</span>
-               		  <span th:text="${orderItem.quantity}"></span>
-               		  <button th:if="${orderItem.quantity < 9}" th:attr="onclick='updateOrderItem('+ ${orderItem.id} + ', \'' + ${orderItem.quantity} + '\');'" >+</button>
-               		  <label th:text ="${orderItem.quantity}"></label>
-               		  <span th:unless="${orderItem.quantity < 9}">+</span>
-              	    </span>
-                  </td>
-                  <td>
-                    <ul>
-                      <li th:each="orderTopping: ${orderItem.orderToppingList}">
-                    	<span th:text="${orderTopping.topping.name}">ピーマン</span>
-                    	<span th:if="${#strings.equals(orderItem.size, 'M')}" th:text="${orderTopping.topping.priceM}">200円</span>
-                    	<span th:if="${#strings.equals(orderItem.size, 'L')}" th:text="${orderTopping.topping.priceL}">300円</span>
-                      </li>
-                    </ul>
-                  </td>
-                <td><div class="text-center" th:text="${orderItem.getSubTotal()}">3,280円</div></td>
-                <td>
-                  <button class="btn" type="button" th:onclick="'deleteOrderItem(' + ${orderItem.id} +');'">
-                    <span>削除</span>
-                  </button>
-                </td>
 
- 				</tr>
-            </tbody>
+            <label id="orderId" th:text="${orderId}"></label>
+            <tbody id="orderItemTable" class="highlight"></tbody>
           </table>
         </div>
 
         <div class="row cart-total-price">
-          <div th:text="'消費税: ' + ${order.getTax()}">消費税：8,000円</div>
-          <div th:text="'合計: ' + ${order.totalPrice + order.getTax()}">ご注文金額合計：38,000円 (税込)</div>
+          <div id="tax"></div>
+          <div id="totalPrice"></div>
         </div>
+
         <div class="row order-confirm-btn">
           <form th:action="@{/confirm}" method="get">
-          	<input type="hidden" name="orderId" th:value="${order.id}">
-          	<button class="btn">注文に進む</button>
+            <input type="hidden" name="orderId" th:value="${orderId}" />
+            <button class="btn">注文に進む</button>
           </form>
         </div>
       </div>
@@ -129,16 +94,16 @@
     <footer>
       <div class="container">
         <img src="img/header_logo.png" />
-        <p>アロハな気分をあなたにお届け！</p>
+<!--         <p>アロハな気分をあなたにお届け！</p> -->
       </div>
     </footer>
     <!-- Compiled and minified JavaScript -->
     <script
-    src="https://code.jquery.com/jquery-3.6.0.min.js"
-    integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
-    crossorigin="anonymous"></script>
+      src="https://code.jquery.com/jquery-3.6.0.min.js"
+      integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+      crossorigin="anonymous"
+    ></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-    <script src="js/updateOrderItem.js"></script>
-    <script src="js/deleteOrderItem.js"></script>
+    <script th:src="@{/js/cartList.js}"></script>
   </body>
 </html>

@@ -13,7 +13,7 @@ import com.example.ecommerce_c.form.LoginForm;
 import com.example.ecommerce_c.service.LoginService;
 
 /**
- * ログイン処理を行うCOntrollerクラス
+ * ログイン処理を行うControllerクラス
  * 
  * @author daina.teranishi
  *
@@ -53,7 +53,8 @@ public class LoginController {
 		}
 
 		model.addAttribute("loginStatus", "ログインに成功しました");
-		return "redirect:/top";
+//		HACK: あまりきれいな形じゃない
+		return "redirect:/top?userId=" + loginUser.getId();
 
 	}
 	

@@ -44,7 +44,7 @@ public class ConfirmController {
 	 */
 	@GetMapping("/confirm")
 	public String showConfirm(int orderId, Model model) {
-		Order order = service.searchOrder(orderId);
+//		Order order = service.searchOrder(orderId);
 
 //		ログインしていなかったらログインページに遷移
 //		if (order.getUserId() == -1) {
@@ -64,7 +64,7 @@ public class ConfirmController {
 	 * @return 注文完了画面
 	 */
 	@PostMapping("/purchase")
-	public String finished(ConfirmForm form) {
+	public String finished(ConfirmForm form, Model model) {
 		Order order = service.getFullOrder(form.getId());
 //		NOTE: クレジット決済ならstatusを入金済(2)にする？
 		order.setStatus(1); //未入金
@@ -78,9 +78,9 @@ public class ConfirmController {
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
-//		System.out.println(order);
 		
 		service.update(order);
+		model.addAttribute("userId", order.getUserId());
 		
 		return "order_finished";
 	}
