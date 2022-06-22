@@ -77,8 +77,9 @@ public class OrderItemRestController {
 	
 	@PostMapping("/update")
 	@ResponseBody
-	public OrderItem updateToOrder(  UpdateOrderItemForm updateOrderItemForm) {
+	public OrderItem updateToOrder(UpdateOrderItemForm updateOrderItemForm) {
 		OrderItem orderItem = orderItemService.updateToOrder(updateOrderItemForm.getOrderItemId(), updateOrderItemForm.getQuantity());
+		System.out.println(orderItem);
 		return orderItem;
 	}
 }

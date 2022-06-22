@@ -51,7 +51,8 @@ let buildOrderItemRow = function (orderItem) {
   let size = orderItem.size;
   let priceAndQuantityCell = buildPriceAndQuantityCell(
     size === "M" ? orderItem.item.priceM : orderitem.Item.priceL,
-    orderItem.quantity
+    orderItem.quantity,
+    orderItem.id
   );
   let toppingCell = buildToppingCell(orderItem.orderToppingList, size);
   let subTotalCell = buildSubTotalCell(orderItem.subTotal);
@@ -77,18 +78,18 @@ let buildItemImgAndNameCell = function (imgpath, itemName) {
   return cell;
 };
 
-let buildPriceAndQuantityCell = function (price, quantity) {
+let buildPriceAndQuantityCell = function (price, quantity, orderItemId) {
   let cell = `<td>
                     <span>
                         ${price}円
                     </span>
                     <br />
                     <span>
-                        <button type="button" onclick="updateOrderItem();">
+                        <button type="button" onclick="subOrderItemQuantity(${orderItemId});">
                             -
                         </button>
-                        <span> ${quantity} </span>
-                        <button type="button" onclick='updateOrderItem();'">
+                        <label id="item${orderItemId}Quantity"> ${quantity} </label>
+                        <button type="button" onclick='addOrderItemQuantity(${orderItemId});'">
                             +
                         </button>
                     </span>
@@ -176,8 +177,6 @@ function deleteOrderItem(id) {
 
 function updateOrderItem(id, quantity) {
   let hostUrl = "http://localhost:8080/ec-202204c/update";
-  console.log(id);
-  console.log(quantity);
 
   $.ajax({
     url: hostUrl,
@@ -188,7 +187,28 @@ function updateOrderItem(id, quantity) {
       quantity: quantity,
     },
     async: true,
-  }).done(function (data) {
-    console.log(data);
-  });
+  })
+    .done(function (data) {
+      // $(`#item${id}Quantity`).text(data.quantity);
+      showOrderItemList();
+    })
+    .fail(function (XMLHttpRequest, textStatus, errorThrown) {
+      console.log("XMLHttpRequest : " + XMLDocument);
+      console.log("textStatus : " + textStatus);
+      console.log("errorThrown : " + errorThrown);
+    });
+}
+
+function addOrderItemQuantity(orderItemId) {
+  let quantitySpan = $(`#item${orderItemId}Quantity`);
+  let quantity = quantitySpan.text();
+
+  updateOrderItem(orderItemId, Number(quantity) + 1);
+}
+
+function subOrderItemQuantity(orderItemId) {
+  let quantitySpan = $(`#item${orderItemId}Quantity`);
+  let quantity = quantitySpan.text();
+
+  updateOrderItem(orderItemId, Number(quantity) - 1);
 }
