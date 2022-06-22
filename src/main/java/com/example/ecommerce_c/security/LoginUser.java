@@ -19,10 +19,17 @@ public class LoginUser implements UserDetails {
 		this.user = user;
 		this.authorities = authorities;
 	}
-
-	@Override
-	public Collection<? extends GrantedAuthority> getAuthorities() {
-		return this.authorities;
+	
+	public Integer getUserId() {
+		return user.getId();
+	}
+	
+	public String getEmail() {
+		return user.getEmail();
+	}
+	
+	public String getTelephone() {
+		return user.getTelephone();
 	}
 
 	@Override
@@ -33,6 +40,11 @@ public class LoginUser implements UserDetails {
 	@Override
 	public String getUsername() {
 		return this.user.getName();
+	}
+	
+	@Override
+	public Collection<? extends GrantedAuthority> getAuthorities() {
+		return this.authorities;
 	}
 	
 	
