@@ -8,8 +8,11 @@ function anyThing(destroyFeedback) {
 }
 
 function check(destroyFeedback) {
-  console.log("aaa");
-  destroyFeedback(true);
+  setTimeout(function () {
+    destroyFeedback(true);
+  }, 1500);
+
+  //フォームのバリデーションをする
 }
 
 function noThing(destroyFeedback) {
