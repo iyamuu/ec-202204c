@@ -3,11 +3,13 @@ package com.example.ecommerce_c.controller;
 import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import com.example.ecommerce_c.domain.Order;
+import com.example.ecommerce_c.security.LoginUser;
 import com.example.ecommerce_c.service.TopService;
 
 /**
@@ -29,7 +31,13 @@ public class TopController {
 	 * @return 商品一覧画面パース
 	 */	
 	@GetMapping("/top")
-	public String index(Integer userId, Model model) {
+	public String index(Integer userId, Model model, @AuthenticationPrincipal final LoginUser loginUser) {
+		
+		//ログインしていたらそのIDを用いる
+		if(loginUser != null) {
+			userId = loginUser.getUserId();
+		}
+		
 //		ゲストユーザーかつ初アクセスなら
 		if(userId == null) {
 			Random rand = new Random();
