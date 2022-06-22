@@ -9,12 +9,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.example.ecommerce_c.domain.Order;
 import com.example.ecommerce_c.service.OrderService;
 
+/**
+ * 商品一覧画面を出力するコントローラ.
+ * 
+ * @author hvthinh
+ *
+ */
 @Controller
 public class TopController {
 
 	@Autowired
 	OrderService orderService;
-	
+
 	@GetMapping("/top")
 	public String index(Model model) {
 		Order order = new Order();
@@ -25,5 +31,5 @@ public class TopController {
 		model.addAttribute("orderId", orderId);
 		return "item_list_toy";
 	}
-	
+
 }

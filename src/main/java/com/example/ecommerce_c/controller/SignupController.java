@@ -12,6 +12,12 @@ import com.example.ecommerce_c.domain.User;
 import com.example.ecommerce_c.form.SignupForm;
 import com.example.ecommerce_c.service.SignupService;
 
+/**
+ * 新規登録情報を扱うコントローラクラス.
+ * 
+ * @author hvthinh
+ *
+ */
 @Controller
 public class SignupController {
 
