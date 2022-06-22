@@ -1,5 +1,11 @@
 package com.example.ecommerce_c.form;
 
+/**
+ * オーダー情報を出力するコントローラ.
+ * 
+ * @author hvthinh
+ *
+ */
 public class ConfirmForm {
 	/** ID */
 	private Integer id;
@@ -95,11 +101,10 @@ public class ConfirmForm {
 
 	@Override
 	public String toString() {
-		return "ConfirmForm [id=" + id + ", destinationName=" + destinationName
-				+ ", destinationEmail=" + destinationEmail + ", destinationZipcode=" + destinationZipcode
-				+ ", destinationAddress=" + destinationAddress + ", destinationTel=" + destinationTel
-				+ ", deliveryDate=" + deliveryDate + ", deliveryTime=" + deliveryTime + ", paymentMethod="
-				+ paymentMethod + "]";
+		return "ConfirmForm [id=" + id + ", destinationName=" + destinationName + ", destinationEmail="
+				+ destinationEmail + ", destinationZipcode=" + destinationZipcode + ", destinationAddress="
+				+ destinationAddress + ", destinationTel=" + destinationTel + ", deliveryDate=" + deliveryDate
+				+ ", deliveryTime=" + deliveryTime + ", paymentMethod=" + paymentMethod + "]";
 	}
 
 }

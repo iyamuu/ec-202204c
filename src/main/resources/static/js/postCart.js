@@ -18,6 +18,5 @@ function postCart(id, size, quantity, topping) {
     },
     async: true,
   }).done(function (data) {
-    //console.log(data);
   });
 }

@@ -13,7 +13,7 @@ import com.example.ecommerce_c.form.LoginForm;
 import com.example.ecommerce_c.service.LoginService;
 
 /**
- * ログイン処理を行うCOntrollerクラス
+ * ログイン処理を行うControllerクラス
  * 
  * @author daina.teranishi
  *

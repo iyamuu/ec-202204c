@@ -44,7 +44,7 @@ public class ConfirmController {
 	 */
 	@GetMapping("/confirm")
 	public String showConfirm(int orderId, Model model) {
-		Order order = service.searchOrder(orderId);
+//		Order order = service.searchOrder(orderId);
 
 //		ログインしていなかったらログインページに遷移
 //		if (order.getUserId() == -1) {
@@ -78,7 +78,6 @@ public class ConfirmController {
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
-//		System.out.println(order);
 		
 		service.update(order);
 		model.addAttribute("userId", order.getUserId());

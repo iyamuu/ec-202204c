@@ -10,9 +10,18 @@ import org.springframework.stereotype.Repository;
 
 import com.example.ecommerce_c.domain.OrderItem;
 
+/**
+ * 注文商品情報を扱うリポジトリ.
+ * 
+ * @author hvthinh
+ *
+ */
 @Repository
 public class OrderItemRepository {
 
+	/**
+	 * 注文商品情報を取得するローマッパー.
+	 */
 	private static RowMapper<OrderItem> ORDER_ITEM_ROW_MAPPER = (rs, i) -> {
 		OrderItem orderItem = new OrderItem();
 		orderItem.setId(rs.getInt("id"));
@@ -48,7 +57,7 @@ public class OrderItemRepository {
 		String sql = "DELETE FROM order_items where id = :orderItemId";
 		SqlParameterSource param = new MapSqlParameterSource().addValue("orderItemId", orderItemId);
 		jdbcTemplate.update(sql, param);
-		
+
 	}
 
 	/**
@@ -62,9 +71,8 @@ public class OrderItemRepository {
 		String sql = "UPDATE order_items SET quantity = :quantity WHERE id = :orderItemId Returning id";
 		SqlParameterSource param = new MapSqlParameterSource().addValue("quantity", quantity).addValue("orderItemId",
 				orderItemId);
-		System.out.println("repositoy ");
-		
-		Integer id =  jdbcTemplate.queryForObject(sql, param, Integer.class);
+
+		Integer id = jdbcTemplate.queryForObject(sql, param, Integer.class);
 
 		return id;
 	}

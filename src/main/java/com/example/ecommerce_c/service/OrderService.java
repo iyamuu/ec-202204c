@@ -7,7 +7,7 @@ import com.example.ecommerce_c.domain.Order;
 import com.example.ecommerce_c.repository.OrderRepository;
 
 /**
- * 注文を操作するサービス
+ * 注文を操作するサービス.
  * 
  * @author ryuya.sasagawa
  *
