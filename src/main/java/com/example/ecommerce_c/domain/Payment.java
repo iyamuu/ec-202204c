@@ -16,10 +16,14 @@ public class Payment {
 	private Integer pay;
 	/** クレジットカード番号 payが１なら存在する */
 	private String cardNumber;
-	/** クレジットカードの期限 payが１なら存在する */
-	private String expire;
+	/** クレジットカードの期限(年) payが１なら存在する */
+	private String cardExpYear;
+	/** クレジットカードの期限(月) payが１なら存在する */
+	private String cardExpMonth;
+	/** クレジットカードの名義 payが１なら存在する */
+	private String cardName;
 	/** クレジットカードのセキュリティコード payが１なら存在する */
-	private String code;
+	private String cardCvv;
 
 	public Integer getId() {
 		return id;
@@ -53,26 +57,43 @@ public class Payment {
 		this.cardNumber = cardNumber;
 	}
 
-	public String getExpire() {
-		return expire;
+	public String getCardExpYear() {
+		return cardExpYear;
 	}
 
-	public void setExpire(String expire) {
-		this.expire = expire;
+	public void setCardExpYear(String cardExpYear) {
+		this.cardExpYear = cardExpYear;
 	}
 
-	public String getCode() {
-		return code;
+	public String getCardExpMonth() {
+		return cardExpMonth;
 	}
 
-	public void setCode(String code) {
-		this.code = code;
+	public void setCardExpMonth(String cardExpMonth) {
+		this.cardExpMonth = cardExpMonth;
+	}
+
+	public String getCardName() {
+		return cardName;
+	}
+
+	public void setCardName(String cardName) {
+		this.cardName = cardName;
+	}
+
+	public String getCardCvv() {
+		return cardCvv;
+	}
+
+	public void setCardCvv(String cardCvv) {
+		this.cardCvv = cardCvv;
 	}
 
 	@Override
 	public String toString() {
-		return "Payment [id=" + id + ", userId=" + userId + ", pay=" + pay + ", cardNumber=" + cardNumber + ", expire="
-				+ expire + ", code=" + code + "]";
+		return "Payment [id=" + id + ", userId=" + userId + ", pay=" + pay + ", cardNumber=" + cardNumber
+				+ ", cardExpYear=" + cardExpYear + ", cardExpMonth=" + cardExpMonth + ", cardName=" + cardName
+				+ ", cardCvv=" + cardCvv + "]";
 	}
 
 }

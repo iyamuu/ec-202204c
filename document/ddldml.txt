@@ -28,8 +28,10 @@ create table payments(
 	user_id Integer not null,
 	pay Integer not null,
 	card_number text,
-	expire text,
-	code text,
+	card_exp_year text,
+	card_exp_month text,
+	card_name text,
+	code_cvv text,
 	
 	foreign key (user_id) references users(id)
 );

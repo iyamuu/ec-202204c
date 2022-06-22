@@ -13,7 +13,7 @@ import org.springframework.stereotype.Repository;
 import com.example.ecommerce_c.domain.Addressee;
 
 /**
- * 宛先情報
+ * 宛先情報を操作するRepositoryクラス.
  * 
  * @author daina.teranishi
  *
@@ -40,11 +40,11 @@ public class AddresseeRepository {
 	
 	
 	/**
-	 * ユーザIDから支払情報を取得する.
+	 * ユーザIDから宛先情報を取得する.
 	 * 
 	 * 
 	 * @param userId ユーザID
-	 * @return　支払情報
+	 * @return　宛先情報
 	 */
 	public Addressee findOneByUserId(Integer userId) {
 		
@@ -63,10 +63,10 @@ public class AddresseeRepository {
 	}
 	
 	/**
-	 * 支払情報を登録する.
+	 * 宛先情報を登録する.
 	 * 
-	 * @param addressee 登録する支払情報　（IDはnull）
-	 * @return 支払情報　（IDはsetされている）
+	 * @param addressee 登録する宛先情報　（IDはnull）
+	 * @return 宛先情報　（IDはsetされている）
 	 */
 	public Addressee insertOne(Addressee addressee) {
 		
