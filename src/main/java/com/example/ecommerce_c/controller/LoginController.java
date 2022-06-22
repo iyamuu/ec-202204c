@@ -52,9 +52,11 @@ public class LoginController {
 			return getLoginPage(form, userId, model);
 		}
 		
+//		ゲストユーザだったら(別のアカウントでログインしている場合を除外)
+		if(userId < 0) {
 //		ゲストユーザのときにカートに追加した商品を、ログインしたユーザのカートに移動
-		loginService.mergeOrder(loginUser.getId(), userId);
-
+			loginService.mergeOrder(loginUser.getId(), userId);
+		}
 		model.addAttribute("loginStatus", "ログインに成功しました");
 //		HACK: あまりきれいな形じゃない
 		return "redirect:/top?userId=" + loginUser.getId();
