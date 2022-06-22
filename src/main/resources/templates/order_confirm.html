@@ -70,92 +70,57 @@
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td class="cart-item-name">
-                  <div class="cart-item-icon">
-                    <img src="img/1.jpg" />
-                  </div>
-                  <span>ハワイアンパラダイス</span>
-                </td>
-                <td>
-                  <span class="price">&nbsp;Ｌ</span>&nbsp;&nbsp;2,380円
-                  &nbsp;&nbsp;1個
-                </td>
-                <td>
-                  <ul>
-                    <li>ピーマン300円</li>
-                    <li>オニオン300円</li>
-                    <li>あらびきソーセージ300円</li>
-                  </ul>
-                </td>
-                <td><div class="text-center">3,280円</div></td>
-              </tr>
-              <tr>
-                <td class="cart-item-name">
-                  <div class="cart-item-icon">
-                    <img src="img/1.jpg" />
-                  </div>
-                  <span>ハワイアンパラダイス</span>
-                </td>
-                <td>
-                  <span class="price">&nbsp;Ｌ</span>&nbsp;&nbsp;2,380円
-                  &nbsp;&nbsp;1個
-                </td>
-                <td>
-                  <ul>
-                    <li>ピーマン300円</li>
-                    <li>オニオン300円</li>
-                    <li>あらびきソーセージ300円</li>
-                  </ul>
-                </td>
-                <td><div class="text-center">3,280円</div></td>
-              </tr>
-              <tr>
-                <td class="cart-item-name">
-                  <div class="cart-item-icon">
-                    <img src="img/1.jpg" />
-                  </div>
-                  <span>ハワイアンパラダイス</span>
-                </td>
-                <td>
-                  <span class="price">&nbsp;Ｌ</span>&nbsp;&nbsp;2,380円
-                  &nbsp;&nbsp;1個
-                </td>
-                <td>
-                  <ul>
-                    <li>ピーマン300円</li>
-                    <li>オニオン300円</li>
-                    <li>あらびきソーセージ300円</li>
-                  </ul>
-                </td>
-                <td><div class="text-center">3,280円</div></td>
-              </tr>
+ 				<tr th:each="orderItem: ${order.orderItemList}">
+ 	              <td class="cart-item-name">
+                    <div class="cart-item-icon">
+                      <img src="img/1.jpg" th:src="@{/img/} + ${orderItem.item.imagePath}"/>
+                    </div>
+                    <span th:text="${orderItem.item.name}">ハワイアンパラダイス</span>
+                  </td>
+ 			      <td>
+                	<span th:if="${#strings.equals(orderItem.size, 'M')}" th:text="'M: ' + ${orderItem.Item.priceM} + '円'">M : 1,000円</span>
+                	<span th:if="${#strings.equals(orderItem.size, 'L')}" th:text="'L: ' + ${orderItem.Item.priceL} + '円'">L : 2,000円</span>
+                	<br>
+                  </td>
+                  <td>
+                    <ul>
+                      <li th:each="orderTopping: ${orderItem.orderToppingList}">
+                    	<span th:text="${orderTopping.topping.name}">ピーマン</span>
+                    	<span th:if="${#strings.equals(orderItem.size, 'M')}" th:text="${orderTopping.topping.priceM}">200円</span>
+                    	<span th:if="${#strings.equals(orderItem.size, 'L')}" th:text="${orderTopping.topping.priceL}">300円</span>
+                      </li>
+                    </ul>
+                  </td>
+                <td><div class="text-center" th:text="${orderItem.getSubTotal()}">3,280円</div></td>
+
+ 				</tr>
             </tbody>
           </table>
         </div>
 
         <div class="row cart-total-price">
-          <div>消費税：8,000円</div>
-          <div>ご注文金額合計：38,000円 (税込)</div>
+          <div th:text="'消費税: ' + ${order.getTax()}">消費税：8,000円</div>
+          <div th:text="'合計: ' + ${order.totalPrice + order.getTax()}">ご注文金額合計：38,000円 (税込)</div>
         </div>
-
+		<form th:action="@{/purchase}" th:object="${confirmForm}" method="post">
+		<input type="hidden" name="id" th:value="${order.id}">
         <h2 class="page-title">お届け先情報</h2>
         <div class="order-confirm-delivery-info">
           <div class="row">
             <div class="input-field">
-              <input id="name" type="text" />
+              <input id="name" type="text" name="destinationName"/>
               <label for="name">お名前</label>
             </div>
           </div>
           <div class="row">
             <div class="input-field">
-              <input id="email" type="email" />
+              <input id="email" type="email" name="destinationEmail"/>
               <label for="email">メールアドレス</label>
             </div>
           </div>
           <div class="row">
             <div class="input-field">
-              <input id="zipcode" type="text" maxlength="7" />
+              <input id="zipcode" type="text" maxlength="7" name="destinationZipcode"/>
               <label for="zipcode">郵便番号</label>
               <button class="btn" type="button">
                 <span>住所検索</span>
@@ -164,19 +129,19 @@
           </div>
           <div class="row">
             <div class="input-field">
-              <input id="address" type="text" />
+              <input id="address" type="text" name="destinationAddress"/>
               <label for="address">住所</label>
             </div>
           </div>
           <div class="row">
             <div class="input-field">
-              <input id="tel" type="tel" />
+              <input id="tel" type="tel" name="destinationTel"/>
               <label for="tel">電話番号</label>
             </div>
           </div>
           <div class="row order-confirm-delivery-datetime">
             <div class="input-field">
-              <input id="deliveryDate" type="date" />
+              <input id="deliveryDate" type="date" name="deliveryDate"/>
               <label for="address">配達日時</label>
             </div>
             <label class="order-confirm-delivery-time">
@@ -242,14 +207,11 @@
           </span>
         </div>
         <div class="row order-confirm-btn">
-          <button
-            class="btn"
-            type="button"
-            onclick="location.href='order_finished.html'"
-          >
+          <button class="btn">
             <span>この内容で注文する</span>
           </button>
         </div>
+		</form>
       </div>
       <!-- end container -->
     </div>

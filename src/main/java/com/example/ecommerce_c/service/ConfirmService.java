@@ -18,8 +18,6 @@ public class ConfirmService {
 	private UserRepository userRepository;
 	@Autowired
 	private OrderRepository orderRepository;
-//	@Autowired
-//	private OrderItemRepository orderItemRepository;
 	
 	/**
 	 * 注文を検索する
@@ -65,13 +63,14 @@ public class ConfirmService {
 	}
 	
 	/**
-	 * カート内の商品を取得する.
+	 * 注文を取得する.
 	 * 
-	 * @param id orderID
-	 * @return カート内の商品一覧
+	 * @param orderId orderID
+	 * @return 注文
 	 */
-	public List<OrderItem> stab_searchOrderItemByOrderId(int id){
-//		FIXME: orderitemrepositoryからorderidで検索する関数を使う
-		return new ArrayList<>();
+	public Order getFullOrder(int orderId) {
+		Order order = orderRepository.findFullOrderById(orderId);
+		order.getCalcTotalPrice();
+		return order;
 	}
 }

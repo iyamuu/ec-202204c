@@ -1,10 +1,6 @@
 package com.example.ecommerce_c.repository;
 
-import java.util.LinkedList;
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
@@ -13,8 +9,6 @@ import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.stereotype.Repository;
 
 import com.example.ecommerce_c.domain.OrderItem;
-import com.example.ecommerce_c.domain.OrderTopping;
-import com.example.ecommerce_c.form.OrderItemForm;
 
 @Repository
 public class OrderItemRepository {
@@ -54,6 +48,7 @@ public class OrderItemRepository {
 		String sql = "DELETE FROM order_items where id = :orderItemId";
 		SqlParameterSource param = new MapSqlParameterSource().addValue("orderItemId", orderItemId);
 		jdbcTemplate.update(sql, param);
+		
 	}
 
 	/**
@@ -67,8 +62,11 @@ public class OrderItemRepository {
 		String sql = "UPDATE order_items SET quantity = :quantity WHERE id = :orderItemId Returning id";
 		SqlParameterSource param = new MapSqlParameterSource().addValue("quantity", quantity).addValue("orderItemId",
 				orderItemId);
+		System.out.println("repositoy ");
+		
+		Integer id =  jdbcTemplate.queryForObject(sql, param, Integer.class);
 
-		return jdbcTemplate.queryForObject(sql, param, Integer.class);
+		return id;
 	}
 
 	/**

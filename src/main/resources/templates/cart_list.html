@@ -71,45 +71,10 @@
             </thead>
             
             <tbody>
-<!--               <tr th:each="orderItem: ${order.orderItemList}">
-                <td class="cart-item-name">
-                  <div class="cart-item-icon">
-                    <img src="img/1.jpg" th:src="${orderItem.item.imagePath}"/>
-                  </div>
-                  <span th:text="${orderItem.item.name}">ハワイアンパラダイス</span>
-                </td>
-                <td>
-                	<span th:if="${orderItem.size == 'M'}" th:text="${orderItem.Item.priceM}" class="price">M : 1,000円</span>
-                	<span th:if="${orderItem.size == 'L'}" th:text="${orderItem.Item.priceL}" class="price">L : 2,000円</span>
-                	<span>
-                		<button th:if="${orderItem.size > 1}" onclick="">―</button>
-                		<span th:unless="${orderItem.size > 1}">―</span>
-                		<span th:text="orderItem.size"></span>
-                		<button th:if="${orderItem.size < 9}" onclick="">＋</button>
-                		<span th:unless="${orderItem.size < 9}">+</span>
-                	</span>
-                </td>
-                <td>
-                  <ul>
-                    <li th:each="orderTopping: ${orderItem.orderToppingList}">
-                    	<span th:text="${orderTopping.topping.name}">ピーマン</span>
-                    	<span th:if="${orderItem.size == 'M'}" th:text="${orderTopping.topping.priceM}">200円</span>
-                    	<span th:if="${orderItem.size == 'L'}" th:text="${orderTopping.topping.priceL}">300円</span>
-                    </li>
-                  </ul>
-                </td>
-                <td><div class="text-center">3,280円</div></td>
-                <td>
-                  <button class="btn" type="button">
-                    <span>削除</span>
-                  </button>
-                </td>
-              </tr>
- -->            
  				<tr th:each="orderItem: ${order.orderItemList}">
  	              <td class="cart-item-name">
                     <div class="cart-item-icon">
-                      <img src="img/1.jpg" th:src="${orderItem.item.imagePath}"/>
+                      <img src="img/1.jpg" th:src="@{/img/} + ${orderItem.item.imagePath}"/>
                     </div>
                     <span th:text="${orderItem.item.name}">ハワイアンパラダイス</span>
                   </td>
@@ -121,7 +86,8 @@
                		  <button th:if="${orderItem.quantity > 1}" onclick="">-</button>
                		  <span th:unless="${orderItem.quantity > 1}">-</span>
                		  <span th:text="${orderItem.quantity}"></span>
-               		  <button th:if="${orderItem.quantity < 9}" onclick="">+</button>
+               		  <button th:if="${orderItem.quantity < 9}" th:attr="onclick='updateOrderItem('+ ${orderItem.id} + ', \'' + ${orderItem.quantity} + '\');'" >+</button>
+               		  <label th:text ="${orderItem.quantity}"></label>
                		  <span th:unless="${orderItem.quantity < 9}">+</span>
               	    </span>
                   </td>
@@ -136,7 +102,7 @@
                   </td>
                 <td><div class="text-center" th:text="${orderItem.getSubTotal()}">3,280円</div></td>
                 <td>
-                  <button class="btn" type="button">
+                  <button class="btn" type="button" th:onclick="'deleteOrderItem(' + ${orderItem.id} +');'">
                     <span>削除</span>
                   </button>
                 </td>
@@ -151,16 +117,9 @@
           <div th:text="'合計: ' + ${order.totalPrice + order.getTax()}">ご注文金額合計：38,000円 (税込)</div>
         </div>
         <div class="row order-confirm-btn">
-          <button
-            class="btn"
-            type="button"
-            onclick="location.href='order_confirm.html'" 
-          >
-            <span>注文に進む</span>
-          </button>
-          <form th:action="@{/confirm}" method="post">
-          	<input type="hidden" name="orderId" th:value="${orderId}">
-          	<button>注文に進む</button>
+          <form th:action="@{/confirm}" method="get">
+          	<input type="hidden" name="orderId" th:value="${order.id}">
+          	<button class="btn">注文に進む</button>
           </form>
         </div>
       </div>
@@ -174,6 +133,12 @@
       </div>
     </footer>
     <!-- Compiled and minified JavaScript -->
+    <script
+    src="https://code.jquery.com/jquery-3.6.0.min.js"
+    integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+    crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script src="js/updateOrderItem.js"></script>
+    <script src="js/deleteOrderItem.js"></script>
   </body>
 </html>
