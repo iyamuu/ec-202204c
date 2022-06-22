@@ -67,6 +67,7 @@
         </div>
         <div class="row order-finished-btn">
         <form th:action="@{/top}" method="get">
+        	<input type="hidden" name="userId" th:value="${userId}">
           <button class="btn"><span>トップ画面を表示する</span></button>
         </form>
         </div>
