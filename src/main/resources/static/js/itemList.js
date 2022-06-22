@@ -110,9 +110,9 @@ function genarateItemCell(item) {
 				<div>
 					<h5 class="size orange lighten-4">個数選択</h5>
 					<div class="spinner-container">
-						<span class="spinner-sub disabled col s4" onclick="spinnerMinus()">-</span>
+						<span class="spinner-sub disabled col s4" onclick="spinnerMinus(${item.id})">-</span>
 						<input class="spinner col s4" min="1" value="1" type="text" readonly></input>
-						<span class="spinner-add col s4" onclick="spinnerPlus()">+</span>
+						<span class="spinner-add col s4" onclick="spinnerPlus(${item.id})">+</span>
 					</div>
 				</div>
                <div>
