@@ -6,7 +6,7 @@ package com.example.ecommerce_c.domain;
  * @author daina.teranishi
  *
  */
-public class GitInformation {
+public class GiftInformation {
 
 	/** ID */
 	private Integer id;
