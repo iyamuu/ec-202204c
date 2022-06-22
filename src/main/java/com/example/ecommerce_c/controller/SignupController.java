@@ -32,8 +32,13 @@ public class SignupController {
 	 * @return 新規登録ページへのパス
 	 */
 	@GetMapping("/signup")
+<<<<<<< HEAD
 	public String getSignupPage(SignupForm form, Integer userId, Model model) {
 		model.addAttribute("userId", userId);
+=======
+	public String getSignupPage(SignupForm form) {
+
+>>>>>>> 4104cce5266d6def788b8d9d99eaab201650f98b
 		return "login/signup_stepper";
 	}
 
