@@ -6,11 +6,8 @@ $(function () {
   //ページが読み込まれた際の処理
   getInitialItemList();
   //materializeのモーダルの初期化
-   
 });
 
-
-  
 $(".search-btn").click(function () {
   let name = $(".search-name-input").val();
   getItemByName(name);
@@ -66,13 +63,13 @@ function genarateItemCell(item) {
                 >
               </h3>
               <div class="col s12" style="margin-bottom:10%">
-                <span class="flow-text left">\ ${item.priceM}円（税抜)</span>
+                <span class="flow-text left">¥ ${item.priceM}円（税抜)</span>
               </div>
               <div>
               <a
                 class="right waves-effect waves-light btn-large orange cart_button add_cart_${item.id}"
                 style="z-index:0"
-                onclick="postCart(${item.id}, 'M', 1, [])"
+                onclick="postCart(${item.id})"
               >
                 <i class="material-icons left">add_shopping_cart</i>
                 <span>カートに追加</span></a
@@ -88,251 +85,126 @@ function genarateItemCell(item) {
                   <img src="/ec-202204c/img/${item.imagePath}"/>
                </div>
                <div>
-               <h5 class="description orange lighten-4">商品説明</h5>
-               <p class="left-align">${item.description}</p>
+               		<h5 class="description orange lighten-4">商品説明</h5>
+               		<p class="left-align">${item.description}</p>
                </div>
+			   <div>
+			   	   	<h5 class="size orange lighten-4">サイズ選択</h5>
+			   		<form>
+						<label class="col s6">
+							<input name="size" type="radio" value="M" checked />
+							<span>M ¥ ${item.priceM}円（税抜）</span>
+						</label>
+						<label class="col s6">
+							<input name="size" type="radio" value="L" />
+							<span>L ¥ ${item.priceL}円（税抜）</span>
+						</label>
+					</form>
+				</div>
+				<div>
+					<h5 class="size orange lighten-4">個数選択</h5>
+					<div class="spinner-container">
+						<span class="spinner-sub disabled col s4" onclick="spinnerMinus()">-</span>
+						<input class="spinner col s4" min="1" value="1" type="text" readonly></input>
+						<span class="spinner-add col s4" onclick="spinnerPlus()">+</span>
+					</div>
+				</div>
                <div>
-	               <h5 class="options orange lighten-4">オプション</h5>
+	               <h5 class="options orange lighten-4">オプション選択</h5>
 	               <form>
-	               		<div class="row">
-	                      <label class="col s6">
-	                         <input type="checkbox" class="filled-in" />
-	                         <span>${item.toppingList[0].name}M ${item.toppingList[0].priceM}円 </span>
-	                      </label>
-	                      <label class="col s6">
-	                      <input type="checkbox" class="filled-in" />
-	                      <span>${item.toppingList[0].name}L ${item.toppingList[0].priceL}円 </span>
-	                      </label>
-	                    </div>
-	                    
-	                    <div class="row">
-	                      <label class="col s6">
-	                         <input type="checkbox" class="filled-in" />
-	                         <span>${item.toppingList[1].name}M ${item.toppingList[1].priceM}円 </span>
-	                      </label>
-	                      <label class="col s6">
-	                      <input type="checkbox" class="filled-in" />
-	                      <span>${item.toppingList[1].name}L ${item.toppingList[1].priceL}円 </span>
-	                      </label>
-	                    </div>
-	                      
-	                    <div class="row">
-	                      <label class="col s6">
-	                         <input type="checkbox" class="filled-in" />
-	                         <span>${item.toppingList[2].name}M ${item.toppingList[2].priceM}円 </span>
-	                      </label>
-	                      <label class="col s6">
-	                      <input type="checkbox" class="filled-in" />
-	                      <span>${item.toppingList[2].name}L ${item.toppingList[2].priceL}円 </span>
-	                      </label>
-	                    </div>
-	                      
-	                    <div class="row">
-	                      <label class="col s6">
-	                         <input type="checkbox" class="filled-in" />
-	                         <span>${item.toppingList[3].name}M ${item.toppingList[3].priceM}円 </span>
-	                      </label>
-	                      <label class="col s6">
-	                         <input type="checkbox" class="filled-in" />
-	                         <span>${item.toppingList[3].name}L ${item.toppingList[3].priceL}円 </span>
-	                      </label>
-	                    </div>
-	                      
-	                    <div class="row">
-	                      <label class="col s6">
-	                         <input type="checkbox" class="filled-in" />
-	                         <span>${item.toppingList[4].name}M ${item.toppingList[4].priceM}円 </span>
-	                      </label>
-	                      <label class="col s6">
-	                         <input type="checkbox" class="filled-in" />
-	                         <span>${item.toppingList[4].name}L ${item.toppingList[4].priceL}円 </span>
-	                      </label>
-	                    </div>
-	                      
-	                    <div class="row">
-	                      <label class="col s6">
-	                         <input type="checkbox" class="filled-in" />
-	                         <span>${item.toppingList[5].name}M ${item.toppingList[5].priceM}円 </span>
-	                      </label>
-	                      <label class="col s6">
-	                         <input type="checkbox" class="filled-in" />
-	                         <span>${item.toppingList[5].name}L ${item.toppingList[5].priceL}円 </span>
-	                      </label>
-	                    </div>
-	                      
-	                    <div class="row">
-	                      <label class="col s6">
-	                         <input type="checkbox" class="filled-in" />
-	                         <span>${item.toppingList[6].name}M ${item.toppingList[6].priceM}円 </span>
-	                      </label>
-	                      <label class="col s6">
-	                         <input type="checkbox" class="filled-in" />
-	                         <span>${item.toppingList[6].name}L ${item.toppingList[6].priceL}円 </span>
-	                      </label>
-	                    </div>
-	                      
-	                    <div class="row">
-	                      <label class="col s6">
-	                         <input type="checkbox" class="filled-in" />
-	                         <span>${item.toppingList[7].name}M ${item.toppingList[7].priceM}円 </span>
-	                      </label>
-	                      <label class="col s6">
-	                         <input type="checkbox" class="filled-in" />
-	                         <span>${item.toppingList[7].name}L ${item.toppingList[7].priceL}円 </span>
-	                      </label>
-	                    </div>
-	                      
-	                    <div class="row">
-	                      <label class="col s6">
-	                         <input type="checkbox" class="filled-in" />
-	                         <span>${item.toppingList[8].name}M ${item.toppingList[8].priceM}円 </span>
-	                      </label>
-	                      <label class="col s6">
-	                         <input type="checkbox" class="filled-in" />
-	                         <span>${item.toppingList[8].name}L ${item.toppingList[8].priceL}円 </span>
-	                      </label>
-	                    </div>
-	                      
-	                    <div class="row">
-	                      <label class="col s6">
-	                         <input type="checkbox" class="filled-in" />
-	                         <span>${item.toppingList[9].name}M ${item.toppingList[9].priceM}円 </span>
-	                      </label>
-	                      <label class="col s6">
-	                         <input type="checkbox" class="filled-in" />
-	                         <span>${item.toppingList[9].name}L ${item.toppingList[9].priceL}円 </span>
-	                      </label>
-	                    </div>
-	                      
-	                    <div class="row">
-	                      <label class="col s6">
-	                         <input type="checkbox" class="filled-in" />
-	                         <span>${item.toppingList[10].name}M ${item.toppingList[10].priceM}円 </span>
-	                      </label>
-	                      <label class="col s6">
-	                         <input type="checkbox" class="filled-in" />
-	                         <span>${item.toppingList[10].name}L ${item.toppingList[10].priceL}円 </span>
-	                      </label>
-	                    </div>
-	                      
-	                    <div class="row">
-	                      <label class="col s6">
-	                         <input type="checkbox" class="filled-in" />
-	                         <span>${item.toppingList[11].name}M ${item.toppingList[11].priceM}円 </span>
-	                      </label>
-	                      <label class="col s6">
-	                         <input type="checkbox" class="filled-in" />
-	                         <span>${item.toppingList[11].name}L ${item.toppingList[11].priceL}円 </span>
-	                      </label>
-	                    </div>
-	                      
-	                    <div class="row">
-	                      <label class="col s6">
-	                         <input type="checkbox" class="filled-in" />
-	                         <span>${item.toppingList[12].name}M ${item.toppingList[12].priceM}円 </span>
-	                      </label>
-	                      <label class="col s6">
-	                         <input type="checkbox" class="filled-in" />
-	                         <span>${item.toppingList[12].name}L ${item.toppingList[12].priceL}円 </span>
-	                      </label>
-	                    </div>
-	                      
-	                    <div class="row">
-	                      <label class="col s6">
-	                         <input type="checkbox" class="filled-in" />
-	                         <span>${item.toppingList[13].name}M ${item.toppingList[13].priceM}円 </span>
-	                      </label>
-	                      <label class="col s6">
-	                         <input type="checkbox" class="filled-in" />
-	                         <span>${item.toppingList[13].name}L ${item.toppingList[13].priceL}円 </span>
-	                      </label>
-	                    </div>
-	                      
-	                    <div class="row">
-	                      <label class="col s6">
-	                         <input type="checkbox" class="filled-in" />
-	                         <span>${item.toppingList[14].name}M ${item.toppingList[14].priceM}円 </span>
-	                      </label>
-	                      <label class="col s6">
-	                         <input type="checkbox" class="filled-in" />
-	                         <span>${item.toppingList[14].name}L ${item.toppingList[14].priceL}円 </span>
-	                      </label>
-	                    </div>
-	                      
-	                    <div class="row">
-	                      <label class="col s6">
-	                         <input type="checkbox" class="filled-in" />
-	                         <span>${item.toppingList[15].name}M ${item.toppingList[15].priceM}円 </span>
-	                      </label>
-	                      <label class="col s6">
-	                         <input type="checkbox" class="filled-in" />
-	                         <span>${item.toppingList[15].name}L ${item.toppingList[15].priceL}円 </span>
-	                      </label>
-	                    </div>
-	                    
-	                    <div class="row">  
-	                      <label class="col s6">
-	                         <input type="checkbox" class="filled-in" />
-	                         <span>${item.toppingList[16].name}M ${item.toppingList[16].priceM}円 </span>
-	                      </label>
-	                      <label class="col s6">
-	                         <input type="checkbox" class="filled-in" />
-	                         <span>${item.toppingList[16].name}L ${item.toppingList[16].priceL}円 </span>
-	                      </label>
-	                    </div>
-	                      
-	                    <div class="row">
-	                      <label class="col s6">
-	                         <input type="checkbox" class="filled-in" />
-	                         <span>${item.toppingList[17].name}M ${item.toppingList[17].priceM}円 </span>
-	                      </label>
-	                      <label class="col s6">
-	                         <input type="checkbox" class="filled-in" />
-	                         <span>${item.toppingList[17].name}L ${item.toppingList[17].priceL}円 </span>
-	                      </label>
-	                    </div>
-	                      
-	                    <div class="row">
-	                      <label class="col s6">
-	                         <input type="checkbox" class="filled-in" />
-	                         <span>${item.toppingList[18].name}M ${item.toppingList[18].priceM}円 </span>
-	                      </label>
-	                      <label class="col s6">
-	                         <input type="checkbox" class="filled-in" />
-	                         <span>${item.toppingList[18].name}L ${item.toppingList[18].priceL}円 </span>
-	                      </label>
-	                    </div>
-	                      
-	                    <div class="row">
-	                      <label class="col s6">
-	                         <input type="checkbox" class="filled-in" />
-	                         <span>${item.toppingList[19].name}M ${item.toppingList[19].priceM}円 </span>
-	                      </label>
-	                      <label class="col s6">
-	                         <input type="checkbox" class="filled-in" />
-	                         <span>${item.toppingList[19].name}L ${item.toppingList[19].priceL}円 </span>
-	                      </label>
-	                    </div>
-	                      
-	                    <div class="row">
-	                      <label class="col s6">
-	                         <input type="checkbox" class="filled-in" />
-	                         <span>${item.toppingList[20].name}M ${item.toppingList[20].priceM}円 </span>
-	                      </label>
-	                      <label class="col s6">
-	                         <input type="checkbox" class="filled-in" />
-	                         <span>${item.toppingList[20].name}L ${item.toppingList[20].priceL}円 </span>
-	                      </label>
-	                    </div>
-	                      
+	                    <label class="col s6">
+	                        <input type="checkbox" name="option" class="filled-in" value="${item.toppingList[0].id}"/>
+	                        <span>${item.toppingList[0].name}</span>
+	                    </label>
+	                    <label class="col s6">
+	                        <input type="checkbox" name="option" class="filled-in" value="${item.toppingList[1].id}" />
+	                        <span>${item.toppingList[1].name}</span>
+	                    </label>
+	                	<label class="col s6">
+	                        <input type="checkbox" name="option" class="filled-in" value="${item.toppingList[2].id}"/>
+	                        <span>${item.toppingList[2].name}</span>
+	                    </label>
+	                    <label class="col s6">
+	                      <input type="checkbox" name="option" class="filled-in" value="${item.toppingList[3].id}" />
+	                      <span>${item.toppingList[3].name}</span>
+	                    </label>
+						<label class="col s6">
+						  <input type="checkbox" name="option" class="filled-in" value="${item.toppingList[4].id}"/>
+						  <span>${item.toppingList[4].name}</span>
+					  	</label>
+					   	<label class="col s6">
+						  <input type="checkbox" name="option" class="filled-in" value="${item.toppingList[5].id}" />
+						  <span>${item.toppingList[5].name}</span>
+					   	</label>
+					   	<label class="col s6">
+						  <input type="checkbox" name="option" class="filled-in" value="${item.toppingList[6].id}"/>
+						  <span>${item.toppingList[6].name}</span>
+					   	</label>
+					   	<label class="col s6">
+					   		<input type="checkbox" name="option" class="filled-in" value="${item.toppingList[7].id}" />
+					   		<span>${item.toppingList[7].name}</span>
+					    </label>
+					   	<label class="col s6">
+					   		<input type="checkbox" name="option" class="filled-in" value="${item.toppingList[8].id}"/>
+					   		<span>${item.toppingList[8].name}</span>
+						</label>
+						<label class="col s6">
+							<input type="checkbox" name="option" class="filled-in" value="${item.toppingList[9].id}" />
+							<span>${item.toppingList[9].name}</span>
+						</label>
+						<label class="col s6">
+							<input type="checkbox" name="option" class="filled-in" value="${item.toppingList[10].id}"/>
+							<span>${item.toppingList[10].name}</span>
+						</label>
+						<label class="col s6">
+							<input type="checkbox" name="option" class="filled-in" value="${item.toppingList[11].id}" />
+							<span>${item.toppingList[11].name}</span>
+						</label>
+						<label class="col s6">
+							<input type="checkbox" name="option" class="filled-in" value="${item.toppingList[12].id}" />
+							<span>${item.toppingList[12].name}</span>
+						</label>
+						<label class="col s6">
+							<input type="checkbox" name="option" class="filled-in" value="${item.toppingList[13].id}"/>
+							<span>${item.toppingList[13].name}</span>
+						</label>
+						<label class="col s6">
+							<input type="checkbox" name="option" class="filled-in" value="${item.toppingList[14].id}" />
+							<span>${item.toppingList[14].name}</span>
+					    </label>
+						<label class="col s6">
+							<input type="checkbox" name="option" class="filled-in" value="${item.toppingList[15].id}"/>
+							<span>${item.toppingList[15].name}</span>
+					    </label>
+					    <label class="col s6">
+						  	<input type="checkbox" name="option" class="filled-in" value="${item.toppingList[16].id}" />
+						  	<span>${item.toppingList[16].name}</span>
+					    </label>
+					    <label class="col s6">
+						  	<input type="checkbox" name="option" class="filled-in" value="${item.toppingList[17].id}"/>
+						  	<span>${item.toppingList[17].name}</span>
+					    </label>
+					    <label class="col s6">
+						  	<input type="checkbox" name="option" class="filled-in" value="${item.toppingList[18].id}" />
+						  	<span>${item.toppingList[18].name}</span>
+					    </label>  
+					    <label class="col s6">
+					  		<input type="checkbox" name="option" class="filled-in" value="${item.toppingList[19].id}"/>
+					  		<span>${item.toppingList[19].name}</span>
+				  		</label>
+				  		<label class="col s6">
+					  		<input type="checkbox" name="option" class="filled-in" value="${item.toppingList[20].id}" />
+					  		<span>${item.toppingList[20].name}</span>
+				  		</label>  
 	                  </form>
                   </div>
                <div class="modal-footer">
                   <a
                   class="waves-effect waves-light btn-large orange modal-action modal-close right" href="#!"
+				  onclick="postCart(${item.id})"
                   >
                   <i class="material-icons left">add_shopping_cart</i>
-                  <span id=class="cart_button add_cart_${item.id}">カートに追加</span></a
+                  <span class="cart_button add_cart_${item.id}">カートに追加</span></a
                   >
                </div>
             </div>
