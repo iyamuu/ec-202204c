@@ -1,8 +1,17 @@
 package com.example.ecommerce_c.form;
 
+/**
+ * 注文トッピング情報登録時に使用するフォーム.
+ * 
+ * @author hvthinh
+ *
+ */
 public class OrderToppingForm {
+	/** 注文トッピングID */
 	private Integer id;
+	/** トッピングID */
 	private Integer toppingId;
+	/** 注文商品ID */
 	private Integer orderItemId;
 
 	@Override

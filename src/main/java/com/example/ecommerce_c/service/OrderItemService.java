@@ -75,6 +75,5 @@ public class OrderItemService {
 	 */
 	public void deleteOrderItem(Integer orderItemId) {
 		orderItemRepository.deleteOrderItem(orderItemId);
-		System.out.println("delete しました。");
 	}
 }

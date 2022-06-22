@@ -215,6 +215,12 @@ public class OrderRepository {
 		template.update(sql, param);
 	}
 	
+	/**
+	 * Order情報を取得するローマッパー.
+	 * 
+	 * @param id
+	 * @return
+	 */
 	public Order findFullOrderById(int id) {
 		String sql = "SELECT "
 				+ "o.id as id, user_id, status, total_price, order_date, destination_name, destination_email, destination_zipcode, destination_address, destination_tel, delivery_time, payment_method, "
