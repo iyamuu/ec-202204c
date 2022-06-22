@@ -38,7 +38,7 @@
             </a>
           </div>
           <div class="header-right">
-            <a href="login.html" th:href="@{/login}"> ログイン </a>
+            <a href="login.html" th:href="@{/login(userId=${userId})}"> ログイン </a>
             <a href="login.html" th:href="@{/logout}"> ログアウト </a>
             <a href="order_history.html"> 注文履歴 </a>
             <a th:href="@{/cart(orderId=${orderId})}">

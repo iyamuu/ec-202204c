@@ -3,6 +3,7 @@ package com.example.ecommerce_c.controller;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -31,7 +32,7 @@ public class SignupController {
 	 * @return 新規登録ページへのパス
 	 */
 	@GetMapping("/signup")
-	public String getSignupPage(SignupForm form) {
+	public String getSignupPage(SignupForm form, String userId, Model model) {
 
 		return "login/signup_stepper";
 	}
@@ -44,7 +45,7 @@ public class SignupController {
 	 * @return ログインページへのパス、エラーがあれば新規登録ページのパス
 	 */
 	@PostMapping("/signup")
-	public String registerUser(@Validated SignupForm form, BindingResult result) {
+	public String registerUser(@Validated SignupForm form, Integer userId, BindingResult result, Model model) {
 
 		// emailの重複チェック、存在していればバリデーション結果にエラーを追加
 		User existsUser = signupService.checkSameMailAddress(form.getEmail());
@@ -60,13 +61,14 @@ public class SignupController {
 		}
 
 		if (result.hasErrors()) {
-			return getSignupPage(form);
+			return getSignupPage(form, String.valueOf(userId), model);
 		}
 
 		User newUser = new User();
 		BeanUtils.copyProperties(form, newUser);
 		newUser = signupService.registerUser(newUser); // 登録処理、ここでidが付与される
 
+		model.addAttribute("userId", userId);
 		return "redirect:/login";
 
 	}
