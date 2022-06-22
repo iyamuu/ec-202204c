@@ -26,12 +26,13 @@ let showOrderItemList = function () {
         let row = buildOrderItemRow(orderItem);
         orderItemTable.append(row);
       });
+      let totalPrice = data.tax + data.calcTotalPrice;
 
       //消費税の更新
       $("#tax").text(`消費税：${data.tax}`);
 
       //合計金額の更新
-      $("#totalPrice").text(`ご注文金額合計：${data.calcTotalPrice} (税込)`);
+      $("#totalPrice").text(`ご注文金額合計：${totalPrice} (税込)`);
     })
     .fail(function (XMLHttpRequest, textStatus, errorThrown) {
       console.log("XMLHttpRequest : " + XMLDocument);
