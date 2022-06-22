@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.example.ecommerce_c.domain.User;
-import com.example.ecommerce_c.form.SignupForm;
+import com.example.ecommerce_c.form.UserForm;
 import com.example.ecommerce_c.service.SignupService;
 
 /**
@@ -32,13 +32,7 @@ public class SignupController {
 	 * @return 新規登録ページへのパス
 	 */
 	@GetMapping("/signup")
-<<<<<<< HEAD
-	public String getSignupPage(SignupForm form, Integer userId, Model model) {
-		model.addAttribute("userId", userId);
-=======
-	public String getSignupPage(SignupForm form) {
-
->>>>>>> 4104cce5266d6def788b8d9d99eaab201650f98b
+	public String getSignupPage(UserForm form, Model model) {
 		return "login/signup_stepper";
 	}
 
@@ -50,7 +44,7 @@ public class SignupController {
 	 * @return ログインページへのパス、エラーがあれば新規登録ページのパス
 	 */
 	@PostMapping("/signup")
-	public String registerUser(@Validated SignupForm form, Integer userId, BindingResult result, Model model) {
+	public String registerUser(@Validated UserForm form, Integer userId, BindingResult result, Model model) {
 
 		// emailの重複チェック、存在していればバリデーション結果にエラーを追加
 		User existsUser = signupService.checkSameMailAddress(form.getEmail());
@@ -66,7 +60,7 @@ public class SignupController {
 		}
 
 		if (result.hasErrors()) {
-			return getSignupPage(form, userId, model);
+			return getSignupPage(form, model);
 		}
 
 		User newUser = new User();
