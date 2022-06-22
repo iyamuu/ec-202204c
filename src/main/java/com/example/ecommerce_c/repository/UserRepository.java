@@ -1,5 +1,6 @@
 package com.example.ecommerce_c.repository;
 
+
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,8 +32,6 @@ public class UserRepository {
 		user.setName(rs.getString("name"));
 		user.setEmail(rs.getString("email"));
 		user.setPassword(rs.getString("password"));
-		user.setZipCode(rs.getString("zipcode"));
-		user.setAddress(rs.getString("address"));
 		user.setTelephone(rs.getString("telephone"));
 
 		return user;

@@ -96,6 +96,24 @@ public class User {
 	public void setGiftInformation(GitInformation giftInformation) {
 		this.giftInformation = giftInformation;
 	}
+	
+	/**
+	 * 宛先情報を追加する.
+	 * 
+	 * @param addressee 追加したい宛先情報
+	 */
+	public void addAddressees(Addressee addressee) {
+		addressees.add(addressee);
+	}
+	
+	/**
+	 * 支払情報を追加する.
+	 * 
+	 * @param payment 追加したい支払情報
+	 */
+	public void addPayment(Payment payment) {
+		payments.add(payment);
+	}
 
 	@Override
 	public String toString() {
