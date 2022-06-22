@@ -1,8 +1,15 @@
 /**
  * カートに追加ボタンを押した際の処理
  */
-function postCart(id, size, quantity, topping) {
+function postCart(id) {
   let orderId = $("#orderId").val();
+  let size = $('input:radio[name="size"]:checked').val();
+  let quantity = $(".spinner").val();
+  let toppingList = [];
+  $("input[name=option]:checked").each(function () {
+    toppingList.push($(this).val());
+  });
+
   let hostUrl = "http://localhost:8080/ec-202204c/add";
 
   $.ajax({
@@ -14,9 +21,8 @@ function postCart(id, size, quantity, topping) {
       itemId: id,
       size: size,
       quantity: quantity,
-      toppingIdList: [],
+      toppingIdList: toppingList,
     },
     async: true,
-  }).done(function (data) {
-  });
+  }).done(function (data) {});
 }
