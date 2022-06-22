@@ -2,6 +2,8 @@ package com.example.ecommerce_c.form;
 
 import javax.validation.Valid;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 /**
  * サインアップ用のformクラス
  * 
@@ -11,16 +13,16 @@ import javax.validation.Valid;
 public class SignupForm {
 
 	/** アカウント情報 */
-	@Valid
+//	@Valid
 	private UserForm userForm;
 	/** 宛先情報 */
-	@Valid
+//	@Valid
 	private AddresseeForm addresseeForm;
 	/** 絞り込み情報 */
-	@Valid
+//	@Valid
 	private GiftInfoForm giftInfoForm;
 	/** 支払い情報 */
-	@Valid
+//	@Valid
 	private PaymentForm paymentForm;
 
 	public UserForm getUserForm() {

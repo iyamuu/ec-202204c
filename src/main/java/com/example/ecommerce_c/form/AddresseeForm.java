@@ -3,6 +3,8 @@ package com.example.ecommerce_c.form;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Pattern;
 
+import org.springframework.stereotype.Component;
+
 /**
  * 宛先情報のformクラス
  * 

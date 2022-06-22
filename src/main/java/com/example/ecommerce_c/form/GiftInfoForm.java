@@ -1,11 +1,14 @@
 package com.example.ecommerce_c.form;
 
+import org.springframework.stereotype.Component;
+
 /**
  * 絞り込み情報に関するformクラス
  * 
  * @author teranishidaina
  *
  */
+
 public class GiftInfoForm {
 	
 	/** 年齢の下限 */
@@ -17,7 +20,7 @@ public class GiftInfoForm {
 	/** 予算の下限 */
 	private Integer lowerBudget;
 	/** 予算の上限 */
-	private Integer upperBudger;
+	private Integer upperBudget;
 
 	public Integer getLowerAge() {
 		return lowerAge;
@@ -51,17 +54,17 @@ public class GiftInfoForm {
 		this.lowerBudget = lowerBudget;
 	}
 
-	public Integer getUpperBudger() {
-		return upperBudger;
+	public Integer getUpperBudget() {
+		return upperBudget;
 	}
 
-	public void setUpperBudger(Integer upperBudger) {
-		this.upperBudger = upperBudger;
+	public void setUpperBudget(Integer upperBudger) {
+		this.upperBudget = upperBudger;
 	}
 
 	@Override
 	public String toString() {
 		return "GiftInfoForm [lowerAge=" + lowerAge + ", upperAge=" + upperAge + ", gender=" + gender + ", lowerBudget="
-				+ lowerBudget + ", upperBudger=" + upperBudger + "]";
+				+ lowerBudget + ", upperBudger=" + upperBudget + "]";
 	}
 }

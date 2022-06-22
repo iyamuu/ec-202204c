@@ -2,6 +2,8 @@ package com.example.ecommerce_c.form;
 
 import javax.validation.constraints.NotEmpty;
 
+import org.springframework.stereotype.Component;
+
 /**
  * 支払い情報のformクラス
  * 
