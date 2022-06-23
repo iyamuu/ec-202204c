@@ -23,6 +23,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Autowired
 	private FormLoginService formLoginService;
+	@Autowired
+	private LineLoginService lineLoginService;
 
 	/** セキュリティの対象外を設定 */
 	@Override
