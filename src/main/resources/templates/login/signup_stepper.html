@@ -67,7 +67,7 @@
                     <div class="card">
                       <div class="card-content">
                         <ul data-method="GET" class="stepper linear">
-                          <li class="step active">
+                          <li id="step1" class="step active">
                             <div class="step-title waves-effect waves-dark">
                               お客様情報
                             </div>
@@ -81,9 +81,10 @@
                                     <label
                                       th:if="*{#fields.hasErrors('name')}"
                                       th:errors="*{name}"
-                                      class="error-name"
+                                      class="error-name red-text"
                                     >
                                     </label>
+                                    <label class="error-name red-text"></label>
                                   </div>
                                   <div class="row">
                                     <input
@@ -102,9 +103,13 @@
                                     <label
                                       th:if="*{#fields.hasErrors('email')}"
                                       th:errors="*{email}"
-                                      class="error"
+                                      class="error-mail red-text"
                                     >
                                     </label>
+                                    <lable class="error-mail red-text"></lable>
+                                    <label
+                                      class="duplicate-mail red-text"
+                                    ></label>
                                   </div>
                                   <div class="row">
                                     <div class="input-field col s12">
@@ -119,15 +124,55 @@
                                       <label for="email">メールアドレス</label>
                                     </div>
                                   </div>
+                                  <!-- 郵便番号 -->
+                                  <div>
+                                    <label
+                                      class="error-zipCode red-text"
+                                    ></label>
+                                  </div>
+                                  <div class="row">
+                                    <div class="input-field col s12">
+                                      <input
+                                        id="zipCode"
+                                        name="zipCode"
+                                        class="form-control"
+                                        placeholder="xxxyyyy"
+                                        type="text"
+                                        list="zipList"
+                                      />
+                                      <label for="zipCode">郵便番号</label>
+                                    </div>
+                                  </div>
+
+                                  <!-- 住所 -->
+                                  <div>
+                                    <label
+                                      class="error-address red-text"
+                                    ></label>
+                                  </div>
+                                  <div class="row">
+                                    <div class="input-field col s12">
+                                      <input
+                                        id="address"
+                                        type="text"
+                                        name="address"
+                                        class="form-control"
+                                      />
+                                      <label for="address">住所</label>
+                                    </div>
+                                  </div>
 
                                   <!-- 電話番号 -->
                                   <div>
                                     <label
                                       th:if="*{#fields.hasErrors('telephone')}"
                                       th:errors="*{telephone}"
-                                      class="error-telephone"
+                                      class="error-telephone red-text"
                                       >電話番号はXXXX-XXXX-XXXXの形式で入力してください</label
                                     >
+                                    <label
+                                      class="error-telephone red-text"
+                                    ></label>
                                   </div>
                                   <div class="row">
                                     <div class="input-field col s12">
@@ -147,9 +192,12 @@
                                     <label
                                       th:if="*{#fields.hasErrors('password')}"
                                       th:errors="*{password}"
-                                      class="error-password"
+                                      class="error-password red-text"
                                       >パスワードは８文字以上１６文字以内で設定してください</label
                                     >
+                                    <label
+                                      class="error-password red-text"
+                                    ></label>
                                   </div>
                                   <div class="row">
                                     <div class="input-field col s12">
@@ -169,9 +217,12 @@
                                     <label
                                       th:if="*{#fields.hasErrors('confirmPassword')}"
                                       th:errors="*{confirmPassword}"
-                                      class="error-confirmPassword"
+                                      class="error-confirmPassword red-text"
                                       >パスワードと確認用パスワードが不一致です</label
                                     >
+                                    <label
+                                      class="error-confirmPassword red-text"
+                                    ></label>
                                   </div>
                                   <div class="row">
                                     <div class="input-field col s12">
@@ -192,19 +243,16 @@
                               <div class="step-actions">
                                 <button
                                   class="waves-effect waves-dark btn blue next-step"
-                                  data-feedback="check"
-                                  type="button"
+                                  data-feedback="userCheck"
                                 >
-                                  次へ
+                                  お届け先情報入力へ
                                 </button>
                               </div>
                             </div>
                           </li>
-
-                          <!-- お届け先情報 -->
-                          <li class="step">
+                          <li class="step" onclick="userCheck()">
                             <div class="step-title waves-effect waves-dark">
-                              お届け先情報
+                              お届け先情報入力
                             </div>
                             <div
                               class="step-content"
@@ -220,7 +268,12 @@
                                 >
                               </div>
                               <div class="row">
-                                <div class="input-field col s12">
+                                <!-- 氏名  -->
+                                <div>
+                                  <label class="error-partner-name red-text">
+                                  </label>
+                                </div>
+                                <div class="row">
                                   <input
                                     id="address_name"
                                     name="name"
@@ -232,6 +285,62 @@
                                   <label for="address_name"
                                     >お届け先のお名前</label
                                   >
+                                </div>
+
+                                <!-- 郵便番号 -->
+                                <div>
+                                  <label
+                                    class="error-partner-zipCode red-text"
+                                  ></label>
+                                </div>
+                                <div class="row">
+                                  <div class="input-field col s12">
+                                    <input
+                                      id="partnerZipCode"
+                                      name="zipCode"
+                                      class="form-control"
+                                      placeholder="xxxyyyy"
+                                      type="text"
+                                      list="zipList"
+                                    />
+                                    <label for="zipCode">宛先の郵便番号</label>
+                                  </div>
+                                </div>
+
+                                <!-- 住所 -->
+                                <div>
+                                  <label
+                                    class="error-partner-address red-text"
+                                  ></label>
+                                </div>
+                                <div class="row">
+                                  <div class="input-field col s12">
+                                    <input
+                                      id="partnerAddress"
+                                      type="text"
+                                      name="address"
+                                      class="form-control"
+                                    />
+                                    <label for="address">宛先の住所</label>
+                                  </div>
+                                </div>
+
+                                <!-- 電話番号 -->
+                                <div>
+                                  <label
+                                    class="error-partner-telephone red-text"
+                                  ></label>
+                                </div>
+                                <div class="row">
+                                  <div class="input-field col s12">
+                                    <input
+                                      id="partnerTel"
+                                      type="tel"
+                                      name="telephone"
+                                      class="form-control"
+                                    />
+                                    <label for="tel">宛先の電話番号</label>
+                                  </div>
                                 </div>
                               </div>
 

@@ -36,6 +36,7 @@ public class SignupController {
 	 */
 	@GetMapping("/signup")
 	public String getSignupPage(SignupForm form, Model model) {
+
 		return "login/signup_stepper";
 	}
 
