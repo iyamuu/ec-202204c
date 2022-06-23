@@ -54,7 +54,7 @@
             <a th:href="@{/cart(orderId=${orderId})}">
               <i class="fas fa-sign-in-alt"></i>カート
             </a>
-            <input id="orderId" type="hidden" th:value="${orderId}" />
+            <input id="orderId" type="hidden" th:value="${session.orderId}" />
           </div>
         </div>
       </div>
@@ -135,7 +135,7 @@
                         <input
                           type="hidden"
                           name="orderId"
-                          th:value="${orderId}"
+                          th:value="${session.orderId}"
                         />
                         <button class="btn">注文に進む</button>
                       </form>
