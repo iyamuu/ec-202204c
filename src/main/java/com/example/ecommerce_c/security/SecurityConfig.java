@@ -41,7 +41,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.antMatchers("/add").permitAll().antMatchers("/delete").permitAll().antMatchers("/update").permitAll() // RestControllerへも許可
 				.anyRequest().authenticated()
 				.and().formLogin().loginPage("/login").loginProcessingUrl("/login") // ログインボタンのURL
-				.failureForwardUrl("/login?error=true").defaultSuccessUrl("/top", false).usernameParameter("email")
+				.failureForwardUrl("/login?error=true").defaultSuccessUrl("/top", true).usernameParameter("email")
 				.passwordParameter("password")
 				.and().oauth2Login().loginPage("/login") // Line Login
 				;
