@@ -21,18 +21,14 @@ public class Item {
 	private Integer priceL;
 	/** 画像パス */
 	private String imagePath;
+	/** 対象年齢 */
+	private Integer targetAge;
+	/** 性別 */
+	private String gender;
 	/** 削除フラグ */
 	private Boolean deleted;
 	/** トッピングリスト */
 	private List<Topping> toppingList;
-	
-	
-
-	@Override
-	public String toString() {
-		return "Item [id=" + id + ", name=" + name + ", description=" + description + ", priceM=" + priceM + ", priceL="
-				+ priceL + ", imagePath=" + imagePath + ", deleted=" + deleted + ", toppingList=" + toppingList + "]";
-	}
 
 	public Integer getId() {
 		return id;
@@ -96,6 +92,29 @@ public class Item {
 
 	public void setToppingList(List<Topping> toppingList) {
 		this.toppingList = toppingList;
+	}
+
+	public Integer getTargetAge() {
+		return targetAge;
+	}
+
+	public void setTargetAge(Integer targetAge) {
+		this.targetAge = targetAge;
+	}
+
+	public String getGender() {
+		return gender;
+	}
+
+	public void setGender(String gender) {
+		this.gender = gender;
+	}
+
+	@Override
+	public String toString() {
+		return "Item [id=" + id + ", name=" + name + ", description=" + description + ", priceM=" + priceM + ", priceL="
+				+ priceL + ", imagePath=" + imagePath + ", targetAge=" + targetAge + ", gender=" + gender + ", deleted="
+				+ deleted + ", toppingList=" + toppingList + "]";
 	}
 
 }

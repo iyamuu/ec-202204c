@@ -7,7 +7,8 @@ $(function () {
 
 //注文一覧の表示  合計金額の変更も行う
 let showOrderItemList = function () {
-  let orderId = $("#orderId").text();
+  console.log("showorder");
+  let orderId = $("#orderId").val();
   let showUrl = "http://localhost:8080/ec-202204c/show?orderId=" + orderId;
 
   $.ajax({
@@ -176,15 +177,20 @@ function deleteOrderItem(id) {
  */
 
 function updateOrderItem(id, quantity) {
+  let xsrf = $.cookie("XSRF-TOKEN");
   let hostUrl = "http://localhost:8080/ec-202204c/update";
 
   $.ajax({
     url: hostUrl,
     type: "post",
     dataType: "json",
-    data: {
+    data: JSON.stringify({
       orderItemId: id,
       quantity: quantity,
+    }),
+    headers: {
+      "Content-Type": "application/json; charset=utf-8",
+      "X-XSRF-TOKEN": xsrf,
     },
     async: true,
   })

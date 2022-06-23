@@ -20,12 +20,10 @@
       rel="stylesheet"
     />
 
-
     <link rel="stylesheet" href="css/header.css" />
     <link rel="stylesheet" href="css/footer.css" />
     <link rel="stylesheet" href="css/item_list.css" />
     <link rel="stylesheet" href="css/item_detail.css" />
-
   </head>
   <body>
     <!--ヘッダー（共通）-->
@@ -38,7 +36,9 @@
             </a>
           </div>
           <div class="header-right">
-            <a href="login.html" th:href="@{/login(userId=${userId})}"> ログイン </a>
+            <a href="login.html" th:href="@{/login(userId=${userId})}">
+              ログイン
+            </a>
             <a href="login.html" th:href="@{/logout}"> ログアウト </a>
             <a href="order_history.html"> 注文履歴 </a>
             <a th:href="@{/cart(orderId=${orderId})}">
@@ -59,24 +59,23 @@
         </form>
       </div>
     </div>
-    
+
     <!--item list-->
     <div class="item-wrapper">
       <div class="container">
-        <div id="itemList" class="items">
-          
-        </div>
+        <div id="itemList" class="items"></div>
       </div>
     </div>
-    
-	<script
-    src="https://code.jquery.com/jquery-3.6.0.min.js"
-    integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
-    crossorigin="anonymous"></script>
+
+    <script
+      src="https://code.jquery.com/jquery-3.6.0.min.js"
+      integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+      crossorigin="anonymous"
+    ></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-	<script src="js/itemList.js"></script>
-	<script src="js/postCart.js"></script>
-	<script src="js/spinnerButton.js"></script>
-    
+    <script src="js/itemList.js"></script>
+    <script src="js/postCart.js"></script>
+    <script src="js/spinnerButton.js"></script>
   </body>
 </html>
