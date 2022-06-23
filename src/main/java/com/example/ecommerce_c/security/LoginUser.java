@@ -100,4 +100,10 @@ public class LoginUser implements UserDetails, OAuth2User {
 		return null;
 	}
 
+
+	@Override
+	public String toString() {
+		return "LoginUser [user=" + user + ", authorities=" + authorities + "]";
+	}
+
 }
