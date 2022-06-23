@@ -75,7 +75,7 @@
    ======================================== */
 
 .item-wrapper {
-  padding-top: 200px; /* 上はヘッダや検索フォームが来るのでその分空ける */
+  padding-top: 50px; /* 上はヘッダや検索フォームが来るのでその分空ける */
   padding-bottom: 80px;
   padding-left: 5%;
   padding-right: 5%;
