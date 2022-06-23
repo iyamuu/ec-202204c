@@ -71,7 +71,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.authorizationUri("https://access.line.me/oauth2/v2.1/authorize")
 				.tokenUri("https://api.line.me/oauth2/v2.1/token").jwkSetUri("https://api.line.me/oauth2/v2.1/certs")
 				.userInfoUri("https://api.line.me/v2/profile").userNameAttributeName("userId")
-				.redirectUri("https://ec-202204c-toy.herokuapp.com/ec-202204c/oauth2/code/line").build());
+				.redirectUri("https://ec-202204c-toy.herokuapp.com/ec-202204c/top").build());
 	}
 
 	@Bean
