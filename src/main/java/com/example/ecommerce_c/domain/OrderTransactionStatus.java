@@ -12,7 +12,7 @@ public class OrderTransactionStatus {
 	/** 決済状態メッセージ */
 	private String message;
 	/** 決済状態コード */
-	private String errorCode;
+	private String error_code;
 
 	public String getStatus() {
 		return status;
@@ -30,17 +30,17 @@ public class OrderTransactionStatus {
 		this.message = message;
 	}
 
-	public String getErrorCode() {
-		return errorCode;
+	public String getError_code() {
+		return error_code;
 	}
 
-	public void setErrorCode(String errorCode) {
-		this.errorCode = errorCode;
+	public void setError_code(String error_code) {
+		this.error_code = error_code;
 	}
 
 	@Override
 	public String toString() {
-		return "OrderTransaction [status=" + status + ", message=" + message + ", errorCode=" + errorCode + "]";
+		return "OrderTransaction [status=" + status + ", message=" + message + ", errorCode=" + error_code + "]";
 	}
 
 }
