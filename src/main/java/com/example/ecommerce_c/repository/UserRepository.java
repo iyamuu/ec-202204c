@@ -79,6 +79,27 @@ public class UserRepository {
 
 		return userList.get(0);
 	}
+	
+	/**
+	 * Line idからUserを検索する.
+	 * 
+	 * @param lineId 検索したいline id
+	 * @return 該当するUser、存在しなければnull
+	 */
+	public User findByLineId(String lineId) {
+
+		String sql = "Select id, name, email, password, telephone, line_id "
+				+ "From users Where line_id=:lineId;";
+		SqlParameterSource param = new MapSqlParameterSource().addValue("lineId", lineId);
+
+		List<User> userList = jdbcTemplate.query(sql, param, USER_ROW_MAPPER);
+
+		if (userList.size() == 0) {
+			return null;
+		}
+
+		return userList.get(0);
+	}
 
 	
 	/**

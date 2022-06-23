@@ -1,13 +1,15 @@
 package com.example.ecommerce_c.security;
 
 import java.util.Collection;
+import java.util.Map;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 
 import com.example.ecommerce_c.domain.User;
 
-public class LoginUser implements UserDetails {
+public class LoginUser implements UserDetails, OAuth2User {
 
 	private static final long serialVersionUID = 1L;
 	
@@ -39,6 +41,10 @@ public class LoginUser implements UserDetails {
 	
 	public String getTelephone() {
 		return user.getTelephone();
+	}
+	
+	public String getLineId() {
+		return user.getLineId();
 	}
 
 	@Override
@@ -78,6 +84,20 @@ public class LoginUser implements UserDetails {
 	@Override
 	public boolean isEnabled() {
 		return true;
+	}
+
+
+	@Override
+	public Map<String, Object> getAttributes() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+	@Override
+	public String getName() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
