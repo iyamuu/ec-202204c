@@ -1,8 +1,6 @@
 package com.example.ecommerce_c.form;
 
-import javax.validation.constraints.NotEmpty;
-
-import org.springframework.stereotype.Component;
+import javax.validation.constraints.NotNull;
 
 /**
  * 支払い情報のformクラス
@@ -13,7 +11,7 @@ import org.springframework.stereotype.Component;
 public class PaymentForm {
 
 	/** 支払い方法 0:現金 1:クレジットカード */
-	@NotEmpty(message = "支払い方法を選択してください")
+	@NotNull(message = "支払い方法を選択してください")
 	private Integer pay;
 	/** クレジットカード番号 payが１なら存在する */
 	private String cardNumber;

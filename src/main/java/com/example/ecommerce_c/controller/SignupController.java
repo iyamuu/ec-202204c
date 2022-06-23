@@ -14,7 +14,6 @@ import com.example.ecommerce_c.domain.GiftInformation;
 import com.example.ecommerce_c.domain.Payment;
 import com.example.ecommerce_c.domain.User;
 import com.example.ecommerce_c.form.SignupForm;
-import com.example.ecommerce_c.form.UserForm;
 import com.example.ecommerce_c.service.SignupService;
 
 /**

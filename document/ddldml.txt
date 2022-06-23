@@ -13,6 +13,8 @@ create table users (
  , telephone varchar(15) not null
 ) ;
 
+
+
 create table addressees(
 	id serial primary key,
 	user_id Integer not null,
@@ -51,11 +53,14 @@ create table gift_informations(
 
 
 
+Insert Into users(name, email, password, telephone) Values('テストユーザー', 'test@sample.com', '$2a$10$xRTXvpMWly0oGiu65WZlm.3YL95LGVV2ASFjDhe6WF4.Qji1huIPa', '090-0000-1111');
+Insert Into addressees(user_id, name, zipcode, address, telephone) Values(1, '孫太郎', '572-0066', '大阪府寝屋川市仁和寺町6-8', '080-9999-8888');
+Insert Into gift_informations(user_id, lower_age, upper_age, gender, lower_budget, upper_budget) Values(1, 2, 10, '男の子', '1000', '5000');
+Insert Into payments(user_id, pay, card_number, card_exp_year, card_exp_month, card_name, card_cvv) Values(1, 1, '12345678912345', '2032', '07', 'TESTUSER', '123');
 
 
 
 
---ユーザー登録(pass:morimori)
 
 -- 商品
 drop table if exists items cascade;
