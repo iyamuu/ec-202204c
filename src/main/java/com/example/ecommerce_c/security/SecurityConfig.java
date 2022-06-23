@@ -45,8 +45,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.and().formLogin().loginPage("/login").loginProcessingUrl("/login") // ログインボタンのURL
 				.failureForwardUrl("/login?error=true").defaultSuccessUrl("/top", true).usernameParameter("email")
 				.passwordParameter("password")
-				.and().oauth2Login() // Line Login
-				.loginPage("/login").defaultSuccessUrl("/top", true);
+				.and().oauth2Login().userInfoEndpoint().userService(lineLoginService) // Line Login
+				;
 
 		
 		//cookieにCSRFトークンを入れる
