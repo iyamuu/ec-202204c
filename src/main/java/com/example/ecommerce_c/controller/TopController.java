@@ -95,7 +95,7 @@ public class TopController {
 		
 		model.addAttribute("orderId", session.getAttribute("orderId"));
 
-		return "item_list_toy";
+		return "top_stepper";
 	}
 	
 	private Order initOrder(int userId) {

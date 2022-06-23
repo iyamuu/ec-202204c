@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ラクラクトイ</title>
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
+    <!-- Import Materialize CSS -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
+    />
+    <!-- Import Font Wesome -->
+    <link
+      href="https://use.fontawesome.com/releases/v5.6.1/css/all.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/materialize-stepper@3.1.0/dist/css/mstepper.min.css"
+    />
+
+    <link rel="stylesheet" href="css/header.css" />
+    <link rel="stylesheet" href="css/footer.css" />
+    <link rel="stylesheet" href="css/item_list.css" />
+    <link rel="stylesheet" href="css/item_detail.css" />
+  </head>
+  <body>
+    <!--ヘッダー（共通）-->
+    <header>
+      <div class="container" style="display: block">
+        <div class="header">
+          <div class="header-left">
+            <a href="item_list_toy.html" th:href="@{/top(userId=${userId})}">
+              <img src="img/header_logo.png" class="logo" />
+            </a>
+          </div>
+          <div class="header-right">
+            <a href="login.html" th:href="@{/login(userId=${userId})}">
+              ログイン
+            </a>
+            <a href="login.html" th:href="@{/logout}"> ログアウト </a>
+            <a href="order_history.html"> 注文履歴 </a>
+            <a th:href="@{/cart(orderId=${orderId})}">
+              <i class="fas fa-sign-in-alt"></i>カート
+            </a>
+            <input id="orderId" type="hidden" th:value="${orderId}" />
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <div class="card">
+      <div class="card-content">
+        <ul
+          class="stepper horizontal"
+          style="padding-top: 5rem; min-height: 600px;"
+        >
+          <!-- 商品の一覧が表示されるページ（初期ページ） -->
+          <li class="step active">
+            <div class="step-title waves-effect">
+              商品を探しましょう
+            </div>
+            <div class="step-content" style="z-index: 1">
+              <div class="row">
+                <div class="container" style="margin-top: 5rem">
+                  <form class="search-form" action="post">
+                    <input type="text" id="search-name-input" />
+                    <button class="btn search-btn" type="button">
+                      <span>検 索</span>
+                    </button>
+                  </form>
+                </div>
+                <!--item list-->
+                <div class="item-wrapper" style="padding-top: 5rem">
+                  <div class="container">
+                    <div id="itemList" class="items"></div>
+                  </div>
+                </div>
+              </div>
+              <!-- 商品を追加する処理が終わればこのボタンを押すことでカートの中身を確認するページへ遷移する -->
+              <div class="step-actions">
+                <!-- Here goes your actions buttons -->
+                <button
+                  class="waves-effect waves-dark btn next-step"
+                  data-feedback="toCart"
+                >
+                  カートの確認へ
+                </button>
+              </div>
+            </div>
+          </li>
+          <!-- カートの中身を示すページ -->
+          <li class="step">
+            <div class="step-title waves-effect">カート内の商品</div>
+            <div class="step-content">
+              <div class="row">
+                <label>カートの中身を示すページがここに表示されます</label>
+              </div>
+              <!--カートの中身に問題がなければ、このボタンを押すことで購入確認画面へ遷移する-->
+              <div class="step-actions">
+                <button
+                  class="waves-effect waves-dark btn next-step"
+                  data-feedback="toConfirm"
+                >
+                  購入確認画面へ
+                </button>
+                <button class="waves-effect waves-dark btn-flat previous-step">
+                  商品一覧画面へ戻る
+                </button>
+              </div>
+            </div>
+          </li>
+          <!-- 購入確認画面を示すページ -->
+          <li class="step">
+            <div class="step-title waves-effect">購入確認</div>
+            <div class="step-content">
+              <div class="row">購入確認画面が表示されます</div>
+              <!--お支払い情報などに問題がなければ、このボタンを押すことで完了画面へ遷移する-->
+              <div class="step-actions">
+                <button
+                  class="waves-effect waves-dark btn next-step"
+                  data-feedback="toComplete"
+                >
+                  確定
+                </button>
+                <button class="waves-effect waves-dark btn-flat previous-step">
+                  カートの内容確認に戻る
+                </button>
+              </div>
+            </div>
+          </li>
+          <!-- 購入完了画面を示すページ -->
+          <li class="step">
+            <div class="step-title waves-effect">購入完了</div>
+            <div class="step-content">
+              <div class="row">購入完了画面が表示されます</div>
+              <div class="step-actions">
+                <button
+                  class="waves-effect waves-dark btn blue next-step"
+                  data-feedback="noThing"
+                >
+                  endless
+                </button>
+              </div>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <!--item list-->
+    <!--  <div class="item-wrapper">
+      <div class="container">
+        <div id="itemList" class="items">
+          
+        </div>
+      </div>
+    </div>-->
+
+    <script
+      src="https://code.jquery.com/jquery-3.6.0.min.js"
+      integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+      crossorigin="anonymous"
+    ></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script src="js/itemList.js"></script>
+    <script src="js/postCart.js"></script>
+    <script src="js/spinnerButton.js"></script>
+    <script src="https://unpkg.com/materialize-stepper@3.1.0/dist/js/mstepper.min.js"></script>
+    <script src="js/top_stepper.js"></script>
+  </body>
+</html>
