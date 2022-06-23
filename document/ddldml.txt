@@ -11,6 +11,7 @@ create table users (
  , email varchar(100) not null unique
  , password varchar(100) not null
  , telephone varchar(15) not null
+ , line_id varchar(100)
 ) ;
 
 
