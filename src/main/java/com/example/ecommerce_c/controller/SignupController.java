@@ -1,10 +1,19 @@
 package com.example.ecommerce_c.controller;
 
+import java.beans.PropertyEditor;
+import java.util.List;
+import java.util.Map;
+
 import org.springframework.beans.BeanUtils;
+import org.springframework.beans.PropertyEditorRegistry;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.Errors;
+import org.springframework.validation.FieldError;
+import org.springframework.validation.ObjectError;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -14,6 +23,7 @@ import com.example.ecommerce_c.domain.GiftInformation;
 import com.example.ecommerce_c.domain.Payment;
 import com.example.ecommerce_c.domain.User;
 import com.example.ecommerce_c.form.SignupForm;
+import com.example.ecommerce_c.security.LoginUser;
 import com.example.ecommerce_c.service.SignupService;
 
 /**
@@ -80,6 +90,22 @@ public class SignupController {
 		user = signupService.registerUser(user, addressee, giftInformation, payment); // 登録処理、ここでidが付与される
 		return "redirect:/login";
 
+	}
+	
+	
+	@GetMapping("/line_signup")
+	public String signupFromLine(@AuthenticationPrincipal LoginUser lineLoginUser, Model model) {
+		
+		
+		if(lineLoginUser.getUserId() < 0) {  //IDが負の値ならアカウント登録情報はまだ LineIDをformに入れてサインアップページへ
+			SignupForm form = new SignupForm();
+			form.getUserForm().setLineId(lineLoginUser.getLineId());
+			return getSignupPage(form, model);
+		}else {                              //IDがあるならそのままログイン
+			
+		}
+		
+		return null;
 	}
 
 }

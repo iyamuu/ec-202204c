@@ -134,7 +134,7 @@ public class UserRepository {
 	public Integer insertOne(User user) {
 
 		String sql = "Insert Into users(name, email, password, telephone, line_id) "
-				+ "Values(:name, :email, :password, :telephone, lineId) Returning id;";
+				+ "Values(:name, :email, :password, :telephone, :lineId) Returning id;";
 		SqlParameterSource param = new BeanPropertySqlParameterSource(user);
 
 		Integer userid = jdbcTemplate.queryForObject(sql, param, Integer.class);

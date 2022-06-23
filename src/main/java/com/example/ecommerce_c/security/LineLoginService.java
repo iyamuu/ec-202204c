@@ -29,12 +29,10 @@ public class LineLoginService extends DefaultOAuth2UserService{
 	
 	@Override
 	public OAuth2User loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException {
-		
-		System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+
 		OAuth2User oath2User = super.loadUser(userRequest);
 		//Line IDのセット
 		String lineId = (String)oath2User.getAttributes().get("userId");
-		System.out.println(lineId);
 		
 		
 		User user = userRepository.findByLineId(lineId);
@@ -43,7 +41,7 @@ public class LineLoginService extends DefaultOAuth2UserService{
 			user.setLineId(lineId);
 			user.setName(oath2User.getName());
 			user.setPassword("password");  //仮のパスワード
-			user.setId(999999);
+			user.setId(-1);              //アカウント登録まだなら負の値
 			System.out.println(user);
 		}
 		
