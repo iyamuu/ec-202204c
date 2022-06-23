@@ -2,12 +2,6 @@
  * アイテムリストを作成する
  */
 
-//ローカルで動かすとき
-// const serverURL = "http://localhost:8080/ec-202204c/"
-
-//Herokuで動かすとき
-const serverURL = "https://ec-202204c-toy.herokuapp.com/ec-202204c/";
-
 $(function () {
   //ページが読み込まれた際の処理
   getInitialItemList();
