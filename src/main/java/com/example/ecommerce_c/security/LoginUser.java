@@ -20,6 +20,15 @@ public class LoginUser implements UserDetails {
 		this.authorities = authorities;
 	}
 	
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+	
 	public Integer getUserId() {
 		return user.getId();
 	}
