@@ -42,6 +42,8 @@ public class LineLoginService extends DefaultOAuth2UserService{
 			user = new User();
 			user.setLineId(lineId);
 			user.setName(oath2User.getName());
+			user.setPassword("password");  //仮のパスワード
+			user.setId(999999);
 			System.out.println(user);
 		}
 		
@@ -49,7 +51,7 @@ public class LineLoginService extends DefaultOAuth2UserService{
 		Collection<GrantedAuthority> authorityList = new ArrayList<>();
 		authorityList.add(new SimpleGrantedAuthority("ROLE_USER")); // ユーザ権限付与
 		
-		return new LoginUser(user, authorityList, oath2User.getName());
+		return new LoginUser(user, authorityList);
 		
 	}
 

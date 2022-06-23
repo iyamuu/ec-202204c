@@ -41,7 +41,7 @@ public class FormLoginService implements UserDetailsService {
 		Collection<GrantedAuthority> authorityList = new ArrayList<>();
 		authorityList.add(new SimpleGrantedAuthority("ROLE_USER"));   //ユーザ権限の付与
 		
-		return new LoginUser(user, authorityList, null);
+		return new LoginUser(user, authorityList);
 	}
 
 }
