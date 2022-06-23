@@ -66,7 +66,7 @@ public class TopController {
 		
 		model.addAttribute("orderId", orderId);
 		model.addAttribute("userId", userId);
-		return "item_list_toy";
+		return "top_stepper";
 	}
 
 }
