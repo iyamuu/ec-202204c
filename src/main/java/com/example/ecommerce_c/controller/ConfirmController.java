@@ -18,8 +18,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.example.ecommerce_c.domain.Order;
+import com.example.ecommerce_c.domain.OrderTransaction;
+import com.example.ecommerce_c.domain.OrderTransactionStatus;
+import com.example.ecommerce_c.domain.Payment;
 import com.example.ecommerce_c.form.ConfirmForm;
 import com.example.ecommerce_c.service.ConfirmService;
+import com.example.ecommerce_c.service.OrderTransactionService;
+import com.example.ecommerce_c.service.PaymentService;
 
 /**
  * 注文確認画面を操作するコントローラー.
@@ -34,6 +39,12 @@ public class ConfirmController {
 	private ConfirmService service;
 	@Autowired
 	private MailSender sender;
+
+	@Autowired
+	private OrderTransactionService orderTransactionService;
+
+	@Autowired
+	private PaymentService paymentService;
 
 	@ModelAttribute
 	public ConfirmForm setUpConfirmForm() {
@@ -71,12 +82,16 @@ public class ConfirmController {
 	@PostMapping("/purchase")
 	public String finished(ConfirmForm form, Model model) {
 		Order order = service.getFullOrder(form.getId());
-//		NOTE: クレジット決済ならstatusを入金済(2)にする？
-		order.setStatus(1); // 未入金
+		
+		model.addAttribute("userId", order.getUserId());
 
 //		フォームの内容をコピー
 		BeanUtils.copyProperties(form, order);
 		order.setOrderDate(new Date());
+		// 支払方法情報を取得する
+//		order.setPaymentMethod(form.getPaymentMethod());
+		//もし　支払方法はクレジットカード
+		order.setPaymentMethod(2);
 		try {
 			Date deliveryTime = new SimpleDateFormat("yyyy-MM-dd-hh時")
 					.parse(form.getDeliveryDate() + "-" + form.getDeliveryTime());
@@ -84,19 +99,52 @@ public class ConfirmController {
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
+		
+		Integer paymentMethod = order.getPaymentMethod();
+		if(paymentMethod == 1) {
+			order.setStatus(1); // 未入金
+			service.update(order);
+			return "order_finished";
+		} 
+		
+		else {
+			Payment payment = paymentService.findOneByUserId(order.getUserId());
+			OrderTransaction orderTransaction = new OrderTransaction();
+			
+			//仮のクレジットカード　
+			orderTransaction.setAmount(order.getCalcTotalPrice());
+			orderTransaction.setOrder_number(order.getId());
+			orderTransaction.setCard_number(payment.getCardNumber());
+			orderTransaction.setCard_exp_year(payment.getCardExpYear());
+			orderTransaction.setCard_exp_month(payment.getCardExpMonth());
+			orderTransaction.setCard_cvv(payment.getCardCvv());
+			
+			System.out.println(orderTransaction);
+			
+			OrderTransactionStatus orderTransactionStatus = orderTransactionService.transacting(orderTransaction);
+			System.out.println(orderTransactionStatus);
+			if( orderTransactionStatus.getStatus().equals("error")) {  //決済失敗した場合
+				model.addAttribute("paymentError", orderTransactionStatus.getMessage());
+				System.out.println("tess");
+				return "order_confirm";
+			}else { 											//決済成功
+				order.setStatus(2);
+				service.update(order);
+				System.out.println("tesssssssssss");
+				
+//				メール送信
+				SimpleMailMessage mail = service.createMail(order.getDestinationEmail());
+				try {
+					sender.send(mail);
+				} catch (MailException e) {
+					e.printStackTrace();
+				}
 
-		service.update(order);
-		model.addAttribute("userId", order.getUserId());
-
-//		メール送信
-		SimpleMailMessage mail = service.createMail(order.getDestinationEmail());
-		try {
-			sender.send(mail);
-		} catch (MailException e) {
-			e.printStackTrace();
+				
+				return "order_finished";
+			}
 		}
 
-		return "order_finished";
 	}
 
 }
