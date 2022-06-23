@@ -8,8 +8,10 @@ import org.springframework.stereotype.Service;
 
 import com.example.ecommerce_c.domain.Item;
 import com.example.ecommerce_c.domain.Order;
+import com.example.ecommerce_c.domain.OrderItem;
 import com.example.ecommerce_c.domain.Topping;
 import com.example.ecommerce_c.repository.ItemRepository;
+import com.example.ecommerce_c.repository.OrderItemRepository;
 import com.example.ecommerce_c.repository.OrderRepository;
 import com.example.ecommerce_c.repository.ToppingRepository;
 
@@ -23,6 +25,8 @@ public class TopService {
 
 	@Autowired
 	private OrderRepository orderRepository;
+	@Autowired
+	private OrderItemRepository orderItemRepository;
 
 	/**
 	 * アイテムを取得する処理.
@@ -37,10 +41,10 @@ public class TopService {
 		List<Item> itemList = new ArrayList<>();
 		if (name == null || name.isBlank()) {
 			itemList = itemRepository.findPages(from, to);
-		}else {
+		} else {
 			itemList = itemRepository.findByName(from, to, name);
 		}
-		
+
 		for (Item item : itemList) {
 			item.setToppingList(toppingList);
 		}
@@ -68,4 +72,21 @@ public class TopService {
 		int returningId = orderRepository.insert(order);
 		return returningId;
 	}
+
+	/**
+	 * ゲストユーザでカートに追加した商品を、ログインユーザのカートに移動させる.
+	 * 
+	 * @param guestOrderId ゲストユーザのorderID
+	 * @param loginOrderId ログインユーザのorderID
+	 */
+	public void mergeOrder(int guestOrderId, int loginOrderId) {
+//		ゲストユーザの注文商品のユーザIDを、登録済みユーザのユーザIDに変更
+		Order order = orderRepository.findFullOrderById(guestOrderId);
+		for (OrderItem orderItem : order.getOrderItemList()) {
+			orderItem.setOrderId(loginOrderId);
+			orderItemRepository.insertOne(orderItem);
+			orderItemRepository.deleteOrderItem(orderItem.getId());
+		}
+	}
+
 }
