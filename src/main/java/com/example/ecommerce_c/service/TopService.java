@@ -6,10 +6,12 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.example.ecommerce_c.domain.GiftInformation;
 import com.example.ecommerce_c.domain.Item;
 import com.example.ecommerce_c.domain.Order;
 import com.example.ecommerce_c.domain.OrderItem;
 import com.example.ecommerce_c.domain.Topping;
+import com.example.ecommerce_c.repository.GifInformationRepository;
 import com.example.ecommerce_c.repository.ItemRepository;
 import com.example.ecommerce_c.repository.OrderItemRepository;
 import com.example.ecommerce_c.repository.OrderRepository;
@@ -22,6 +24,8 @@ public class TopService {
 	ItemRepository itemRepository;
 	@Autowired
 	ToppingRepository toppingRepository;
+	@Autowired
+	GifInformationRepository giftInfoRepository;
 
 	@Autowired
 	private OrderRepository orderRepository;
@@ -29,25 +33,32 @@ public class TopService {
 	private OrderItemRepository orderItemRepository;
 
 	/**
-	 * アイテムを取得する処理.
+	 * 初期の絞り込みを行う.
 	 * 
-	 * @param from スタート
-	 * @param to   ゴール
-	 * @param name 入力値
+	 * @param from 何件目から
+	 * @param to   何件目まで
 	 * @return アイテム
 	 */
-	public List<Item> getItemsByPage(int from, int to, String name) {
+	public List<Item> getItemsByPage(int from, int to, GiftInformation giftInformation) {
 		List<Topping> toppingList = toppingRepository.getTopping();
 		List<Item> itemList = new ArrayList<>();
-		if (name == null || name.isBlank()) {
-			itemList = itemRepository.findPages(from, to);
-		} else {
-			itemList = itemRepository.findByName(from, to, name);
-		}
+		itemList = itemRepository.findPages(from, to, giftInformation);
 
 		for (Item item : itemList) {
 			item.setToppingList(toppingList);
 		}
+		return itemList;
+	}
+
+	public List<Item> searchByName(int from, int to, String name) {
+		List<Topping> toppingList = toppingRepository.getTopping();
+		List<Item> itemList = new ArrayList<>();
+		itemList = itemRepository.findByName(from, to, name);
+
+		for (Item item : itemList) {
+			item.setToppingList(toppingList);
+		}
+
 		return itemList;
 	}
 
@@ -87,6 +98,18 @@ public class TopService {
 			orderItemRepository.insertOne(orderItem);
 			orderItemRepository.deleteOrderItem(orderItem.getId());
 		}
+	}
+	
+	
+	/**
+	 * ユーザIDから絞り込み情報を取得する.
+	 * 
+	 * @param userId　ユーザID
+	 * @return　絞り込み情報
+	 */
+	public GiftInformation getGiftInfoByUserId(Integer userId) {
+		
+		return giftInfoRepository.findOneByUserId(userId);
 	}
 
 }

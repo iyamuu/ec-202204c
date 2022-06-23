@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.ecommerce_c.domain.GiftInformation;
 import com.example.ecommerce_c.domain.Item;
 import com.example.ecommerce_c.form.PageForm;
 import com.example.ecommerce_c.security.LoginUser;
@@ -39,7 +40,23 @@ public class TopAPIController {
 	@PostMapping("/getItemByPage")
 	public List<Item> getItemsByPage(@RequestBody PageForm form, @AuthenticationPrincipal final LoginUser loginUser) {
 		
-		List<Item> itemList = topService.getItemsByPage(form.getFrom(), form.getTo(), form.getName());
+		
+		//ログインユーザなら絞り込み情報がある、ゲストなら絞り込みなし
+		GiftInformation giftInformation;
+		if(loginUser == null) {
+			giftInformation = new GiftInformation();  //全商品が対象となるような絞り込み情報
+		}else {
+			giftInformation = topService.getGiftInfoByUserId(loginUser.getUserId());
+		}
+		
+		
+		
+		List<Item> itemList;
+		if(form.getName() == null) {
+			itemList = topService.getItemsByPage(form.getFrom(), form.getTo(), giftInformation);
+		}else {
+			itemList = topService.searchByName(form.getFrom(), form.getTo(), form.getName()); 
+		}
 
 		return itemList;
 	}
