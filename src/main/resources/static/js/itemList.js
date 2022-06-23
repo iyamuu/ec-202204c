@@ -19,17 +19,24 @@ $("#search-name-input").keypress(function (e) {
   }
 });
 
+//検索
 function getItemByName(name) {
+  let xsrf = $.cookie("XSRF-TOKEN");
+
   let hostUrl = "http://localhost:8080/ec-202204c/getItemByPage";
   $.ajax({
     url: hostUrl,
     type: "post",
     dataType: "json",
-    data: {
+    headers: {
+      "Content-Type": "application/json; charset=utf-8",
+      "X-XSRF-TOKEN": xsrf,
+    },
+    data: JSON.stringify({
       from: 0,
       to: 10,
       name: name,
-    },
+    }),
     async: true,
   }).done(function (data) {
     $("#itemList").empty();
@@ -37,22 +44,35 @@ function getItemByName(name) {
   });
 }
 
+//初期表示
 function getInitialItemList() {
+  let xsrf = $.cookie("XSRF-TOKEN");
+
   let hostUrl = "http://localhost:8080/ec-202204c/getItemByPage";
 
   $.ajax({
     url: hostUrl,
     type: "post",
     dataType: "json",
-    data: {
+    headers: {
+      "Content-Type": "application/json; charset=utf-8",
+      "X-XSRF-TOKEN": xsrf,
+    },
+    data: JSON.stringify({
       from: 0,
       to: 10,
-    },
+    }),
     async: true,
-  }).done(function (data) {
-    $("#itemList").empty();
-    data.forEach((item) => genarateItemCell(item));
-  });
+  })
+    .done(function (data) {
+      $("#itemList").empty();
+      data.forEach((item) => genarateItemCell(item));
+    })
+    .fail(function (XMLHttpRequest, textStatus, errorThrown) {
+      console.log("XMLHttpRequest : " + XMLDocument);
+      console.log("textStatus : " + textStatus);
+      console.log("errorThrown : " + errorThrown);
+    });
 }
 
 function genarateItemCell(item) {

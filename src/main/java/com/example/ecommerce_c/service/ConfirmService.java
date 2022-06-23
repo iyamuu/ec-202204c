@@ -1,6 +1,7 @@
 package com.example.ecommerce_c.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.SimpleMailMessage;
 import org.springframework.stereotype.Service;
 
 import com.example.ecommerce_c.domain.Order;
@@ -73,5 +74,15 @@ public class ConfirmService {
 		Order order = orderRepository.findFullOrderById(orderId);
 		order.getCalcTotalPrice();
 		return order;
+	}
+	
+	private static final String senderMailAddress = "test@sample.com";
+	public SimpleMailMessage createMail(String receiverMailAddress) {
+		SimpleMailMessage mail = new SimpleMailMessage();
+		mail.setFrom(senderMailAddress);
+		mail.setTo(receiverMailAddress);
+		mail.setSubject("タイトル");
+		mail.setText("テキスト");
+		return mail;
 	}
 }

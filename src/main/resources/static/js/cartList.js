@@ -176,15 +176,20 @@ function deleteOrderItem(id) {
  */
 
 function updateOrderItem(id, quantity) {
+  let xsrf = $.cookie("XSRF-TOKEN");
   let hostUrl = "http://localhost:8080/ec-202204c/update";
 
   $.ajax({
     url: hostUrl,
     type: "post",
     dataType: "json",
-    data: {
+    data: JSON.stringify({
       orderItemId: id,
       quantity: quantity,
+    }),
+    headers: {
+      "Content-Type": "application/json; charset=utf-8",
+      "X-XSRF-TOKEN": xsrf,
     },
     async: true,
   })

@@ -56,7 +56,7 @@
             <a th:href="@{/cart(orderId=${orderId})}">
               <i class="fas fa-sign-in-alt"></i>カート
             </a>
-            <input id="orderId" type="hidden" th:value="${orderId}" />
+            <input id="orderId" type="hidden" th:value="${session.orderId}" />
           </div>
         </div>
       </div>
@@ -139,6 +139,17 @@
                     <div class="row cart-total-price">
                       <div id="tax"></div>
                       <div id="totalPrice"></div>
+                    </div>
+
+                    <div class="row order-confirm-btn">
+                      <form th:action="@{/confirm}" method="get">
+                        <input
+                          type="hidden"
+                          name="orderId"
+                          th:value="${session.orderId}"
+                        />
+                        <button class="btn">注文に進む</button>
+                      </form>
                     </div>
                   </div>
                   <!-- end container -->
@@ -415,6 +426,7 @@
       integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
       crossorigin="anonymous"
     ></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <script src="js/itemList.js"></script>
     <script src="js/postCart.js"></script>
