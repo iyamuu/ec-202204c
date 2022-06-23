@@ -7,6 +7,9 @@ import java.util.Date;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.MailException;
+import org.springframework.mail.MailSender;
+import org.springframework.mail.SimpleMailMessage;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -34,10 +37,12 @@ import com.example.ecommerce_c.service.PaymentService;
 public class ConfirmController {
 	@Autowired
 	private ConfirmService service;
+	@Autowired
+	private MailSender sender;
 
 	@Autowired
 	private OrderTransactionService orderTransactionService;
-	
+
 	@Autowired
 	private PaymentService paymentService;
 
@@ -95,7 +100,6 @@ public class ConfirmController {
 			e.printStackTrace();
 		}
 		
-		
 		Integer paymentMethod = order.getPaymentMethod();
 		if(paymentMethod == 1) {
 			order.setStatus(1); // 未入金
@@ -127,10 +131,20 @@ public class ConfirmController {
 				order.setStatus(2);
 				service.update(order);
 				System.out.println("tesssssssssss");
+				
+//				メール送信
+				SimpleMailMessage mail = service.createMail(order.getDestinationEmail());
+				try {
+					sender.send(mail);
+				} catch (MailException e) {
+					e.printStackTrace();
+				}
+
+				
 				return "order_finished";
 			}
 		}
 
 	}
-	
+
 }
