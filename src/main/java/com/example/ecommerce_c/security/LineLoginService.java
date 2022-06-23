@@ -30,6 +30,7 @@ public class LineLoginService extends DefaultOAuth2UserService{
 	@Override
 	public OAuth2User loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException {
 		
+		System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
 		OAuth2User oath2User = super.loadUser(userRequest);
 		//Line IDのセット
 		String lineId = (String)oath2User.getAttributes().get("userId");
