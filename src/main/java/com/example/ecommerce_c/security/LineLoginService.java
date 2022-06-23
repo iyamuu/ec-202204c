@@ -33,11 +33,14 @@ public class LineLoginService extends DefaultOAuth2UserService{
 		OAuth2User oath2User = super.loadUser(userRequest);
 		//Line IDのセット
 		String lineId = (String)oath2User.getAttributes().get("userId");
+		System.out.println(lineId);
+		
 		
 		User user = userRepository.findByLineId(lineId);
 		if(user == null) {
 			user = new User();
 			user.setLineId(lineId);
+			System.out.println(user);
 		}
 		
 		// 権限付与の例
