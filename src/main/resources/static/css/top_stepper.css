@@ -15,3 +15,11 @@
    border-radius: 15px;
    box-shadow: 0px 5px 25px 0px rgba(0, 0, 0, 0.15);
 }
+
+
+.fixed_btn
+{
+  position: fixed;
+  bottom: 100px; 
+  right: 10px;
+}
