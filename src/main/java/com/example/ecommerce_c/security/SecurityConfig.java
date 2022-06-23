@@ -10,6 +10,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 
 
 @EnableWebSecurity
@@ -24,7 +25,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	public void configure(WebSecurity web) throws Exception {
 		// セキュリティを適用しない
 		web.ignoring().antMatchers("/css/**").antMatchers("/js/**").antMatchers("/img/**")
-		.antMatchers("/getItemByPage").antMatchers("/show").antMatchers("/add").antMatchers("/delete").antMatchers("/update");
+//		.antMatchers("/getItemByPage")
+		.antMatchers("/show").antMatchers("/add").antMatchers("/delete").antMatchers("/update");
 	}
 
 	@Override
@@ -32,11 +34,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 		http.authorizeRequests().antMatchers("/login").permitAll().antMatchers("/signup").permitAll()
 		.antMatchers("/top").permitAll().antMatchers("/cart").permitAll()   //一覧画面とカート画面を許可
-//		.antMatchers("/getItemByPage").permitAll().antMatchers("/show").permitAll().antMatchers("/add").permitAll().antMatchers("/delete").permitAll().antMatchers("/update").permitAll()    //RestControllerへも許可
+		.antMatchers("/getItemByPage").permitAll()
+//		.antMatchers("/show").permitAll().antMatchers("/add").permitAll().antMatchers("/delete").permitAll().antMatchers("/update").permitAll()    //RestControllerへも許可
 		.anyRequest().authenticated()
 		.and().formLogin().loginPage("/login").loginProcessingUrl("/login") // ログインボタンのURL
 				.failureForwardUrl("/login?error=true").defaultSuccessUrl("/top", false)
 				.usernameParameter("email").passwordParameter("password");
+		
+		
+		http.csrf().csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse());
 	}
 
 	@Override

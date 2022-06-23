@@ -44,7 +44,6 @@ public class TopService {
 		for (Item item : itemList) {
 			item.setToppingList(toppingList);
 		}
-		System.out.println(toppingList);
 		return itemList;
 	}
 

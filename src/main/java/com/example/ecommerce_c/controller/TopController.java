@@ -33,6 +33,9 @@ public class TopController {
 	@GetMapping("/top")
 	public String index(Integer userId, Model model, @AuthenticationPrincipal final LoginUser loginUser) {
 		
+		System.out.println("controller");
+		System.out.println(loginUser);
+		
 		//ログインしていたらそのIDを用いる
 		if(loginUser != null) {
 			userId = loginUser.getUserId();

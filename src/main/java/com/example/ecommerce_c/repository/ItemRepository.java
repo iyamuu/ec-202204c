@@ -46,7 +46,7 @@ public class ItemRepository {
 	 * @param to   ゴール
 	 * @return アイテム
 	 */
-	public List<Item> findPages(int from, int to) {
+	public List<Item> findPages(Integer from, Integer to) {
 		String sql = "select id, name, description, price_m, price_l, image_path, target_age, gender, deleted" + " from items"
 				+ " order by id" + " offset :from rows" + " fetch next :to rows only";
 		SqlParameterSource param = new MapSqlParameterSource().addValue("from", from).addValue("to", to);
@@ -62,7 +62,7 @@ public class ItemRepository {
 	 * @param name
 	 * @return 商品リスト
 	 */
-	public List<Item> findByName(int from, int to, String name) {
+	public List<Item> findByName(Integer from, Integer to, String name) {
 		String sql = "select id, name, description, price_m, price_l, image_path, target_age, gender, deleted" + " from items"
 				+ " where name like :name" + " order by id" + " offset :from rows" + " fetch next :to rows only";
 		SqlParameterSource param = new MapSqlParameterSource().addValue("name", '%' + name + '%').addValue("from", from)
