@@ -1,0 +1,767 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <!--Import Google Icon Font-->
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
+    <!-- Import Materialize CSS -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
+    />
+    <!-- Import Font Wesome -->
+    <link
+      href="https://use.fontawesome.com/releases/v5.6.1/css/all.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/materialize-stepper@3.1.0/dist/css/mstepper.min.css"
+    />
+    <link rel="stylesheet" th:href="@{css/header.css}" />
+    <link rel="stylesheet" th:href="@{css/footer.css}" />
+    <link rel="stylesheet" th:href="@{css/register_admin.css}" />
+    <link rel="stylesheet" th:href="@{css/login.css}" />
+    <link rel="stylesheet" th:href="@{css/signup_stepper.css}" />
+
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ラクラクトイ</title>
+  </head>
+
+  <body>
+    <header>
+      <div class="container">
+        <div class="header">
+          <div class="header-left">
+            <a href="top.html"> </a>
+          </div>
+
+          <div class="header-right">
+            <a href="item_list.html" th:href="@{/top}">商品一覧</a>
+            <a th:href="@{/signup}">会員登録</a>
+            <a href="login.html" th:href="@{/login}" class="login">
+              <i class="fas fa-sign-in-alt"></i>ログイン
+            </a>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <div class="top-wrapper">
+      <div class="container">
+        <div class="row register-page">
+          <form th:action="@{/signup}" method="post" th:object="${signupForm}">
+            <div class="section grey lighten-5">
+              <div class="container">
+                <div class="row">
+                  <div
+                    class="col xl4 l6 m10 s12 offset-xl4 offset-l3 offset-m1"
+                  >
+                    <h3 class="light center-align blue-text signup-title">
+                      新規登録
+                    </h3>
+                    <div class="card">
+                      <div class="card-content">
+                        <ul data-method="GET" class="stepper linear">
+                          <li id="step1" class="step active">
+                            <div class="step-title waves-effect waves-dark">
+                              お客様情報
+                            </div>
+                            <div
+                              class="step-content"
+                              th:object="${signupForm.userForm}"
+                            >
+                              <div class="row">
+                                <div class="input-field col s12">
+                                  <div>
+                                    <label
+                                      th:if="*{#fields.hasErrors('name')}"
+                                      th:errors="*{name}"
+                                      class="error-name red-text"
+                                    >
+                                    </label>
+                                    <label class="error-name red-text"></label>
+                                  </div>
+                                  <div class="row">
+                                    <input
+                                      type="text"
+                                      id="name"
+                                      name="name"
+                                      class="form-control"
+                                      placeholder="山田太郎"
+                                      th:field="*{name}"
+                                    />
+                                    <label for="name">氏名</label>
+                                  </div>
+
+                                  <!-- メールアドレス -->
+                                  <div>
+                                    <label
+                                      th:if="*{#fields.hasErrors('email')}"
+                                      th:errors="*{email}"
+                                      class="error-mail red-text"
+                                    >
+                                    </label>
+                                    <lable class="error-mail red-text"></lable>
+                                    <label
+                                      class="duplicate-mail red-text"
+                                    ></label>
+                                  </div>
+                                  <div class="row">
+                                    <div class="input-field col s12">
+                                      <input
+                                        type="text"
+                                        th:field="*{email}"
+                                        id="email"
+                                        name="email"
+                                        class="form-control"
+                                        placeholder="yamada@mail.com"
+                                      />
+                                      <label for="email">メールアドレス</label>
+                                    </div>
+                                  </div>
+                                  <!-- 郵便番号 -->
+                                  <div>
+                                    <label
+                                      class="error-zipCode red-text"
+                                    ></label>
+                                  </div>
+                                  <div class="row">
+                                    <div class="input-field col s12">
+                                      <input
+                                        id="zipCode"
+                                        name="zipCode"
+                                        class="form-control"
+                                        placeholder="xxxyyyy"
+                                        type="text"
+                                        list="zipList"
+                                      />
+                                      <label for="zipCode">郵便番号</label>
+                                    </div>
+                                  </div>
+
+                                  <!-- 住所 -->
+                                  <div>
+                                    <label
+                                      class="error-address red-text"
+                                    ></label>
+                                  </div>
+                                  <div class="row">
+                                    <div class="input-field col s12">
+                                      <input
+                                        id="address"
+                                        type="text"
+                                        name="address"
+                                        class="form-control"
+                                      />
+                                      <label for="address">住所</label>
+                                    </div>
+                                  </div>
+
+                                  <!-- 電話番号 -->
+                                  <div>
+                                    <label
+                                      th:if="*{#fields.hasErrors('telephone')}"
+                                      th:errors="*{telephone}"
+                                      class="error-telephone red-text"
+                                      >電話番号はXXXX-XXXX-XXXXの形式で入力してください</label
+                                    >
+                                    <label
+                                      class="error-telephone red-text"
+                                    ></label>
+                                  </div>
+                                  <div class="row">
+                                    <div class="input-field col s12">
+                                      <input
+                                        id="tel"
+                                        type="tel"
+                                        th:field="*{telephone}"
+                                        name="telephone"
+                                        class="form-control"
+                                      />
+                                      <label for="tel">電話番号</label>
+                                    </div>
+                                  </div>
+
+                                  <!-- パスワード -->
+                                  <div>
+                                    <label
+                                      th:if="*{#fields.hasErrors('password')}"
+                                      th:errors="*{password}"
+                                      class="error-password red-text"
+                                      >パスワードは８文字以上１６文字以内で設定してください</label
+                                    >
+                                    <label
+                                      class="error-password red-text"
+                                    ></label>
+                                  </div>
+                                  <div class="row">
+                                    <div class="input-field col s12">
+                                      <input
+                                        id="password"
+                                        type="password"
+                                        minlength="8"
+                                        name="password"
+                                        th:field="*{password}"
+                                      />
+                                      <label for="password">パスワード</label>
+                                    </div>
+                                  </div>
+
+                                  <!-- 確認用パスワード -->
+                                  <div>
+                                    <label
+                                      th:if="*{#fields.hasErrors('confirmPassword')}"
+                                      th:errors="*{confirmPassword}"
+                                      class="error-confirmPassword red-text"
+                                      >パスワードと確認用パスワードが不一致です</label
+                                    >
+                                    <label
+                                      class="error-confirmPassword red-text"
+                                    ></label>
+                                  </div>
+                                  <div class="row">
+                                    <div class="input-field col s12">
+                                      <input
+                                        id="confirmation_password"
+                                        type="password"
+                                        name="confirmPassword"
+                                        minlength="8"
+                                        th:field="*{confirmPassword}"
+                                      />
+                                      <label for="confirmation_password"
+                                        >確認用パスワード</label
+                                      >
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="step-actions">
+                                <button
+                                  class="waves-effect waves-dark btn blue next-step"
+                                  data-feedback="userCheck"
+                                >
+                                  お届け先情報入力へ
+                                </button>
+                              </div>
+                            </div>
+                          </li>
+                          <li class="step" onclick="userCheck()">
+                            <div class="step-title waves-effect waves-dark">
+                              お届け先情報入力
+                            </div>
+                            <div
+                              class="step-content"
+                              th:object="${signupForm.addresseeForm}"
+                            >
+                              <!-- お届け先の名前 -->
+                              <div>
+                                <label
+                                  th:if="*{#fields.hasErrors('name')}"
+                                  th:errors="*{name}"
+                                  class="error-zipCode"
+                                  >お届け先のお名前を入力してください</label
+                                >
+                              </div>
+                              <div class="row">
+                                <!-- 氏名  -->
+                                <div>
+                                  <label class="error-partner-name red-text">
+                                  </label>
+                                </div>
+                                <div class="row">
+                                  <input
+                                    id="address_name"
+                                    name="name"
+                                    th:field="*{name}"
+                                    class="form-control"
+                                    placeholder="山田花子"
+                                    type="text"
+                                  />
+                                  <label for="address_name"
+                                    >お届け先のお名前</label
+                                  >
+                                </div>
+
+                                <!-- 郵便番号 -->
+                                <div>
+                                  <label
+                                    class="error-partner-zipCode red-text"
+                                  ></label>
+                                </div>
+                                <div class="row">
+                                  <div class="input-field col s12">
+                                    <input
+                                      id="partnerZipCode"
+                                      name="zipCode"
+                                      class="form-control"
+                                      placeholder="xxxyyyy"
+                                      type="text"
+                                      list="zipList"
+                                    />
+                                    <label for="zipCode">宛先の郵便番号</label>
+                                  </div>
+                                </div>
+
+                                <!-- 住所 -->
+                                <div>
+                                  <label
+                                    class="error-partner-address red-text"
+                                  ></label>
+                                </div>
+                                <div class="row">
+                                  <div class="input-field col s12">
+                                    <input
+                                      id="partnerAddress"
+                                      type="text"
+                                      name="address"
+                                      class="form-control"
+                                    />
+                                    <label for="address">宛先の住所</label>
+                                  </div>
+                                </div>
+
+                                <!-- 電話番号 -->
+                                <div>
+                                  <label
+                                    class="error-partner-telephone red-text"
+                                  ></label>
+                                </div>
+                                <div class="row">
+                                  <div class="input-field col s12">
+                                    <input
+                                      id="partnerTel"
+                                      type="tel"
+                                      name="telephone"
+                                      class="form-control"
+                                    />
+                                    <label for="tel">宛先の電話番号</label>
+                                  </div>
+                                </div>
+                              </div>
+
+                              <!-- 郵便番号 -->
+                              <div>
+                                <label
+                                  th:if="*{#fields.hasErrors('zipCode')}"
+                                  th:errors="*{zipCode}"
+                                  class="error-zipCode"
+                                  >郵便番号はXXX-XXXXの形式で入力してください</label
+                                >
+                              </div>
+                              <div class="row">
+                                <div class="input-field col s12">
+                                  <input
+                                    id="zipCode"
+                                    name="zipCode"
+                                    th:field="*{zipCode}"
+                                    class="form-control"
+                                    placeholder="xxxyyyy"
+                                    type="text"
+                                    list="zipList"
+                                  />
+                                  <label for="zipCode">郵便番号</label>
+                                </div>
+                              </div>
+
+                              <!-- 住所 -->
+                              <div>
+                                <label
+                                  th:if="*{#fields.hasErrors('address')}"
+                                  th:errors="*{address}"
+                                  class="error-address"
+                                  >住所を入力して下さい</label
+                                >
+                              </div>
+                              <div class="row">
+                                <div class="input-field col s12">
+                                  <input
+                                    id="address"
+                                    type="text"
+                                    name="address"
+                                    th:field="*{address}"
+                                    class="form-control"
+                                  />
+                                  <label for="address">住所</label>
+                                </div>
+                              </div>
+
+                              <!-- お届け先の電話番号 -->
+                              <div>
+                                <label
+                                  th:if="*{#fields.hasErrors('telephone')}"
+                                  th:errors="*{telephone}"
+                                  class="error-address"
+                                  >電話番号を入力して下さい</label
+                                >
+                              </div>
+                              <div class="row">
+                                <div class="input-field col s12">
+                                  <input
+                                    id="address_tel"
+                                    type="text"
+                                    name="telephone"
+                                    th:field="*{telephone}"
+                                    class="form-control"
+                                  />
+                                  <label for="address_tel"
+                                    >お届け先の電話番号</label
+                                  >
+                                </div>
+                              </div>
+
+                              <div class="step-actions">
+                                <button
+                                  class="waves-effect waves-dark btn blue next-step"
+                                  type="button"
+                                >
+                                  次へ
+                                </button>
+                                <button
+                                  class="waves-effect waves-dark btn-flat previous-step"
+                                  type="button"
+                                >
+                                  戻る
+                                </button>
+                              </div>
+                            </div>
+                          </li>
+
+                          <!-- 絞り込み情報 -->
+
+                          <li class="step">
+                            <div class="step-title waves-effect waves-dark">
+                              プレゼントを贈るお相手の情報
+                            </div>
+                            <div
+                              class="step-content"
+                              th:object="${signupForm.giftInfoForm}"
+                            >
+                              <!-- 年齢の下限 -->
+                              <div class="row">
+                                <div class="input-field col s12">
+                                  <input
+                                    id="lower_age"
+                                    name="lowerAge"
+                                    th:field="*{lowerAge}"
+                                    class="form-control"
+                                    type="number"
+                                  />
+                                  <label for="lower_age">何歳から</label>
+                                </div>
+                              </div>
+
+                              <!-- 年齢の上限 -->
+                              <div class="row">
+                                <div class="input-field col s12">
+                                  <input
+                                    id="upper_age"
+                                    name="upperAge"
+                                    th:field="*{upperAge}"
+                                    class="form-control"
+                                    type="number"
+                                  />
+                                  <label for="upper_age">何歳まで</label>
+                                </div>
+                              </div>
+
+                              <!-- 性別 -->
+                              <div class="row">
+                                <div class="input-field col s12">
+                                  <div>
+                                    <input
+                                      id="man"
+                                      type="radio"
+                                      name="gender"
+                                      th:field="*{gender}"
+                                      value="男の子"
+                                      checked
+                                    />
+                                  </div>
+                                  <div>
+                                    <label for="man">男の子</label>
+                                    <input
+                                      id="woman"
+                                      type="radio"
+                                      name="gender"
+                                      th:field="*{gender}"
+                                      value="女の子"
+                                    />
+                                    <label for="woman">女の子</label>
+                                  </div>
+                                </div>
+                              </div>
+
+                              <!-- 予算の下限 -->
+                              <div class="row">
+                                <div class="input-field col s12">
+                                  <input
+                                    id="lower_budget"
+                                    name="lowerBudget"
+                                    th:field="*{lowerBudget}"
+                                    class="form-control"
+                                    type="number"
+                                  />
+                                  <label for="lower_budget">何円から</label>
+                                </div>
+                              </div>
+
+                              <!-- 予算の上限 -->
+                              <div class="row">
+                                <div class="input-field col s12">
+                                  <input
+                                    id="upper_budget"
+                                    name="upperBudget"
+                                    th:field="*{upperBudget}"
+                                    class="form-control"
+                                    type="number"
+                                  />
+                                  <label for="upper_budget">何円まで</label>
+                                </div>
+                              </div>
+
+                              <div class="step-actions">
+                                <button
+                                  class="waves-effect waves-dark btn blue next-step"
+                                  type="button"
+                                >
+                                  次へ
+                                </button>
+                                <button
+                                  class="waves-effect waves-dark btn-flat previous-step"
+                                  type="button"
+                                >
+                                  戻る
+                                </button>
+                              </div>
+                            </div>
+                          </li>
+
+                          <!-- 支払い方法 -->
+                          <li class="step">
+                            <div class="step-title waves-effect waves-dark">
+                              支払いの情報
+                            </div>
+                            <div
+                              class="step-content"
+                              th:object="${signupForm.paymentForm}"
+                            >
+                              <!-- 支払い方法 -->
+                              <div class="row">
+                                <div>
+                                  <label
+                                    th:if="*{#fields.hasErrors('pay')}"
+                                    th:errors="*{pay}"
+                                    class="error-address"
+                                    >支払方法を選択してください</label
+                                  >
+                                </div>
+                                <div class="input-field col s12">
+                                  <div>
+                                    <input
+                                      id="money"
+                                      type="radio"
+                                      name="pay"
+                                      th:field="*{pay}"
+                                      value="0"
+                                      checked
+                                    />
+                                    <label for="money">代引き</label>
+                                  </div>
+                                  <div>
+                                    <input
+                                      id="card"
+                                      type="radio"
+                                      name="pay"
+                                      th:field="*{pay}"
+                                      value="1"
+                                    />
+                                    <label for="card">クレジットカード</label>
+                                  </div>
+                                </div>
+                              </div>
+
+                              <!-- クレジットカードクレジットカードの番号 -->
+                              <div class="row">
+                                <div>
+                                  <label
+                                    th:if="*{#fields.hasErrors('cardNumber')}"
+                                    th:errors="*{cardNumber}"
+                                    class="error-address"
+                                    >クレジットカード番号を正しく入力してください</label
+                                  >
+                                </div>
+                                <div class="input-field col s12">
+                                  <input
+                                    id="card_number"
+                                    name="cardNumber"
+                                    th:field="*{cardNumber}"
+                                    class="form-control"
+                                    type="number"
+                                  />
+                                  <label for="card_number"
+                                    >クレジットカード番号</label
+                                  >
+                                </div>
+                              </div>
+
+                              <!-- クレジットカードの期限(年) -->
+                              <div class="row">
+                                <div>
+                                  <label
+                                    th:if="*{#fields.hasErrors('cardExpYear')}"
+                                    th:errors="*{cardExpYear}"
+                                    class="error-address"
+                                    >クレジットカードの期限(年)を正しく入力してください</label
+                                  >
+                                </div>
+                                <div class="input-field col s12">
+                                  <input
+                                    id="card_exp_year"
+                                    type="number"
+                                    name="cardExpYear"
+                                    th:field="*{cardExpYear}"
+                                    class="form-control"
+                                  />
+                                  <label for="card_exp_year"
+                                    >クレジットカードの期限 (年)</label
+                                  >
+                                </div>
+                              </div>
+
+                              <!-- クレジットカードの期限(月) -->
+                              <div class="row">
+                                <div>
+                                  <label
+                                    th:if="*{#fields.hasErrors('cardExpMonth')}"
+                                    th:errors="*{cardExpMonth}"
+                                    class="error-address"
+                                    >クレジットカードの期限(月)を正しく入力してください</label
+                                  >
+                                </div>
+                                <div class="input-field col s12">
+                                  <input
+                                    id="card_exp_month"
+                                    type="number"
+                                    name="cardExpMonth"
+                                    th:field="*{cardExpMonth}"
+                                    class="form-control"
+                                  />
+                                  <label for="card_exp_month"
+                                    >クレジットカード (月)</label
+                                  >
+                                </div>
+                              </div>
+
+                              <!-- クレジットカードの名義 -->
+                              <div class="row">
+                                <div>
+                                  <label
+                                    th:if="*{#fields.hasErrors('cardName')}"
+                                    th:errors="*{cardName}"
+                                    class="error-address"
+                                    >クレジットカードの名義を正しく入力してください</label
+                                  >
+                                </div>
+                                <div class="input-field col s12">
+                                  <input
+                                    id="card_name"
+                                    type="text"
+                                    name="cardName"
+                                    th:field="*{cardName}"
+                                    class="form-control"
+                                  />
+                                  <label for="card_name"
+                                    >クレジットカードの名義</label
+                                  >
+                                </div>
+                              </div>
+
+                              <!-- クレジットカードのセキュリティコード -->
+                              <div class="row">
+                                <div>
+                                  <label
+                                    th:if="*{#fields.hasErrors('cardCvv')}"
+                                    th:errors="*{cardCvv}"
+                                    class="error-address"
+                                    >クレジットカードのセキュリティコードを正しく入力してください</label
+                                  >
+                                </div>
+                                <div class="input-field col s12">
+                                  <input
+                                    id="card_cvv"
+                                    type="number"
+                                    name="cardCvv"
+                                    th:field="*{cardCvv}"
+                                    class="form-control"
+                                  />
+                                  <label for="card_cvv"
+                                    >クレジットカードのセキュリティコード</label
+                                  >
+                                </div>
+                              </div>
+
+                              <div class="step-actions">
+                                <button
+                                  class="waves-effect waves-dark btn blue next-step"
+                                  type="button"
+                                >
+                                  次へ
+                                </button>
+                                <button
+                                  class="waves-effect waves-dark btn-flat previous-step"
+                                  type="button"
+                                >
+                                  戻る
+                                </button>
+                              </div>
+                            </div>
+                          </li>
+
+                          <li class="step">
+                            <div class="step-title waves-effect waves-dark">
+                              完了
+                            </div>
+                            <div class="step-content">
+                              End!!!!!
+                              <div class="step-actions">
+                                <button type="submit">登録</button>
+                              </div>
+                            </div>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+      <!-- end container-->
+    </div>
+
+    <datalist id="zipList"> </datalist>
+
+    <footer>
+      <div class="container">
+        <p>ラクラクトイ</p>
+      </div>
+    </footer>
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script src="https://unpkg.com/materialize-stepper@3.1.0/dist/js/mstepper.min.js"></script>
+    <script
+      src="https://code.jquery.com/jquery-3.6.0.min.js"
+      integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+      crossorigin="anonymous"
+    ></script>
+    <script th:src="@{/js/zipcode.js}"></script>
+    <script th:src="@{/js/signupStepper.js}"></script>
+  </body>
+</html>
