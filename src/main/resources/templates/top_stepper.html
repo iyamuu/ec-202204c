@@ -70,7 +70,7 @@
           <!-- 商品の一覧が表示されるページ（初期ページ） -->
           <li class="step active">
             <div class="step-title waves-effect" onclick="itemPrev()">
-              商品を探しましょう
+              商品を探す
             </div>
             <div class="step-content" style="margin-top: 7rem">
               <div class="row">
@@ -109,7 +109,10 @@
           </li>
           <!-- カートの中身を示すページ -->
           <li class="step">
-            <div class="step-title waves-effect" onclick="toCart">
+            <div
+              class="step-title waves-effect"
+              onclick="$('.fixed_btn').click"
+            >
               カート内の商品
             </div>
             <div class="step-content" style="margin-top: 7rem">
@@ -161,121 +164,227 @@
           <!-- 購入確認画面を示すページ -->
           <li class="step">
             <div class="step-title waves-effect">購入確認</div>
-            <div class="step-content"  style="margin-top: 7rem">
+            <div class="step-content" style="margin-top: 7rem">
               <div class="row">
-                <form th:action="@{/purchase}" th:object="${confirmForm}" method="post">
+                <form
+                  th:action="@{/purchase}"
+                  th:object="${confirmForm}"
+                  method="post"
+                >
+                  <h2 class="page-title">お届け先情報</h2>
+                  <div class="order-confirm-delivery-info">
+                    <div>
+                      <label
+                        th:if="*{#fields.hasErrors('destinationName')}"
+                        th:errors="*{destinationName}"
+                        class="error"
+                      >
+                        氏名を入力してください
+                      </label>
+                    </div>
+                    <div class="row">
+                      <div class="input-field">
+                        <input
+                          id="name"
+                          type="text"
+                          name="destinationName"
+                          th:field="*{destinationName}"
+                        />
+                        <label for="name">お名前</label>
+                      </div>
+                    </div>
 
-                      <h2 class="page-title">お届け先情報</h2>
-                      <div class="order-confirm-delivery-info">
-                        <div class="row">
-                          <div class="input-field">
-                            <input id="name" type="text" name="destinationName"/>
-                            <label for="name">お名前</label>
-                          </div>
-                        </div>
-                        <div class="row">
-                          <div class="input-field">
-                            <input id="email" type="email" name="destinationEmail"/>
-                            <label for="email">メールアドレス</label>
-                          </div>
-                        </div>
-                        <div class="row">
-                          <div class="input-field">
-                            <input id="zipcode" type="text" maxlength="7" name="destinationZipcode"/>
-                            <label for="zipcode">郵便番号</label>
-                            <button class="btn" type="button">
-                              <span>住所検索</span>
-                            </button>
-                          </div>
-                        </div>
-                        <div class="row">
-                          <div class="input-field">
-                            <input id="address" type="text" name="destinationAddress"/>
-                            <label for="address">住所</label>
-                          </div>
-                        </div>
-                        <div class="row">
-                          <div class="input-field">
-                            <input id="tel" type="tel" name="destinationTel"/>
-                            <label for="tel">電話番号</label>
-                          </div>
-                        </div>
-                        <div class="row order-confirm-delivery-datetime">
-                          <div class="input-field">
-                            <input id="deliveryDate" type="date" name="deliveryDate"/>
-                            <label for="address">配達日時</label>
-                          </div>
-                          <label class="order-confirm-delivery-time">
-                            <input
-                              name="deliveryTime"
-                              type="radio"
-                              value="10時"
-                              checked="checked"
-                            />
-                            <span>10時</span>
-                          </label>
-                          <label class="order-confirm-delivery-time">
-                            <input name="deliveryTime" type="radio" value="11時" />
-                            <span>11時</span>
-                          </label>
-                          <label class="order-confirm-delivery-time">
-                            <input name="deliveryTime" type="radio" value="12時" />
-                            <span>12時</span>
-                          </label>
-                          <label class="order-confirm-delivery-time">
-                            <input name="deliveryTime" type="radio" value="13時" />
-                            <span>13時</span>
-                          </label>
-                          <label class="order-confirm-delivery-time">
-                            <input name="deliveryTime" type="radio" value="14時" />
-                            <span>14時</span>
-                          </label>
-                          <label class="order-confirm-delivery-time">
-                            <input name="deliveryTime" type="radio" value="15時" />
-                            <span>15時</span>
-                          </label>
-                          <label class="order-confirm-delivery-time">
-                            <input name="deliveryTime" type="radio" value="16時" />
-                            <span>16時</span>
-                          </label>
-                          <label class="order-confirm-delivery-time">
-                            <input name="deliveryTime" type="radio" value="17時" />
-                            <span>17時</span>
-                          </label>
-                          <label class="order-confirm-delivery-time">
-                            <input name="deliveryTime" type="radio" value="18時" />
-                            <span>18時</span>
-                          </label>
-                        </div>
+                    <div>
+                      <label
+                        th:if="*{#fields.hasErrors('destinationEmail')}"
+                        th:errors="*{destinationEmail}"
+                        class="error"
+                      >
+                        メールアドレスを入力してください
+                      </label>
+                    </div>
+                    <div class="row">
+                      <div class="input-field">
+                        <input
+                          id="email"
+                          type="email"
+                          name="destinationEmail"
+                          th:field="*{destinationEmail}"
+                        />
+                        <label for="email">メールアドレス</label>
                       </div>
-              
-                      <h2 class="page-title">お支払い方法</h2>
-                      <div class="row order-confirm-payment-method">
-                        <span>
-                          <label class="order-confirm-payment-method-radio">
-                            <input
-                              name="paymentMethod"
-                              type="radio"
-                              value="1"
-                              checked="checked"
-                            />
-                            <span>代金引換</span>
-                          </label>
-                          <label class="order-confirm-payment-method-radio">
-                            <input name="paymentMethod" type="radio" value="2" />
-                            <span>クレジットカード</span>
-                          </label>
-                        </span>
-                      </div>
-                      <div class="row order-confirm-btn">
-                        <button class="btn">
-                          <span>この内容で注文する</span>
+                    </div>
+
+                    <div>
+                      <label
+                        th:if="*{#fields.hasErrors('destinationZipcode')}"
+                        th:errors="*{destinationZipcode}"
+                        class="error"
+                        >郵便番号はXXX-XXXXの形式で入力してください</label
+                      >
+                    </div>
+                    <div class="row">
+                      <div class="input-field">
+                        <input
+                          id="zipcode"
+                          type="text"
+                          maxlength="7"
+                          name="destinationZipcode"
+                          th:field="*{destinationZipcode}"
+                        />
+                        <label for="zipcode">郵便番号</label>
+                        <button class="btn" type="button">
+                          <span>住所検索</span>
                         </button>
                       </div>
-                  </form>
-            
+                    </div>
+
+                    <div>
+                      <label
+                        th:if="*{#fields.hasErrors('destinationAddress')}"
+                        th:errors="*{destinationAddress}"
+                        class="error"
+                        >住所を入力して下さい</label
+                      >
+                    </div>
+                    <div class="row">
+                      <div class="input-field">
+                        <input
+                          id="address"
+                          type="text"
+                          name="destinationAddress"
+                          th:field="*{destinationAddress}"
+                        />
+                        <label for="address">住所</label>
+                      </div>
+                    </div>
+
+                    <div>
+                      <label
+                        th:if="*{#fields.hasErrors('destinationTel')}"
+                        th:errors="*{destinationTel}"
+                        class="error"
+                        >電話番号はXXXX-XXXX-XXXXの形式で入力してください</label
+                      >
+                    </div>
+                    <div class="row">
+                      <div class="input-field">
+                        <input
+                          id="tel"
+                          type="tel"
+                          name="destinationTel"
+                          th:field="*{destinationTel}"
+                        />
+                        <label for="tel">電話番号</label>
+                      </div>
+                    </div>
+
+                    <div>
+                      <label
+                        th:if="*{#fields.hasErrors('deliveryDate')}"
+                        th:errors="*{deliveryDate}"
+                        class="error"
+                        >正しい日時を選んでください</label
+                      >
+                    </div>
+                    <div>
+                      <label
+                        th:if="*{#fields.hasErrors('deliveryTime')}"
+                        th:errors="*{deliveryTime}"
+                        class="error"
+                        >正しい配達時間を選んでください</label
+                      >
+                    </div>
+                    <div class="row order-confirm-delivery-datetime">
+                      <div class="input-field">
+                        <input
+                          id="deliveryDate"
+                          type="date"
+                          name="deliveryDate"
+                          th:field="*{deliveryDate}"
+                        />
+                        <label for="address">配達日時</label>
+                      </div>
+                      <label class="order-confirm-delivery-time">
+                        <input
+                          name="deliveryTime"
+                          type="radio"
+                          value="10時"
+                          checked="checked"
+                        />
+                        <span>10時</span>
+                      </label>
+                      <label class="order-confirm-delivery-time">
+                        <input name="deliveryTime" type="radio" value="11時" />
+                        <span>11時</span>
+                      </label>
+                      <label class="order-confirm-delivery-time">
+                        <input name="deliveryTime" type="radio" value="12時" />
+                        <span>12時</span>
+                      </label>
+                      <label class="order-confirm-delivery-time">
+                        <input name="deliveryTime" type="radio" value="13時" />
+                        <span>13時</span>
+                      </label>
+                      <label class="order-confirm-delivery-time">
+                        <input name="deliveryTime" type="radio" value="14時" />
+                        <span>14時</span>
+                      </label>
+                      <label class="order-confirm-delivery-time">
+                        <input name="deliveryTime" type="radio" value="15時" />
+                        <span>15時</span>
+                      </label>
+                      <label class="order-confirm-delivery-time">
+                        <input name="deliveryTime" type="radio" value="16時" />
+                        <span>16時</span>
+                      </label>
+                      <label class="order-confirm-delivery-time">
+                        <input name="deliveryTime" type="radio" value="17時" />
+                        <span>17時</span>
+                      </label>
+                      <label class="order-confirm-delivery-time">
+                        <input name="deliveryTime" type="radio" value="18時" />
+                        <span>18時</span>
+                      </label>
+                    </div>
+                  </div>
+
+                  <div>
+                    <label
+                      th:if="${#fields.hasErrors('paymentMethod')}"
+                      th:errors="*{paymentMethod}"
+                      class="error"
+                      >お支払方法にエラーがありました</label
+                    >
+                  </div>
+                  <h2 class="page-title">お支払い方法</h2>
+                  <div class="row order-confirm-payment-method">
+                    <span>
+                      <label class="order-confirm-payment-method-radio">
+                        <input
+                          name="paymentMethod"
+                          type="radio"
+                          value="1"
+                          checked="checked"
+                        />
+                        <span>代金引換</span>
+                      </label>
+                      <label class="order-confirm-payment-method-radio">
+                        <input name="paymentMethod" type="radio" value="2" />
+                        <span>クレジットカード</span>
+                      </label>
+                    </span>
+                  </div>
+                  <div class="row order-confirm-btn">
+                    <button class="btn">
+                      <span>この内容で注文する</span>
+                    </button>
+                  </div>
+                </form>
+                　　
+              </div>
               <!--お支払い情報などに問題がなければ、このボタンを押すことで完了画面へ遷移する-->
-              <div class="step-actions"  style="position: relative">
+              <div class="step-actions" style="position: relative">
                 <button class="waves-effect waves-dark btn-flat previous-step">
                   カートの内容確認に戻る
                 </button>

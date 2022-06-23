@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import com.example.ecommerce_c.domain.Order;
+import com.example.ecommerce_c.form.ConfirmForm;
 import com.example.ecommerce_c.security.LoginUser;
 import com.example.ecommerce_c.service.TopService;
 
@@ -31,7 +32,7 @@ public class TopController {
 	 * @return 商品一覧画面パース
 	 */	
 	@GetMapping("/top")
-	public String index(Integer userId, Model model, @AuthenticationPrincipal final LoginUser loginUser) {
+	public String index(Integer userId, Model model, @AuthenticationPrincipal final LoginUser loginUser, ConfirmForm confirmForm) {
 		
 		//ログインしていたらそのIDを用いる
 		if(loginUser != null) {
