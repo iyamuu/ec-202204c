@@ -83,6 +83,10 @@ public class ConfirmController {
 //		フォームの内容をコピー
 		BeanUtils.copyProperties(form, order);
 		order.setOrderDate(new Date());
+		// 支払方法情報を取得する
+//		order.setPaymentMethod(form.getPaymentMethod());
+		//もし　支払方法はクレジットカード
+		order.setPaymentMethod(2);
 		try {
 			Date deliveryTime = new SimpleDateFormat("yyyy-MM-dd-hh時")
 					.parse(form.getDeliveryDate() + "-" + form.getDeliveryTime());
@@ -91,10 +95,6 @@ public class ConfirmController {
 			e.printStackTrace();
 		}
 		
-		// 支払方法情報を取得する
-//		order.setPaymentMethod(form.getPaymentMethod());
-		//もし　支払方法はクレジットカード
-		order.setPaymentMethod(2);
 		
 		Integer paymentMethod = order.getPaymentMethod();
 		if(paymentMethod == 1) {
@@ -106,15 +106,14 @@ public class ConfirmController {
 		else {
 			Payment payment = paymentService.findOneByUserId(order.getUserId());
 			OrderTransaction orderTransaction = new OrderTransaction();
-			BeanUtils.copyProperties(payment, orderTransaction);
 			
 			//仮のクレジットカード　
 			orderTransaction.setAmount(order.getCalcTotalPrice());
 			orderTransaction.setOrder_number(order.getId());
-			orderTransaction.setCard_number("10000000011111");
-			orderTransaction.setCard_exp_year(2022);
-			orderTransaction.setCard_exp_month(9);
-			orderTransaction.setCard_cvv(123);
+			orderTransaction.setCard_number(payment.getCardNumber());
+			orderTransaction.setCard_exp_year(payment.getCardExpYear());
+			orderTransaction.setCard_exp_month(payment.getCardExpMonth());
+			orderTransaction.setCard_cvv(payment.getCardCvv());
 			
 			System.out.println(orderTransaction);
 			
