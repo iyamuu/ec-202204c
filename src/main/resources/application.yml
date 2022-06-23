@@ -1,0 +1,28 @@
+#spring:
+#  datasource:
+#    driverClassName: org.postgresql.Driver
+#    url: jdbc:postgresql://localhost:5432/ec-202204c
+#    username: postgres
+#    password: postgres
+
+
+spring:
+  datasource:
+    url: ${JDBC_DATABASE_URL}
+    username: ${JDBC_DATABASE_USERNAME}
+    password: ${JDBC_DATABASE_PASSWORD}
+    
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: sapec.tsukuba.ac.jp@gmail.com
+    password: dhhnkrhwpejcuxle
+    properties:
+      mail.smtp:
+        auth: true
+        starttls.enable: true
+        
+server:
+  servlet:
+    context-path: /ec-202204c
+    
