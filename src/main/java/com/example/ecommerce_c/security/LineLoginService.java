@@ -41,6 +41,7 @@ public class LineLoginService extends DefaultOAuth2UserService{
 		if(user == null) {
 			user = new User();
 			user.setLineId(lineId);
+			user.setName(oath2User.getName());
 			System.out.println(user);
 		}
 		
