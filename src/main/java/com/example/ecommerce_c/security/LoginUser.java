@@ -18,12 +18,12 @@ public class LoginUser implements UserDetails, OAuth2User {
 	private User user;
 	private final Collection<GrantedAuthority> authorities;
 	
-	public LoginUser(User user, Collection<GrantedAuthority> authorities) {
+	public LoginUser(User user, Collection<GrantedAuthority> authorities, String lineName) {
 		super();
 		this.user = user;
 		this.authorities = authorities;
 		
-		this.name = "test";
+		this.name = lineName;
 		this.password = "test";
 	}
 	

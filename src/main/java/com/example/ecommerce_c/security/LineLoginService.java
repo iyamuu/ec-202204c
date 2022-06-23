@@ -48,7 +48,7 @@ public class LineLoginService extends DefaultOAuth2UserService{
 		Collection<GrantedAuthority> authorityList = new ArrayList<>();
 		authorityList.add(new SimpleGrantedAuthority("ROLE_USER")); // ユーザ権限付与
 		
-		return new LoginUser(user, authorityList);
+		return new LoginUser(user, authorityList, oath2User.getName());
 		
 	}
 
