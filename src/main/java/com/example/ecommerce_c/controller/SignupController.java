@@ -9,6 +9,9 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import com.example.ecommerce_c.domain.Addressee;
+import com.example.ecommerce_c.domain.GiftInformation;
+import com.example.ecommerce_c.domain.Payment;
 import com.example.ecommerce_c.domain.User;
 import com.example.ecommerce_c.form.SignupForm;
 import com.example.ecommerce_c.service.SignupService;
@@ -32,9 +35,8 @@ public class SignupController {
 	 * @return 新規登録ページへのパス
 	 */
 	@GetMapping("/signup")
-	public String getSignupPage(SignupForm form, Integer userId, Model model) {
-		model.addAttribute("userId", userId);
-		return "login/signup";
+	public String getSignupPage(SignupForm form, Model model) {
+		return "login/signup_stepper";
 	}
 
 	/**
@@ -45,30 +47,36 @@ public class SignupController {
 	 * @return ログインページへのパス、エラーがあれば新規登録ページのパス
 	 */
 	@PostMapping("/signup")
-	public String registerUser(@Validated SignupForm form, Integer userId, BindingResult result, Model model) {
+	public String registerUser(@Validated SignupForm form, BindingResult result, Model model) {
 
 		// emailの重複チェック、存在していればバリデーション結果にエラーを追加
-		User existsUser = signupService.checkSameMailAddress(form.getEmail());
+		User existsUser = signupService.checkSameMailAddress(form.getUserForm().getEmail());
 		if (existsUser != null) {
-			result.rejectValue("email", null, "このメールアドレスは既に存在しています");
+			result.rejectValue("userForm.email", null, "このメールアドレスは既に存在しています");
 		}
 
 		// パスワードと確認用パスワードの一致チェック
-		String password = form.getPassword();
-		String confirmPassword = form.getConfirmPassword();
+		String password = form.getUserForm().getPassword();
+		String confirmPassword = form.getUserForm().getConfirmPassword();
 		if (!password.equals(confirmPassword)) {
-			result.rejectValue("confirmPassword", null, "パスワードが一致していません");
+			result.rejectValue("userForm.confirmPassword", null, "パスワードが一致していません");
 		}
 
 		if (result.hasErrors()) {
-			return getSignupPage(form, userId, model);
+			return getSignupPage(form, model);
 		}
 
-		User newUser = new User();
-		BeanUtils.copyProperties(form, newUser);
-		newUser = signupService.registerUser(newUser); // 登録処理、ここでidが付与される
-
-		model.addAttribute("userId", userId);
+		User user = new User();
+		Addressee addressee = new Addressee();
+		Payment payment = new Payment();
+		GiftInformation giftInformation = new GiftInformation();
+		
+		BeanUtils.copyProperties(form.getUserForm(), user);
+		BeanUtils.copyProperties(form.getAddresseeForm(), addressee);
+		BeanUtils.copyProperties(form.getGiftInfoForm(), giftInformation);
+		BeanUtils.copyProperties(form.getPaymentForm(), payment);
+		
+		user = signupService.registerUser(user, addressee, giftInformation, payment); // 登録処理、ここでidが付与される
 		return "redirect:/login";
 
 	}
