@@ -23,11 +23,17 @@
       rel="stylesheet"
       href="https://unpkg.com/materialize-stepper@3.1.0/dist/css/mstepper.min.css"
     />
-
+    <link rel="stylesheet" href="css/common.css" />
     <link rel="stylesheet" href="css/header.css" />
     <link rel="stylesheet" href="css/footer.css" />
+    <link rel="stylesheet" href="css/register_admin.css" />
+    <link rel="stylesheet" href="css/login.css" />
     <link rel="stylesheet" href="css/item_list.css" />
     <link rel="stylesheet" href="css/item_detail.css" />
+    <link rel="stylesheet" href="css/cart_list.css" />
+    <link rel="stylesheet" href="css/order_confirm.css" />
+    <link rel="stylesheet" href="css/order_finished.css" />
+    <link rel="stylesheet" href="css/responsive.css" />
   </head>
   <body>
     <!--ヘッダー（共通）-->
@@ -58,16 +64,17 @@
       <div class="card-content">
         <ul
           class="stepper horizontal"
-          style="padding-top: 5rem; min-height: 600px;"
+          style="padding-top: 5rem; min-height: 600px"
         >
           <!-- 商品の一覧が表示されるページ（初期ページ） -->
           <li class="step active">
-            <div class="step-title waves-effect">
-              商品を探しましょう
-            </div>
+            <div class="step-title waves-effect">商品を探しましょう</div>
             <div class="step-content" style="margin-top: 5rem">
               <div class="row">
-                <div class="container" style="margin-top: 5rem; margin-bottom: 2rem">
+                <div
+                  class="container"
+                  style="margin-top: 5rem; margin-bottom: 2rem"
+                >
                   <form class="search-form" action="post">
                     <input type="text" id="search-name-input" />
                     <button class="btn search-btn" type="button">
@@ -99,7 +106,44 @@
             <div class="step-title waves-effect">カート内の商品</div>
             <div class="step-content">
               <div class="row">
-                <label>カートの中身を示すページがここに表示されます</label>
+                <div class="top-wrapper">
+                  <div class="container">
+                    <h1 class="page-title">ショッピングカート</h1>
+                    <!-- table -->
+                    <div class="row">
+                      <table class="striped">
+                        <thead>
+                          <tr>
+                            <th class="cart-table-th">商品名</th>
+                            <th>サイズ、価格(税抜)、数量</th>
+                            <th>トッピング、価格(税抜)</th>
+                            <th>小計</th>
+                          </tr>
+                        </thead>
+
+
+                        <tbody id="orderItemTable" class="highlight"></tbody>
+                      </table>
+                    </div>
+
+                    <div class="row cart-total-price">
+                      <div id="tax"></div>
+                      <div id="totalPrice"></div>
+                    </div>
+
+                    <div class="row order-confirm-btn">
+                      <form th:action="@{/confirm}" method="get">
+                        <input
+                          type="hidden"
+                          name="orderId"
+                          th:value="${orderId}"
+                        />
+                        <button class="btn">注文に進む</button>
+                      </form>
+                    </div>
+                  </div>
+                  <!-- end container -->
+                </div>
               </div>
               <!--カートの中身に問題がなければ、このボタンを押すことで購入確認画面へ遷移する-->
               <div class="step-actions">
@@ -172,5 +216,6 @@
     <script src="js/spinnerButton.js"></script>
     <script src="https://unpkg.com/materialize-stepper@3.1.0/dist/js/mstepper.min.js"></script>
     <script src="js/top_stepper.js"></script>
+    <script src="js/cartList.js"></script>
   </body>
 </html>

@@ -2,6 +2,8 @@
  * トップページのステッパーを操作する
  */
 function toCart(destroyFeedback) {
+  console.log("toCart");
+  showOrderItemList();
   setTimeout(function () {
     destroyFeedback(true);
   }, 1500);
