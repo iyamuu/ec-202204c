@@ -1,6 +1,7 @@
 /**
  * トップページのステッパーを操作する
  */
+
 function toCart(destroyFeedback) {
   console.log("toCart");
   $('.fixed_btn').css('display', 'none');
@@ -35,9 +36,9 @@ function noThing(destroyFeedback) {
 function itemPrev() {
 	$('.fixed_btn').css('display', '');
 }
-
-var stepper = document.querySelector(".stepper");
+  
+  var stepper = document.querySelector(".stepper");
 var stepperInstace = new MStepper(stepper, {
   // options
   firstActive: 0, // this is the default
-});
+  });
