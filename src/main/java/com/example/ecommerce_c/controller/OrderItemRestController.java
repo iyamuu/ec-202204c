@@ -9,6 +9,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -54,7 +55,7 @@ public class OrderItemRestController {
 	 */
 	@PostMapping("/add")
 	@ResponseBody
-	public OrderItem addToOrder(OrderItemForm orderItemForm) {
+	public OrderItem addToOrder(@RequestBody OrderItemForm orderItemForm) {
 
 		OrderItem orderItem = new OrderItem();
 		BeanUtils.copyProperties(orderItemForm, orderItem);
@@ -94,7 +95,7 @@ public class OrderItemRestController {
 	 */
 	@PostMapping("/update")
 	@ResponseBody
-	public OrderItem updateToOrder(UpdateOrderItemForm updateOrderItemForm) {
+	public OrderItem updateToOrder(@RequestBody UpdateOrderItemForm updateOrderItemForm) {
 		OrderItem orderItem = orderItemService.updateToOrder(updateOrderItemForm.getOrderItemId(),
 				updateOrderItemForm.getQuantity());
 		System.out.println(orderItem);

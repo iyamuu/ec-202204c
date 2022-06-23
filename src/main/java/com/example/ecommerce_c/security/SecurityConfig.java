@@ -11,7 +11,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
-
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @EnableWebSecurity
 @Configuration
@@ -24,25 +24,27 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	public void configure(WebSecurity web) throws Exception {
 		// セキュリティを適用しない
-		web.ignoring().antMatchers("/css/**").antMatchers("/js/**").antMatchers("/img/**")
-//		.antMatchers("/getItemByPage")
-		.antMatchers("/show").antMatchers("/add").antMatchers("/delete").antMatchers("/update");
+		web.ignoring().antMatchers("/css/**").antMatchers("/js/**").antMatchers("/img/**");
 	}
 
 	@Override
 	public void configure(HttpSecurity http) throws Exception {
 
 		http.authorizeRequests().antMatchers("/login").permitAll().antMatchers("/signup").permitAll()
-		.antMatchers("/top").permitAll().antMatchers("/cart").permitAll()   //一覧画面とカート画面を許可
-		.antMatchers("/getItemByPage").permitAll()
-//		.antMatchers("/show").permitAll().antMatchers("/add").permitAll().antMatchers("/delete").permitAll().antMatchers("/update").permitAll()    //RestControllerへも許可
-		.anyRequest().authenticated()
-		.and().formLogin().loginPage("/login").loginProcessingUrl("/login") // ログインボタンのURL
-				.failureForwardUrl("/login?error=true").defaultSuccessUrl("/top", false)
-				.usernameParameter("email").passwordParameter("password");
+				.antMatchers("/top").permitAll().antMatchers("/cart").permitAll() // 一覧画面とカート画面を許可
+				.antMatchers("/getItemByPage").permitAll().antMatchers("/show").permitAll().antMatchers("/add")
+				.permitAll().antMatchers("/delete").permitAll().antMatchers("/update").permitAll() // RestControllerへも許可
+				.anyRequest().authenticated().and().formLogin().loginPage("/login").loginProcessingUrl("/login") // ログインボタンのURL
+				.failureForwardUrl("/login?error=true").defaultSuccessUrl("/top", false).usernameParameter("email")
+				.passwordParameter("password");
+
 		
-		
+		//cookieにCSRFトークンを入れる
 		http.csrf().csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse());
+
+		// ログアウト
+		http.logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout")).logoutSuccessUrl("/login");
+
 	}
 
 	@Override
@@ -50,7 +52,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 		auth.userDetailsService(formLoginService).passwordEncoder(new BCryptPasswordEncoder());
 	}
-	
+
 	@Bean
 	public PasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
