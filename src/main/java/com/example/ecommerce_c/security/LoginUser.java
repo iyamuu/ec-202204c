@@ -13,6 +13,8 @@ public class LoginUser implements UserDetails, OAuth2User {
 
 	private static final long serialVersionUID = 1L;
 	
+	private final String name;
+	private final String password;
 	private User user;
 	private final Collection<GrantedAuthority> authorities;
 	
@@ -20,6 +22,9 @@ public class LoginUser implements UserDetails, OAuth2User {
 		super();
 		this.user = user;
 		this.authorities = authorities;
+		
+		this.name = "test";
+		this.password = "test";
 	}
 	
 
@@ -97,7 +102,7 @@ public class LoginUser implements UserDetails, OAuth2User {
 	@Override
 	public String getName() {
 		// TODO Auto-generated method stub
-		return "test";
+		return name;
 	}
 
 
