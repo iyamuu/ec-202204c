@@ -43,7 +43,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.and().formLogin().loginPage("/login").loginProcessingUrl("/login") // ログインボタンのURL
 				.failureForwardUrl("/login?error=true").defaultSuccessUrl("/top", false).usernameParameter("email")
 				.passwordParameter("password")
-				.and().oauth2Login().loginPage("/login").defaultSuccessUrl("true", false) // Line Login
+				.and().oauth2Login().loginPage("/login").defaultSuccessUrl("/top", false) // Line Login
 				;
 
 		
