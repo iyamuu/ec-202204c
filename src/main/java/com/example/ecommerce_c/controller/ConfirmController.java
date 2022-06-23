@@ -15,8 +15,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.example.ecommerce_c.domain.Order;
+import com.example.ecommerce_c.domain.OrderTransaction;
+import com.example.ecommerce_c.domain.OrderTransactionStatus;
 import com.example.ecommerce_c.form.ConfirmForm;
 import com.example.ecommerce_c.service.ConfirmService;
+import com.example.ecommerce_c.service.OrderTransactionService;
 
 /**
  * 注文確認画面を操作するコントローラー.
@@ -29,6 +32,9 @@ import com.example.ecommerce_c.service.ConfirmService;
 public class ConfirmController {
 	@Autowired
 	private ConfirmService service;
+	
+	@Autowired
+	private OrderTransactionService orderTransactionService;
 
 	@ModelAttribute
 	public ConfirmForm setUpConfirmForm() {
@@ -80,6 +86,21 @@ public class ConfirmController {
 		}
 		
 		service.update(order);
+		
+		OrderTransaction orderTransaction = new OrderTransaction();
+		orderTransaction.setUserId(order.getUserId());
+		orderTransaction.setOrderNumber(order.getId());
+		orderTransaction.setAmount(order.getCalcTotalPrice());
+		/** ユーザーが登録したクレジットカード情報*/
+		orderTransaction.setCardNumber(1111111111);
+		orderTransaction.setCardExpYear(2022);
+		orderTransaction.setCardExpMonth(02);
+		orderTransaction.setCardCvc(123);
+		
+		OrderTransactionStatus orderTransactionStatus = orderTransactionService.transacting(orderTransaction);
+		
+		model.addAttribute("orderTransactionStatus",orderTransactionStatus);
+		
 		model.addAttribute("userId", order.getUserId());
 		
 		return "order_finished";
