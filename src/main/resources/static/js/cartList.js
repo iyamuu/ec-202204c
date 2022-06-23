@@ -1,11 +1,5 @@
 "use strict";
 
-// //ローカルで動かすとき
-// // const serverURL = "http://localhost:8080/ec-202204c/"
-
-// //Herokuで動かすとき
-// const serverURL = "https://ec-202204c-toy.herokuapp.com/ec-202204c/";
-
 $(function () {
   $("#orderId").hide();
   showOrderItemList();
@@ -157,7 +151,7 @@ let buildDeleeButtonCell = function (orderItemId) {
  */
 
 function deleteOrderItem(id) {
-  let hostUrl = `${server}delete?orderItemId=${id}`;
+  let hostUrl = `${serverURL}delete?orderItemId=${id}`;
 
   console.log(hostUrl);
   $.ajax({
