@@ -4,6 +4,9 @@
 function toCart(destroyFeedback) {
   console.log("toCart");
   showOrderItemList();
+  
+  instance.wrongStep();
+  console.log("エラー");
   setTimeout(function () {
     destroyFeedback(true);
   }, 1500);
