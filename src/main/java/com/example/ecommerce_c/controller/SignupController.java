@@ -1,5 +1,7 @@
 package com.example.ecommerce_c.controller;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
@@ -90,7 +92,7 @@ public class SignupController {
 	
 	
 	@GetMapping("/line_signup")
-	public String signupFromLine(@AuthenticationPrincipal LoginUser lineLoginUser, Model model) {
+	public String signupFromLine(@AuthenticationPrincipal LoginUser lineLoginUser, Model model, HttpServletRequest request) {
 		
 		
 		SecurityContext context = SecurityContextHolder.getContext();
@@ -98,19 +100,25 @@ public class SignupController {
 		
 		
 		if(authentication instanceof AnonymousAuthenticationToken == false) {
-			System.out.println("Lineでログイン");
+			SecurityContextHolder.clearContext();
 		}
 		
 		
-//		if(lineLoginUser.getUserId() < 0) {  //IDが負の値ならアカウント登録情報はまだ LineIDをformに入れてサインアップページへ
-//			SignupForm form = new SignupForm();
-//			form.getUserForm().setLineId(lineLoginUser.getLineId());
-//			return getSignupPage(form, model);
-//		}else {                              //IDがあるならそのままログイン
-//			
-//		}
-		
-		return null;
+		if(lineLoginUser.getUserId() < 0) {  //IDが負の値ならアカウント登録情報はまだ LineIDをformに入れてサインアップページへ
+			SignupForm form = new SignupForm();
+			form.getUserForm().setLineId(lineLoginUser.getLineId());
+			return getSignupPage(form, model);
+		}else {                              //IDがあるならそのままログイン
+			try {
+				request.login(lineLoginUser.getUsername(), lineLoginUser.getPassword());
+			}catch (Exception e) {
+				
+				e.printStackTrace();
+				
+			}
+			
+			return "redirect:/top";
+		}
 	}
 
 }
