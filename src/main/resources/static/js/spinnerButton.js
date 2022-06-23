@@ -1,6 +1,7 @@
 /**
  * 個数を変更するスピナーボタンを操作する
  */
+
 //個数をプラスする処理
 function spinnerPlus(id) {
   var add = $(this);
