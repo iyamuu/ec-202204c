@@ -7,6 +7,9 @@ import java.util.Date;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.MailException;
+import org.springframework.mail.MailSender;
+import org.springframework.mail.SimpleMailMessage;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -29,6 +32,8 @@ import com.example.ecommerce_c.service.ConfirmService;
 public class ConfirmController {
 	@Autowired
 	private ConfirmService service;
+	@Autowired
+	private MailSender sender;
 
 	@ModelAttribute
 	public ConfirmForm setUpConfirmForm() {
@@ -56,32 +61,41 @@ public class ConfirmController {
 
 		return "order_confirm";
 	}
-	
+
 	/**
 	 * 注文を確定して注文完了画面を表示する.
 	 * 
-	 * @param form　宛先フォーム
+	 * @param form 宛先フォーム
 	 * @return 注文完了画面
 	 */
 	@PostMapping("/purchase")
 	public String finished(ConfirmForm form, Model model) {
 		Order order = service.getFullOrder(form.getId());
 //		NOTE: クレジット決済ならstatusを入金済(2)にする？
-		order.setStatus(1); //未入金
-		
+		order.setStatus(1); // 未入金
+
 //		フォームの内容をコピー
 		BeanUtils.copyProperties(form, order);
 		order.setOrderDate(new Date());
 		try {
-			Date deliveryTime = new SimpleDateFormat("yyyy-MM-dd-hh時").parse(form.getDeliveryDate() + "-" + form.getDeliveryTime());
+			Date deliveryTime = new SimpleDateFormat("yyyy-MM-dd-hh時")
+					.parse(form.getDeliveryDate() + "-" + form.getDeliveryTime());
 			order.setDeliveryTime(new Timestamp(deliveryTime.getTime()));
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
-		
+
 		service.update(order);
 		model.addAttribute("userId", order.getUserId());
-		
+
+//		メール送信
+		SimpleMailMessage mail = service.createMail(order.getDestinationEmail());
+		try {
+			sender.send(mail);
+		} catch (MailException e) {
+			e.printStackTrace();
+		}
+
 		return "order_finished";
 	}
 
