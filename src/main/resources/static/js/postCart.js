@@ -1,6 +1,13 @@
 /**
  * カートに追加ボタンを押した際の処理
  */
+
+//ローカルで動かすとき
+// const serverURL = "http://localhost:8080/ec-202204c/"
+
+//Herokuで動かすとき
+const serverURL = "https://ec-202204c-toy.herokuapp.com/ec-202204c/";
+
 function postCart(id) {
   //各要素の取得
   let orderId = $("#orderId").val();
@@ -19,7 +26,7 @@ function postCart(id) {
   $("#modal" + id + " input[name=option]").prop("checked", false);
 
   let xsrf = $.cookie("XSRF-TOKEN");
-  let hostUrl = "http://localhost:8080/ec-202204c/add";
+  let hostUrl = `${serverURL}add`;
   $.ajax({
     url: hostUrl,
     type: "post",
