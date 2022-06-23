@@ -93,8 +93,6 @@ public class TopController {
 			session.setAttribute("orderId", loginOrderId);
 		}
 		
-		model.addAttribute("orderId", session.getAttribute("orderId"));
-
 		return "top_stepper";
 	}
 	
