@@ -23,8 +23,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Autowired
 	private FormLoginService formLoginService;
-	@Autowired
-	private LineLoginService lineLoginService;
 
 	/** セキュリティの対象外を設定 */
 	@Override
@@ -43,9 +41,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.antMatchers("/add").permitAll().antMatchers("/delete").permitAll().antMatchers("/update").permitAll() // RestControllerへも許可
 				.anyRequest().authenticated()
 				.and().formLogin().loginPage("/login").loginProcessingUrl("/login") // ログインボタンのURL
-				.failureForwardUrl("/login?error=true").defaultSuccessUrl("/top", true).usernameParameter("email")
+				.failureForwardUrl("/login?error=true").defaultSuccessUrl("/top", false).usernameParameter("email")
 				.passwordParameter("password")
-				.and().oauth2Login().userInfoEndpoint().userService(lineLoginService) // Line Login
+				.and().oauth2Login().loginPage("/login").defaultSuccessUrl("true", false) // Line Login
 				;
 
 		
