@@ -87,8 +87,6 @@ public class OrderRepository {
 				user.setName("user_name");
 				user.setEmail(rs.getString("user_email"));
 				user.setPassword(rs.getString("user_password"));
-				user.setZipCode(rs.getString("user_zipcode"));
-				user.setAddress(rs.getString("user_address"));
 				user.setTelephone(rs.getString("user_telephone"));
 				
 //				注文ドメインにユーザードメインを格納
@@ -224,7 +222,7 @@ public class OrderRepository {
 	public Order findFullOrderById(int id) {
 		String sql = "SELECT "
 				+ "o.id as id, user_id, status, total_price, order_date, destination_name, destination_email, destination_zipcode, destination_address, destination_tel, delivery_time, payment_method, "
-				+ "u.name as user_name, u.email as user_email, u.password as user_password, u.zipcode as user_zipcode, u.address as user_address, u.telephone as user_telephone, "
+				+ "u.name as user_name, u.email as user_email, u.password as user_password, u.telephone as user_telephone, "
 				+ "oi.id as orderitem_id, oi.item_id as orderitem_item_id, oi.quantity as orderitem_quantity, oi.size as orderitem_size, "
 				+ "i.name as item_name, i.description as item_description, i.price_m as item_price_m, i.price_l as item_price_l, i.image_path as item_image_path, i.deleted as item_deleted, "
 				+ "ot.id as ordertopping_id, ot.topping_id as ordertopping_topping_id, "
