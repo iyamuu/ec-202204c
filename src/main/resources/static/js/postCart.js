@@ -18,17 +18,22 @@ function postCart(id) {
   $("#modal" + id + " .spinner-sub").addClass("disabled");
   $("#modal" + id + " input[name=option]").prop("checked", false);
 
+  let xsrf = $.cookie("XSRF-TOKEN");
   let hostUrl = "http://localhost:8080/ec-202204c/add";
   $.ajax({
     url: hostUrl,
     type: "post",
     dataType: "json",
-    data: {
+    data: JSON.stringify({
       orderId: orderId,
       itemId: id,
       size: size,
       quantity: quantity,
       toppingIdList: toppingList,
+    }),
+    headers: {
+      "Content-Type": "application/json; charset=utf-8",
+      "X-XSRF-TOKEN": xsrf,
     },
     async: true,
   }).done(function (data) {});

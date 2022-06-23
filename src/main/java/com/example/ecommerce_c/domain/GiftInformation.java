@@ -23,6 +23,18 @@ public class GiftInformation {
 	/** 予算の上限 */
 	private Integer upperBudget;
 
+	
+	//初期の絞り込み情報は全データが対象になるように設定する
+	public GiftInformation() {
+
+		this.lowerAge = 0;
+		this.upperAge = 100;
+		
+		this.lowerBudget = 0;
+		this.upperBudget = 9999999;
+
+	}
+
 	public Integer getId() {
 		return id;
 	}
