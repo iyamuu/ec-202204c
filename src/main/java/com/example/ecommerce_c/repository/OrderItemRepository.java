@@ -93,4 +93,12 @@ public class OrderItemRepository {
 
 	}
 
+	public int update(OrderItem orderItem) {
+		String sql = "UPDATE order_items SET item_id=:itemId, order_id=:orderId, quantity = :quantity, size=:size WHERE id = :id RETURNING id";
+		SqlParameterSource param = new BeanPropertySqlParameterSource(orderItem);
+
+		Integer id = jdbcTemplate.queryForObject(sql, param, Integer.class);
+		return id;
+	}
+
 }
