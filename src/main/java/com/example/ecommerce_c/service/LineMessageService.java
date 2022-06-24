@@ -49,7 +49,7 @@ public class LineMessageService {
 	 */
 	public Carousel getCompleteMessage(Integer orderId) {
 
-		Order order = orderRepository.findById(orderId);
+		Order order = orderRepository.findFullOrderById(orderId);
 		
 		//デバッグ用
 		System.out.println(order);
