@@ -43,7 +43,7 @@
 
           <div class="header-right">
           <!-- FIXME: 本来はth:hrefにはuserIdを埋め込むべき。SpringSecurityを導入予定のため雑に実装。 -->
-            <a href="item_list.html" th:href="@{/top(userId=${userId})}">商品一覧</a>
+            <a href="item_list.html" th:href="@{/(userId=${userId})}">商品一覧</a>
             <a th:href="@{/signup(userId=${userId})}">会員登録</a>
             <a href="login.html" th:href="@{/login(userId=${userId})}" class="login">
               <i class="fas fa-sign-in-alt"></i>ログイン
@@ -109,9 +109,9 @@
                 </div>
               </div>
               <div class="row login-btn">
-                <a class="btn blue" style="margin:auto; width:80%;" type="submit" >
+                <button class="btn blue" style="margin:auto; width:80%;" type="submit" >
                   <span>ログイン</span>
-                </a>
+                </button>
               </div>
               <div class="row">
                 <div class="input-field col s6 m6 l6">
