@@ -1,0 +1,40 @@
+${order.user.name} 様
+
+配達が完了しました。
+
+注文内容：
+#foreach (${orderItem} in ${order.orderItemList})
+商品名: ${orderItem.item.name}
+サイズ: ${orderItem.size}
+	#if(${orderItem.size} == "M")
+価格: ${orderItem.item.priceM}円
+	#else
+価格: ${orderItem.item.priceL}円
+	#end
+数量: ${orderItem.quantity}
+	#foreach(${orderTopping} in ${orderItem.orderToppingList})
+トッピング: ${orderTopping.topping.name}
+	#end
+小計: ${orderItem.getSubTotal()}円
+
+#end
+
+合計:	${order.getCalcTotalPrice()}円
+注文日:	${order.formatOrderDate()}
+支払方法: #if(${order.paymentMethod} == 1) 代金引換 #else クレジットカード #end
+
+=======================================
+宛先情報
+氏名:	${order.destinationName}
+住所:	〒${order.destinationZipcode} ${order.destinationAddress}
+TEL:	${order.destinationTel}
+
+またのご利用お待ちしております。
+localhost:8080/ec202204c/
+
+=======================================
+ご不明な点がございましたら以下のメールまたは電話にご連絡ください。
+ラクラクトイ
+mail: xxx@xxx.com
+ tel: xxx-xxxx-xxxx
+ 
