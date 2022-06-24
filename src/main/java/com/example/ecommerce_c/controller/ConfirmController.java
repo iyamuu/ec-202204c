@@ -4,6 +4,7 @@ import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.concurrent.ExecutionException;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,8 +30,15 @@ import com.example.ecommerce_c.form.ConfirmForm;
 import com.example.ecommerce_c.mail.MailService;
 import com.example.ecommerce_c.security.LoginUser;
 import com.example.ecommerce_c.service.ConfirmService;
+import com.example.ecommerce_c.service.LineMessageService;
 import com.example.ecommerce_c.service.OrderTransactionService;
 import com.example.ecommerce_c.service.PaymentService;
+import com.linecorp.bot.client.LineMessagingClient;
+import com.linecorp.bot.model.PushMessage;
+import com.linecorp.bot.model.message.FlexMessage;
+import com.linecorp.bot.model.message.Message;
+import com.linecorp.bot.model.message.TextMessage;
+import com.linecorp.bot.model.response.BotApiResponse;
 
 /**
  * 注文確認画面を操作するコントローラー.
@@ -53,6 +61,12 @@ public class ConfirmController {
 
 	@Autowired
 	private TopController topController;
+
+	@Autowired
+	private LineMessagingClient lineMessagingClient;
+	
+	@Autowired
+	private LineMessageService lineMessageService;
 
 //	@Autowired
 //	private 
@@ -156,7 +170,17 @@ public class ConfirmController {
 
 				// Line への通知
 				if (loginUser.getLineId() != null) {
+					Message message = new FlexMessage("ご注文完了通知", lineMessageService.getCompleteMessage(order.getId()));
+					PushMessage pushMessage = new PushMessage(loginUser.getLineId(), message);
 					
+					BotApiResponse botApiResponse = null;
+					try {
+						botApiResponse = lineMessagingClient.pushMessage(pushMessage).get();
+					} catch (InterruptedException | ExecutionException e) {
+						e.printStackTrace();
+					}
+
+					System.out.println(botApiResponse);
 				}
 
 
