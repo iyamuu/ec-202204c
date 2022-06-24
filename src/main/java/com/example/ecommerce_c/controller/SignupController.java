@@ -116,7 +116,7 @@ public class SignupController {
 			System.out.println(lineLoginUser.getEmail());
 			System.out.println(lineLoginUser.getPassword());
 			try {
-				request.login(lineLoginUser.getEmail(), lineLoginUser.getPassword());
+				request.login(lineLoginUser.getEmail(), "password");
 			}catch (Exception e) {
 				
 				e.printStackTrace();
