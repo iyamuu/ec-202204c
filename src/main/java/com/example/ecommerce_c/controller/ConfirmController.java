@@ -125,7 +125,7 @@ public class ConfirmController {
 			mailService.sendMail(order);
 
 			service.update(order);
-			return "order_finished";
+			return "redirect:/complete";
 		}
 
 		else {
@@ -155,10 +155,15 @@ public class ConfirmController {
 //				注文内容確認&入金確認メール
 				mailService.sendMail(order);
 
-				return "order_finished";
+				return "redirect:/complete";
 			}
 		}
 
+	}
+	
+	@GetMapping("/complete")
+	public String purchase() {
+		return "order_finished";
 	}
 
 }
