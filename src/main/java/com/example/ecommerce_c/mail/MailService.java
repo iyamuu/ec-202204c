@@ -78,12 +78,9 @@ public class MailService {
 		switch (status) {
 		case 0: //XXX: debug
 		case 1:
+		case 2:
 			subject = "ご注文の確認";
 			mailBodyTemplate = "static/mail/purchase.vm";
-			break;
-		case 2:
-			subject = "入金確認のお知らせ";
-			mailBodyTemplate = "static/mail/payment.vm";
 			break;
 		case 3:
 			subject = "商品を発送しました";
