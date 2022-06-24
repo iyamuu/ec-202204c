@@ -1,7 +1,13 @@
 package com.example.ecommerce_c.controller;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -41,14 +47,14 @@ public class SignupController {
 	}
 
 	/**
-	 * 新規登録を行なう.
+	 * 新規登録を行なう. 登録が完了したら自動ログインする.
 	 * 
 	 * @param form   新規登録フォーム
 	 * @param result バリデーション結果
 	 * @return ログインページへのパス、エラーがあれば新規登録ページのパス
 	 */
 	@PostMapping("/signup")
-	public String registerUser(@Validated SignupForm form, BindingResult result, Model model) {
+	public String registerUser(@Validated SignupForm form, BindingResult result, Model model, HttpServletRequest request) {
 
 		// emailの重複チェック、存在していればバリデーション結果にエラーを追加
 		User existsUser = signupService.checkSameMailAddress(form.getUserForm().getEmail());
@@ -66,6 +72,17 @@ public class SignupController {
 		if (result.hasErrors()) {
 			return getSignupPage(form, model);
 		}
+		
+		
+		
+		//ログイン状態なら一度ログアウトさせる
+		SecurityContext context = SecurityContextHolder.getContext();
+		Authentication authentication = context.getAuthentication();
+		if(authentication instanceof AnonymousAuthenticationToken == false) {
+			SecurityContextHolder.clearContext();
+		}
+		
+		
 
 		User user = new User();
 		Addressee addressee = new Addressee();
@@ -78,7 +95,20 @@ public class SignupController {
 		BeanUtils.copyProperties(form.getPaymentForm(), payment);
 		
 		user = signupService.registerUser(user, addressee, giftInformation, payment); // 登録処理、ここでidが付与される
-		return "redirect:/login";
+		
+		
+		//自動ログイン処理
+		try {
+			
+			request.login(form.getUserForm().getEmail(), form.getUserForm().getPassword());  //パスワードは平文を渡す
+			
+		}catch (Exception e) {
+			
+			e.printStackTrace();
+			
+		}
+		
+		return "redirect:/";
 
 	}
 
