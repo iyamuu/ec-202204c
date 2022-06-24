@@ -2,6 +2,7 @@
  * トップページのステッパーを操作する
  */
 
+
 function toCart(destroyFeedback) {
   console.log("toCart");
   $('.fixed_btn').css('display', 'none');
@@ -33,9 +34,14 @@ function noThing(destroyFeedback) {
   }, 10000);
 }
 
-function itemPrev() {
-	$('.fixed_btn').css('display', '');
-}
+$('.step1').on('click', function() {
+	$('.fixed_btn').css('display','');
+});
+
+$('.step2').on('click', function() {
+	$('.fixed_btn').css('display','none');
+	toCart();
+});
   
   var stepper = document.querySelector(".stepper");
 var stepperInstace = new MStepper(stepper, {
