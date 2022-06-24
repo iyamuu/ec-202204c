@@ -57,6 +57,7 @@ public class SignupController {
 	 */
 	@PostMapping("/signup")
 	public String registerUser(@Validated SignupForm form, BindingResult result, Model model, HttpServletRequest request) {
+		
 
 		// emailの重複チェック、存在していればバリデーション結果にエラーを追加
 		User existsUser = signupService.checkSameMailAddress(form.getUserForm().getEmail());

@@ -25,14 +25,29 @@ let showOrderItemList = function () {
       data.orderItemList.forEach((orderItem) => {
         let row = buildOrderItemRow(orderItem);
         orderItemTable.append(row);
+        
+        var leftPrice = $(".left-price-" + orderItem.item.id).html();
+  		var rightPrice = $(".right-price-"+ orderItem.item.id).html();
+  
+  		rightPrice= String(rightPrice).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,");
+  		leftPrice = String(leftPrice).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,");
+  		$(".left-price-" + orderItem.item.id).html(leftPrice);
+  		$(".right-price-" + orderItem.item.id).html(rightPrice);
+        
       });
       let totalPrice = data.tax + data.calcTotalPrice;
 
       //消費税の更新
-      $("#tax").text(`消費税：${data.tax}`);
-
+      $("#tax").html(`消費税：¥<span class="tax-price">${data.tax}</span>円`);
+	  
+	  var taxPrice = $(".tax-price").html();
+	  taxPrice = String(taxPrice).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,");
+	  $(".tax-price").html(taxPrice);
       //合計金額の更新
-      $("#totalPrice").text(`ご注文金額合計：${totalPrice} (税込)`);
+      $("#totalPrice").html(`ご注文金額合計：¥<span class="sum-price">${totalPrice}</span>円 (税込)`);
+      var sumPrice = $(".sum-price").html();
+	  sumPrice = String(sumPrice).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,");
+	  $(".sum-price").html(sumPrice);
     })
     .fail(function (XMLHttpRequest, textStatus, errorThrown) {
       console.log("XMLHttpRequest : " + XMLDocument);
@@ -50,12 +65,13 @@ let buildOrderItemRow = function (orderItem) {
 
   let size = orderItem.size;
   let priceAndQuantityCell = buildPriceAndQuantityCell(
+  	orderItem.item.id,
     size === "M" ? orderItem.item.priceM : orderItem.item.priceL,
     orderItem.quantity,
     orderItem.id
   );
   let toppingCell = buildToppingCell(orderItem.orderToppingList, size);
-  let subTotalCell = buildSubTotalCell(orderItem.subTotal);
+  let subTotalCell = buildSubTotalCell(orderItem.item.id, orderItem.subTotal);
   let deleeButtonCell = buildDeleeButtonCell(orderItem.id);
 
   row.append(imgAndNameCell);
@@ -63,7 +79,6 @@ let buildOrderItemRow = function (orderItem) {
   row.append(toppingCell);
   row.append(subTotalCell);
   row.append(deleeButtonCell);
-
   return row;
 };
 
@@ -78,10 +93,12 @@ let buildItemImgAndNameCell = function (imgpath, itemName) {
   return cell;
 };
 
-let buildPriceAndQuantityCell = function (price, quantity, orderItemId) {
+let buildPriceAndQuantityCell = function (itemId, price, quantity, orderItemId) {
   let cell = `<td>
-                    <span class="col s12">
-                        ${price}円
+  					<span class="col s12">
+                    <span class=" left-price-${itemId}">
+                        ${price}
+                    </span>円
                     </span>
                     <br />
                     <span >
@@ -90,7 +107,8 @@ let buildPriceAndQuantityCell = function (price, quantity, orderItemId) {
                         <i class="col s2 material-icons" onclick='addOrderItemQuantity(${orderItemId});'>add_circle</i>
                     </span>
                 </td>`;
-
+                
+  
   return cell;
 };
 
@@ -105,11 +123,11 @@ let buildToppingCell = function (orderToppingList, size) {
                 ${orderTopping.topping.name}
             </span>
             <span>
-                ${
+               ¥ ${
                   size === "M"
                     ? orderTopping.topping.priceM
                     : orderTopping.topping.priceL
-                }
+                }円
             </span>
         </li>
         `);
@@ -120,10 +138,10 @@ let buildToppingCell = function (orderToppingList, size) {
   return cell;
 };
 
-let buildSubTotalCell = function (subtotal) {
+let buildSubTotalCell = function (id, subtotal) {
   let cell = `<td>
                     <span>
-                        ${subtotal}円
+                       ¥<span class="right-price-${id}"> ${subtotal}</span>円
                     </span>
                 </td>`;
 

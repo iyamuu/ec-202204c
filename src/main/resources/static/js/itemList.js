@@ -3,6 +3,15 @@
  */
 
 $(function () {
+  //ユーザがゲストかどうかを調べ、ゲストならヘッダーにログインボタンを登録済みユーザならログアウトボタンを設置する
+  let loginUser = $("#loginUser").val();
+  if (loginUser === "") {
+    $("#login").css("display", "");
+    $("#logout").css("display", "none");
+  } else {
+    $("#login").css("display", "none");
+    $("#logout").css("display", "");
+  }
   //ページが読み込まれた際の処理
   getInitialItemList();
 });
@@ -89,7 +98,7 @@ function genarateItemCell(item) {
                 >
               </h3>
               <div class="col s12" style="margin-bottom:10%">
-                <span class="flow-text left">¥ ${item.priceM}円（税抜)</span>
+                <span class="flow-text left">¥ <span class='price-${item.id}'>${item.priceM}</span>円（税抜)</span>
               </div>
               <div>
               <a
@@ -119,11 +128,11 @@ function genarateItemCell(item) {
 			   		<form style="margin-bottom:3rem">
 						<label class="col s6">
 							<input name="size" type="radio" value="M" checked />
-							<span>M ¥ ${item.priceM}円（税抜）</span>
+							<span>M ¥ <span class="price-m-modal-${item.id}">${item.priceM}円（税抜）</span>
 						</label>
 						<label class="col s6">
 							<input name="size" type="radio" value="L" />
-							<span>L ¥ ${item.priceL}円（税抜）</span>
+							<span>L ¥ <span class="price-l-modal-${item.id}">${item.priceL}</span>円（税抜）</span>
 						</label>
 					</form>
 				</div>
@@ -240,4 +249,15 @@ function genarateItemCell(item) {
           </div>
           <hr />
     `);
+
+  //値段にカンマを入れる
+  var price = $(".price-" + item.id).html();
+  var priceModalM = $(".price-m-modal-"+item.id).html();
+  var priceModalL = $(".price-l-modal-"+item.id).html();
+  price = String(price).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,");
+  priceModalM = String(priceModalM).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,");
+  priceModalL = String(priceModalL).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,");
+  $(".price-"+item.id).html(price);
+  $(".price-m-modal-"+item.id).html(priceModalM);
+  $(".price-l-modal-"+item.id).html(priceModalL);
 }

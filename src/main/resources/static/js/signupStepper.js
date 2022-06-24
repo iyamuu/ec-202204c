@@ -1,8 +1,11 @@
 /**
  *
  */
+<<<<<<< HEAD
 
 function test(destroyFeedback) {}
+=======
+>>>>>>> develop
 function userCheck(destroyFeedback) {
   let validationResults = [];
   let next = true;

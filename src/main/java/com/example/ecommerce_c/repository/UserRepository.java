@@ -34,6 +34,8 @@ public class UserRepository {
 		user.setPassword(rs.getString("password"));
 		user.setTelephone(rs.getString("telephone"));
 		user.setLineId(rs.getString("line_id"));
+		user.setZipCode(rs.getString("zipcode"));
+		user.setZipCode(rs.getString("address"));
 
 		return user;
 	};
@@ -45,7 +47,8 @@ public class UserRepository {
 	 * @return　該当するUser、存在しなければnull
 	 */
 	public User findById(int id) {
-		String sql = "Select id, name, email, password, telephone, line_id "
+
+		String sql = "Select id, name, email, password, line_id, zipcode, address, telephone "
 				+ "From users Where id=:id;";
 		SqlParameterSource param = new MapSqlParameterSource().addValue("id", id);
 		
@@ -67,7 +70,7 @@ public class UserRepository {
 	 */
 	public User findByMailAddress(String email) {
 
-		String sql = "Select id, name, email, password, telephone, line_id "
+		String sql = "Select id, name, email, password, line_id, zipcode, address, telephone "
 				+ "From users Where email=:email;";
 		SqlParameterSource param = new MapSqlParameterSource().addValue("email", email);
 
@@ -88,7 +91,7 @@ public class UserRepository {
 	 */
 	public User findByLineId(String lineId) {
 
-		String sql = "Select id, name, email, password, telephone, line_id "
+		String sql = "Select id, name, email, password, telephone, line_id, zipcode, address  "
 				+ "From users Where line_id=:lineId;";
 		SqlParameterSource param = new MapSqlParameterSource().addValue("lineId", lineId);
 
@@ -111,7 +114,7 @@ public class UserRepository {
 	 */
 	public User findByMailAddressAndPassword(String email, String password) {
 
-		String sql = "Select id, name, email, password, telephone, line_id "
+		String sql = "Select id, name, email, password, line_id, zipcode, address, telephone "
 				+ "From users Where email=:email ANd password=:password;";
 		SqlParameterSource param = new MapSqlParameterSource().addValue("email", email).addValue("password", password);
 
@@ -133,8 +136,8 @@ public class UserRepository {
 	 */
 	public Integer insertOne(User user) {
 
-		String sql = "Insert Into users(name, email, password, telephone, line_id) "
-				+ "Values(:name, :email, :password, :telephone, :lineId) Returning id;";
+		String sql = "Insert Into users(name, email, password, line_id, zipcode, address, telephone) "
+				+ "Values(:name, :email, :password, :lineId, :zipCode, :address, :telephone) Returning id;";
 		SqlParameterSource param = new BeanPropertySqlParameterSource(user);
 
 		Integer userid = jdbcTemplate.queryForObject(sql, param, Integer.class);

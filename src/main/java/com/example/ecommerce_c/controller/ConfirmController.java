@@ -13,6 +13,8 @@ import org.springframework.mail.SimpleMailMessage;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -22,6 +24,7 @@ import com.example.ecommerce_c.domain.Order;
 import com.example.ecommerce_c.domain.OrderTransaction;
 import com.example.ecommerce_c.domain.OrderTransactionStatus;
 import com.example.ecommerce_c.domain.Payment;
+import com.example.ecommerce_c.domain.User;
 import com.example.ecommerce_c.form.ConfirmForm;
 import com.example.ecommerce_c.security.LoginUser;
 import com.example.ecommerce_c.service.ConfirmService;
@@ -48,8 +51,14 @@ public class ConfirmController {
 	@Autowired
 	private PaymentService paymentService;
 
+	@Autowired
+	private TopController topController;
+
+//	@Autowired
+//	private 
+
 	@ModelAttribute
-	public ConfirmForm setUpConfirmForm() {
+	ConfirmForm setUpConfirmForm() {
 		return new ConfirmForm();
 	}
 
@@ -61,7 +70,7 @@ public class ConfirmController {
 	 * @return 注文確認画面/ログイン画面
 	 */
 	@GetMapping("/confirm")
-	public String showConfirm(int orderId, Model model) {
+	public String showConfirm(int orderId, Model model, ConfirmForm confirmForm) {
 //		Order order = service.searchOrder(orderId);
 
 //		ログインしていなかったらログインページに遷移
@@ -82,8 +91,17 @@ public class ConfirmController {
 	 * @return 注文完了画面
 	 */
 	@PostMapping("/purchase")
-	public String finished(ConfirmForm form, Model model, @AuthenticationPrincipal LoginUser loginUser) {
-		Order order = service.getFullOrder(form.getId());
+
+	public String finished(@Validated ConfirmForm form, BindingResult result, Model model,
+			@AuthenticationPrincipal final LoginUser loginUser) {
+		
+		Order order = service.getFullOrder(form.getOrderId());
+		if (result.hasErrors()) {
+
+			System.out.println(form);
+			model.addAttribute("confirmForm", form);
+			return topController.index(order.getUserId(), model, loginUser, form);
+		}
 
 		model.addAttribute("userId", order.getUserId());
 
@@ -91,9 +109,7 @@ public class ConfirmController {
 		BeanUtils.copyProperties(form, order);
 		order.setOrderDate(new Date());
 		// 支払方法情報を取得する
-//		order.setPaymentMethod(form.getPaymentMethod());
-		// もし 支払方法はクレジットカード
-		order.setPaymentMethod(2);
+		order.setPaymentMethod(form.getPaymentMethod());
 		try {
 			Date deliveryTime = new SimpleDateFormat("yyyy-MM-dd-hh時")
 					.parse(form.getDeliveryDate() + "-" + form.getDeliveryTime());
@@ -113,22 +129,21 @@ public class ConfirmController {
 			Payment payment = paymentService.findOneByUserId(order.getUserId());
 			OrderTransaction orderTransaction = new OrderTransaction();
 
-			// 仮のクレジットカード
+
+			orderTransaction.setUser_id(order.getUserId());
 			orderTransaction.setAmount(order.getCalcTotalPrice());
 			orderTransaction.setOrder_number(order.getId());
 			orderTransaction.setCard_number(payment.getCardNumber());
 			orderTransaction.setCard_exp_year(payment.getCardExpYear());
 			orderTransaction.setCard_exp_month(payment.getCardExpMonth());
-			orderTransaction.setCard_cvv(payment.getCardCvv());
-
-			System.out.println(orderTransaction);
+			orderTransaction.setCard_cvv("111");
 
 			OrderTransactionStatus orderTransactionStatus = orderTransactionService.transacting(orderTransaction);
+
 			System.out.println(orderTransactionStatus);
 			if (orderTransactionStatus.getStatus().equals("error")) { // 決済失敗した場合
-				model.addAttribute("paymentError", orderTransactionStatus.getMessage());
-				System.out.println("tess");
-				return "order_confirm";
+				result.rejectValue("paymentMethod", null, orderTransactionStatus.getMessage());
+				return topController.index(order.getUserId(), model, loginUser, form);
 			} else { // 決済成功
 				order.setStatus(2);
 				service.update(order);
@@ -145,6 +160,7 @@ public class ConfirmController {
 				if (loginUser.getLineId() != null) {
 					
 				}
+
 
 				return "order_finished";
 			}

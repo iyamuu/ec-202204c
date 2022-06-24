@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ja">
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
   <head>
     <!--Import Google Icon Font-->
     <link
@@ -38,7 +38,9 @@
       <div class="container">
         <div class="header">
           <div class="header-left">
-            <a href="top.html"> </a>
+            <a th:href="@{/}">
+              <img class="logo" src="img/header_logo.png" />
+            </a>
           </div>
 
           <div class="header-right">
@@ -116,34 +118,23 @@
                 <button class="btn blue" style="margin:auto; width:80%;" type="submit" >
                   <span>ログイン</span>
                 </button>
+               
               </div>
-              <div class="row">
+            </form>
+            <div class="row login-btn">
+            <form th:action="@{/oauth2/authorization/line}" method="GET">
+                	<button class="btn  light-green accent-3" style="margin:auto; width:80%;" type="submit">
+                		<span><i class="fab fa-line fa-4x line-green "></i>&emsp;LINEでログイン</span>
+                	</button>
+            </form>
+            </div>
+            <div class="row">
                 <div class="input-field col s6 m6 l6">
-                  <p class="margin medium-small">
+                  <p class="margin medium-small" >
                     <a th:href="@{/signup}">ユーザー登録はこちら</a>
                   </p>
                 </div>
               </div>
-            </form>
-
-            <!-- Lineでのログインフォーム -->
-            <form
-              class="col s12"
-              method="GET"
-              th:action="@{/oauth2/authorization/line}"
-            >
-              <br />
-              <center>
-                <div class="row">
-                  <button
-                    type="submit"
-                    class="col s12 btn btn-large waves-effect indigo green accent-3"
-                  >
-                    Line でログイン <i class="fa-brands fa-line"></i>
-                  </button>
-                </div>
-              </center>
-            </form>
           </div>
         </div>
       </div>

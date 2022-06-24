@@ -16,6 +16,10 @@ public class User {
 	private String email;
 	/** パスワード */
 	private String password;
+	/** 郵便番号 */
+	private String zipCode;
+	/** 住所 */
+	private String address;
 	/** 電話番号 */
 	private String telephone;
 	/** Line ID */
@@ -61,6 +65,7 @@ public class User {
 		this.telephone = telephone;
 	}
 
+
 	public String getLineId() {
 		return lineId;
 	}
@@ -69,10 +74,27 @@ public class User {
 		this.lineId = lineId;
 	}
 
+	public String getZipCode() {
+		return zipCode;
+	}
+
+	public void setZipCode(String zipCode) {
+		this.zipCode = zipCode;
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
 	@Override
 	public String toString() {
-		return "User [id=" + id + ", name=" + name + ", email=" + email + ", password=" + password + ", telephone="
-				+ telephone + ", lineId=" + lineId + "]";
+		return "User [id=" + id + ", name=" + name + ", email=" + email + ", password=" + password + ", zipCode="
+				+ zipCode + ", address=" + address + ", telephone=" + telephone + ", lineId=" + lineId + "]";
 	}
+
 
 }
