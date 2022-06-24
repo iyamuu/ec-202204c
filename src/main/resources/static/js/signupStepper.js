@@ -16,6 +16,8 @@ function userCheck(destroyFeedback) {
 	validationResults.forEach((result) => {
 		if(result === false){
 			$('#step1').addClass("wrong");
+			$('#step2').removeClass("active");
+			$('#step1').addClass("active");
 			next = false;
 			return destroyFeedback(false);
 		}
@@ -150,6 +152,10 @@ function noThing(destroyFeedback) {
     destroyFeedback(true);
   }, 10000);
 }
+
+$('.step2').on('click', function() {
+	console.log("step2が押されたよ")
+});
 
 var stepperDiv = document.querySelector(".stepper");
 console.log(stepperDiv);
