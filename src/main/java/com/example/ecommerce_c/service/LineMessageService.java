@@ -51,9 +51,6 @@ public class LineMessageService {
 
 		Order order = orderRepository.findFullOrderById(orderId);
 		
-		//デバッグ用
-		System.out.println(order);
-		
 		
 		List<Bubble> orderItemMessage = new ArrayList<>();
 		Bubble orderCompleteBubbl = buildOrderCompleteBubble(order);
@@ -64,8 +61,6 @@ public class LineMessageService {
 		}
 
 		Carousel complateMessage = Carousel.builder().contents(orderItemMessage).build();
-		
-		System.out.println(complateMessage);
 
 		return complateMessage;
 	}
@@ -243,6 +238,9 @@ public class LineMessageService {
 		String toppingListString = "";
 		for (OrderTopping orderTopping : orderItem.getOrderToppingList()) {
 			toppingListString += orderTopping.getTopping().getName() + ", ";
+		}
+		if(toppingListString.equals("")) {   //体とエラーになる
+			toppingListString = "なし";
 		}
 		Box toppingBox = buildDetailBox("オプション", toppingListString);
 		

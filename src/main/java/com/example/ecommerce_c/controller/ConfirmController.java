@@ -191,9 +191,6 @@ public class ConfirmController {
 	// Line への通知
 	private void sendLineMessage(String lineId, Integer orderId) {
 			
-			System.out.println("================");
-			System.out.println(lineId);
-			
 			Message message = new FlexMessage("ご注文完了通知", lineMessageService.getCompleteMessage(orderId));
 			PushMessage pushMessage = new PushMessage(lineId, message);
 			
