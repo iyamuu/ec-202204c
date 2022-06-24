@@ -512,27 +512,32 @@
                                     >支払方法を選択してください</label
                                   >
                                 </div>
+
                                 <div class="input-field col s12">
-                                  <div>
-                                    <input
-                                      id="money"
-                                      type="radio"
-                                      name="pay"
-                                      th:field="*{pay}"
-                                      value="0"
-                                      checked
-                                    />
-                                    <label for="money">代引き</label>
+                                  <div class="col s6">
+                                    <label>
+                                      <input
+                                        id="money"
+                                        name="pay"
+                                        type="radio"
+                                        th:field="*{pay}"
+                                        value="0"
+                                        checked
+                                      />
+                                      <span>代引き</span>
+                                    </label>
                                   </div>
-                                  <div>
-                                    <input
-                                      id="card"
-                                      type="radio"
-                                      name="pay"
-                                      th:field="*{pay}"
-                                      value="1"
-                                    />
-                                    <label for="card">クレジットカード</label>
+                                  <div class="col s6">
+                                    <label>
+                                      <input
+                                        id="card"
+                                        name="pay"
+                                        type="radio"
+                                        th:field="*{pay}"
+                                        value="1"
+                                      />
+                                      <span>クレジットカード</span>
+                                    </label>
                                   </div>
                                 </div>
                               </div>
