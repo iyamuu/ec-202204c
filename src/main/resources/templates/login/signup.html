@@ -29,23 +29,24 @@
 
 <body>
 	<header>
-		<div class="container">
-			<div class="header">
-				<div class="header-left">
-					<a href="top.html"> </a>
-				</div>
+      <div class="container">
+        <div class="header">
+          <div class="header-left">
+            <a href="top.html"> </a>
+          </div>
 
-				<div class="header-right">
-					<a href="item_list.html" th:href="@{/top(userId=${userId})}">商品一覧</a> <a th:href="@{/signup(userId=${userId})}">会員登録</a>
-					<a href="login.html" th:href="@{/login(userId=${userId})}" class="login"> <i
-						class="fas fa-sign-in-alt"></i>ログイン
-					</a>
-				</div>
-			</div>
-		</div>
-	</header>
-
-	<div class="top-wrapper">
+          <div class="header-right">
+          <!-- FIXME: 本来はth:hrefにはuserIdを埋め込むべき。SpringSecurityを導入予定のため雑に実装。 -->
+            <a href="item_list.html" th:href="@{/(userId=${userId})}">商品一覧</a>
+            <a th:href="@{/signup(userId=${userId})}">会員登録</a>
+            <a href="login.html" th:href="@{/login(userId=${userId})}" class="login">
+              <i class="fas fa-sign-in-alt"></i>ログイン
+            </a>
+          </div>
+        </div>
+      </div>
+    </header>
+	<div class="top-wrapper" style="padding-top: 7rem">
 		<div class="container">
 			<div class="row register-page">
 				<form th:action="@{/signup(userId=${userId})}" method="post" th:object="${signupForm}">
