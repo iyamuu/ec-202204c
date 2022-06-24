@@ -49,7 +49,7 @@ public class SignupController {
 	}
 
 	/**
-	 * 新規登録を行なう.
+	 * 新規登録を行なう. 登録が完了したら自動ログインする.
 	 * 
 	 * @param form   新規登録フォーム
 	 * @param result バリデーション結果
@@ -74,14 +74,15 @@ public class SignupController {
 		if (result.hasErrors()) {
 			return getSignupPage(form, model);
 		}
+	
 		
+		//ログイン状態なら一度ログアウトさせる
 		SecurityContext context = SecurityContextHolder.getContext();
 		Authentication authentication = context.getAuthentication();
-		
-		//ログインしていたらログアウトさせる
 		if(authentication instanceof AnonymousAuthenticationToken == false) {
 			SecurityContextHolder.clearContext();
 		}
+		
 
 		User user = new User();
 		Addressee addressee = new Addressee();
@@ -98,13 +99,14 @@ public class SignupController {
 		
 		//自動ログイン処理
 		try {
-			request.login(form.getUserForm().getEmail(), form.getUserForm().getPassword());  //パスワードは平文
+			
+			request.login(form.getUserForm().getEmail(), form.getUserForm().getPassword());  //パスワードは平文を渡す
+			
 		}catch (Exception e) {
-			// TODO: handle exception
+			
 			e.printStackTrace();
+			
 		}
-		
-		
 		return "redirect:/";
 
 	}
