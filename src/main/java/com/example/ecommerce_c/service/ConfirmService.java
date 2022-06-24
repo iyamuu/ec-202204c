@@ -3,6 +3,7 @@ package com.example.ecommerce_c.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import com.example.ecommerce_c.domain.Order;
 import com.example.ecommerce_c.domain.User;
@@ -85,4 +86,6 @@ public class ConfirmService {
 		mail.setText("テキスト");
 		return mail;
 	}
+	
+	
 }
