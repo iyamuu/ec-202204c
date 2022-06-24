@@ -1,9 +1,6 @@
 /**
  *
  */
-function test(destroyFeedback) {
-	
-}
 function userCheck(destroyFeedback) {
 	
 	let validationResults = [];
@@ -147,12 +144,6 @@ function duplicateCheckEmail(email) {
       console.log("errorThrown : " + errorThrown);
     });
 }
-
-
-	
-
-
-
 
 function noThing(destroyFeedback) {
   setTimeout(function () {

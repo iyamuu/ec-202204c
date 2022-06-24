@@ -22,9 +22,10 @@ header {
   margin-top: 5px;
 }
 
-/* .header-left {
+ .header-left {
   float: left;
-} */
+  margin-right: auto;
+} 
 
 .header-right {
   margin-left: auto; /* ヘッダ右側のリンクだけ右寄せにする(ロゴは左寄せのまま) */
