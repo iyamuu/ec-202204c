@@ -91,14 +91,16 @@ public class ConfirmController {
 	 * @return 注文完了画面
 	 */
 	@PostMapping("/purchase")
-	public String finished(@Validated ConfirmForm form, BindingResult result, Model model) {
+	public String finished(@Validated ConfirmForm form, BindingResult result, Model model,
+			@AuthenticationPrincipal final LoginUser loginUser) {
 		Order order = service.getFullOrder(form.getOrderId());
 
 		if (result.hasErrors()) {
 			// どこのパースを返せばいいのか.
 
 			System.out.println(form);
-			return topController.index(order.getUserId(), model, null, form);
+			model.addAttribute("confirmForm", form);
+			return topController.index(order.getUserId(), model, loginUser, form);
 		}
 
 		model.addAttribute("userId", order.getUserId());
@@ -133,15 +135,16 @@ public class ConfirmController {
 			orderTransaction.setCard_number(payment.getCardNumber());
 			orderTransaction.setCard_exp_year(payment.getCardExpYear());
 			orderTransaction.setCard_exp_month(payment.getCardExpMonth());
-			orderTransaction.setCard_cvv(payment.getCardCvv());
+//			orderTransaction.setCard_cvv(payment.getCardCvv());
+			//test 決済失敗
+			orderTransaction.setCard_cvv("111");
 
 			OrderTransactionStatus orderTransactionStatus = orderTransactionService.transacting(orderTransaction);
 
 			System.out.println(orderTransactionStatus);
 			if (orderTransactionStatus.getStatus().equals("error")) { // 決済失敗した場合
-				result.rejectValue("confirmForm.paymentMethod", null, orderTransactionStatus.getMessage());
-				// 検討中.
-				return showConfirm(order.getId(), model, form);
+				result.rejectValue("paymentMethod", null, orderTransactionStatus.getMessage());
+				return topController.index(order.getUserId(), model, loginUser, form);
 			} else { // 決済成功
 				order.setStatus(2);
 				service.update(order);
