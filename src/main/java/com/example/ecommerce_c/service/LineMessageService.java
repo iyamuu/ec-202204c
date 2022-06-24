@@ -50,11 +50,14 @@ public class LineMessageService {
 	public Carousel getCompleteMessage(Integer orderId) {
 
 		Order order = orderRepository.findById(orderId);
-
 		
+		//デバッグ用
+		System.out.println(order);
 		
 		
 		List<Bubble> orderItemMessage = new ArrayList<>();
+		Bubble orderCompleteBubbl = buildOrderCompleteBubble(order);
+		orderItemMessage.add(orderCompleteBubbl);
 		for (OrderItem orderitem : order.getOrderItemList()) {
 			Bubble orderitemBubble = buildOrderItemBubble(orderitem);
 			orderItemMessage.add(orderitemBubble);
@@ -74,8 +77,15 @@ public class LineMessageService {
 	 */
 	private Bubble buildOrderCompleteBubble(Order order) {
 		
+		Box headerBox = buildOrderCompleteHeader(order.getUser().getName());
+		Image heroBox = buildLogoHero();
+		Box bodyBox = buildOrderCompleteBox(order);
+		Box footerBox = buildFooterBox();
 		
-		return null;
+		Bubble orderComleteBubble = Bubble.builder().header(headerBox).hero(heroBox).body(bodyBox).footer(footerBox).size(BubbleSize.MEGA).build();
+		
+		return orderComleteBubble;
+
 	}
 	
 	/**
@@ -140,7 +150,15 @@ public class LineMessageService {
 		}
 		Box paymentBox = buildDetailBox("支払い方法", payment);
 		
-		//配送日時　これはメールおやつをpullしてから
+		//配送日時
+		Box deliverBox = buildDetailBox("配送日時", order.formatDeliveryTime());
+		
+		
+		
+		Box bodyBox = Box.builder().layout(FlexLayout.VERTICAL)
+				.contents(Arrays.asList(stateBox, priceBox, nameBox, addressBox, paymentBox, deliverBox)).build();
+		
+		return bodyBox;
 	}
 	
 
