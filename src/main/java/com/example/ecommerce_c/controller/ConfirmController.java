@@ -146,7 +146,7 @@ public class ConfirmController {
 				sendLineMessage(loginUser.getLineId(),order.getId());
 			}
 
-			return "order_finished";
+			return "redirect:/complete";
 		}
 
 		else {
@@ -181,13 +181,11 @@ public class ConfirmController {
 				}
 
 
-				return "order_finished";
+				return "redirect:/complete";
 			}
 		}
 
 	}
-	
-	
 	
 	
 	// Line への通知
@@ -208,7 +206,11 @@ public class ConfirmController {
 			System.out.println("================");
 			System.out.println("response");
 			System.out.println(botApiResponse);
-			
+		
+}
+	@GetMapping("/complete")
+	public String purchase() {
+		return "order_finished";
 	}
 
 }

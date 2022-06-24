@@ -95,8 +95,7 @@ public class TopService {
 		Order order = orderRepository.findFullOrderById(guestOrderId);
 		for (OrderItem orderItem : order.getOrderItemList()) {
 			orderItem.setOrderId(loginOrderId);
-			orderItemRepository.insertOne(orderItem);
-			orderItemRepository.deleteOrderItem(orderItem.getId());
+			orderItemRepository.update(orderItem);
 		}
 	}
 	

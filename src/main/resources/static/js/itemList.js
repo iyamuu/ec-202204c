@@ -76,6 +76,13 @@ function getInitialItemList() {
     .done(function (data) {
       $("#itemList").empty();
       data.forEach((item) => genarateItemCell(item));
+      $("#itemList").append(`
+      <div class="modalBox" id="submitModal">
+      	<div class="modalInner">
+      		カートに追加しました
+      	</div>
+      </div>
+      `);
     })
     .fail(function (XMLHttpRequest, textStatus, errorThrown) {
       console.log("XMLHttpRequest : " + XMLDocument);
@@ -112,6 +119,7 @@ function genarateItemCell(item) {
               </div>
             </div>
           </div>
+          
           <!--モーダル-->
           <div class="modal" id="modal${item.id}">
             <div class="modal-content">
