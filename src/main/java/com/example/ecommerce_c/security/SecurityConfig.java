@@ -34,20 +34,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	public void configure(HttpSecurity http) throws Exception {
 
-		http.authorizeRequests().antMatchers("/login").permitAll().antMatchers("/signup").permitAll()
-				.antMatchers("/top").permitAll().antMatchers("/cart").permitAll() // 一覧画面とカート画面を許可
-				.antMatchers("/getItemByPage").permitAll()
-				.antMatchers("/show").permitAll()
-				.antMatchers("/add").permitAll().antMatchers("/delete").permitAll().antMatchers("/update").permitAll() // RestControllerへも許可
-				.anyRequest().authenticated()
-				.and().formLogin().loginPage("/login").loginProcessingUrl("/login") // ログインボタンのURL
-				.failureForwardUrl("/login?error=true").defaultSuccessUrl("/top", true).usernameParameter("email")
-				.passwordParameter("password")
-				.and().oauth2Login().loginPage("/login").defaultSuccessUrl("/line_signup", true) // Line Login
-				;
+		http.authorizeRequests().antMatchers("/login").permitAll().antMatchers("/signup").permitAll().antMatchers("/")
+				.permitAll().antMatchers("/cart").permitAll() // 一覧画面とカート画面を許可
+				.antMatchers("/getItemByPage").permitAll().antMatchers("/show").permitAll().antMatchers("/add")
+				.permitAll().antMatchers("/delete").permitAll().antMatchers("/update").permitAll() // RestControllerへも許可
+				.anyRequest().authenticated().and().formLogin().loginPage("/login").loginProcessingUrl("/login") // ログインボタンのURL
+				.failureForwardUrl("/login?error=true").defaultSuccessUrl("/", false).usernameParameter("email")
+				.passwordParameter("password").and().oauth2Login().loginPage("/login")
+				.defaultSuccessUrl("/line_signup", true) // Line Login
+		;
 
-		
-		//cookieにCSRFトークンを入れる
+		// cookieにCSRFトークンを入れる
 		http.csrf().csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse());
 
 		// ログアウト
@@ -60,7 +57,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 		auth.userDetailsService(formLoginService).passwordEncoder(new BCryptPasswordEncoder());
 	}
-	
+
 	@Bean // Line認証プロバイダのBean定義
 	public ClientRegistrationRepository clientRegistrationRepository() {
 		return new InMemoryClientRegistrationRepository(ClientRegistration.withRegistrationId("line")
