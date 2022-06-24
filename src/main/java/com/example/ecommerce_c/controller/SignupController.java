@@ -44,9 +44,6 @@ public class SignupController {
 	 */
 	@GetMapping("/signup")
 	public String getSignupPage(SignupForm form, Model model) {
-		
-		System.out.println("======================================");
-		System.out.println(form);
 
 		return "login/signup_stepper";
 	}
@@ -60,9 +57,6 @@ public class SignupController {
 	 */
 	@PostMapping("/signup")
 	public String registerUser(@Validated SignupForm form, BindingResult result, Model model) {
-		
-		System.out.println("======================================");
-		System.out.println(form);
 
 		// emailの重複チェック、存在していればバリデーション結果にエラーを追加
 		User existsUser = signupService.checkSameMailAddress(form.getUserForm().getEmail());
@@ -90,11 +84,6 @@ public class SignupController {
 		BeanUtils.copyProperties(form.getAddresseeForm(), addressee);
 		BeanUtils.copyProperties(form.getGiftInfoForm(), giftInformation);
 		BeanUtils.copyProperties(form.getPaymentForm(), payment);
-
-		System.out.println("======================================");
-		System.out.println(form.getUserForm());
-		System.out.println("======================================");
-		System.out.println(user);
 		
 		user = signupService.registerUser(user, addressee, giftInformation, payment); // 登録処理、ここでidが付与される
 		return "redirect:/login";
@@ -124,7 +113,7 @@ public class SignupController {
 			return getSignupPage(form, model);
 		}else {                              //IDがあるならそのままログイン
 			try {
-				request.login(lineLoginUser.getUsername(), lineLoginUser.getPassword());
+				request.login(lineLoginUser.getEmail(), lineLoginUser.getPassword());
 			}catch (Exception e) {
 				
 				e.printStackTrace();
