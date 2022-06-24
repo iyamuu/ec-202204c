@@ -125,6 +125,8 @@
                                   <!-- 郵便番号 -->
                                   <div>
                                     <label
+                                      th:if="*{#fields.hasErrors('zipCode')}"
+                                      th:errors="*{zipCode}"
                                       class="error-zipCode red-text"
                                     ></label>
                                   </div>
@@ -136,6 +138,7 @@
                                         class="form-control"
                                         placeholder="xxxyyyy"
                                         type="text"
+                                        th:field="*{zipCode}"
                                         list="zipList"
                                       />
                                       <label for="zipCode">郵便番号</label>
@@ -145,6 +148,8 @@
                                   <!-- 住所 -->
                                   <div>
                                     <label
+                                      th:if="*{#fields.hasErrors('address')}"
+                                      th:errors="*{address}"
                                       class="error-address red-text"
                                     ></label>
                                   </div>
@@ -154,6 +159,7 @@
                                         id="address"
                                         type="text"
                                         name="address"
+                                        th:field="*{address}"
                                         class="form-control"
                                       />
                                       <label for="address">住所</label>
