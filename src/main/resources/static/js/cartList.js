@@ -80,18 +80,14 @@ let buildItemImgAndNameCell = function (imgpath, itemName) {
 
 let buildPriceAndQuantityCell = function (price, quantity, orderItemId) {
   let cell = `<td>
-                    <span>
+                    <span class="col s12">
                         ${price}円
                     </span>
                     <br />
-                    <span>
-                        <button type="button" onclick="subOrderItemQuantity(${orderItemId});">
-                            -
-                        </button>
-                        <label id="item${orderItemId}Quantity"> ${quantity} </label>
-                        <button type="button" onclick='addOrderItemQuantity(${orderItemId});'">
-                            +
-                        </button>
+                    <span >
+                        <i class="col s2 material-icons"  onclick="subOrderItemQuantity(${orderItemId});" >remove_circle_outline</i>
+                        <label class="col s1" id="item${orderItemId}Quantity"> ${quantity} </label>
+                        <i class="col s2 material-icons" onclick='addOrderItemQuantity(${orderItemId});'>add_circle</i>
                     </span>
                 </td>`;
 
@@ -137,9 +133,10 @@ let buildSubTotalCell = function (subtotal) {
 let buildDeleeButtonCell = function (orderItemId) {
   let cell = `<td>
                     <button
+                    class="btn deep-orange accent-3"
                     type="button"
                     onclick="deleteOrderItem(${orderItemId});">
-                    <span>削除</span>
+                    <span><i class="material-icons left">delete</i>削除</span>
                     </button>
                 </td>`;
 

@@ -93,7 +93,7 @@ function genarateItemCell(item) {
               </div>
               <div>
               <a
-                class="right waves-effect waves-light btn-large orange cart_button add_cart_${item.id}"
+                class="right waves-effect waves-light btn-large amber accent-3 cart_button add_cart_${item.id}"
                 style="z-index:0"
                 onclick="postCart(${item.id})"
               >
@@ -116,7 +116,7 @@ function genarateItemCell(item) {
                </div>
 			   <div>
 			   	   	<h5 class="size orange lighten-4">サイズ選択</h5>
-			   		<form>
+			   		<form style="margin-bottom:3rem">
 						<label class="col s6">
 							<input name="size" type="radio" value="M" checked />
 							<span>M ¥ ${item.priceM}円（税抜）</span>
@@ -130,14 +130,16 @@ function genarateItemCell(item) {
 				<div>
 					<h5 class="size orange lighten-4">個数選択</h5>
 					<div class="spinner-container">
-						<span class="spinner-sub disabled col s4" onclick="spinnerMinus(${item.id})">-</span>
+						<span class="spinner-sub disabled col s4" onclick="spinnerMinus(${item.id})"><i class="material-icons">remove_circle_outline</i></span>
 						<input class="spinner col s4" min="1" value="1" type="text" readonly></input>
-						<span class="spinner-add col s4" onclick="spinnerPlus(${item.id})">+</span>
+						<span class="spinner-add col s4" onclick="spinnerPlus(${item.id})"><i class="material-icons">add_circle</i></span>
 					</div>
 				</div>
                <div>
 	               <h5 class="options orange lighten-4">オプション選択</h5>
-	               <form>
+	           </div>
+	           <div>
+	               <form style="height:300px">
 	                    <label class="col s6">
 	                        <input type="checkbox" name="option" class="filled-in" value="${item.toppingList[0].id}"/>
 	                        <span>${item.toppingList[0].name}</span>
@@ -223,16 +225,17 @@ function genarateItemCell(item) {
 					  		<span>${item.toppingList[20].name}</span>
 				  		</label>  
 	                  </form>
-                  </div>
-               <div class="modal-footer">
-                  <a
-                  class="waves-effect waves-light btn-large orange modal-action modal-close right" href="#!"
-				  onclick="postCart(${item.id})"
-                  >
-                  <i class="material-icons left">add_shopping_cart</i>
-                  <span class="cart_button add_cart_${item.id}">カートに追加</span></a
-                  >
-               </div>
+                </div>
+                <div style="height:3rem">
+	                <a
+	                class="right waves-effect waves-light btn-large amber accent-3 cart_button add_cart_${item.id}"
+	                style="z-index:0"
+	                onclick="postCart(${item.id})"
+	              	>
+	                <i class="material-icons left">add_shopping_cart</i>
+	                <span>カートに追加</span></a
+	              	>
+	            </div>
             </div>
           </div>
           <hr />
