@@ -6,7 +6,7 @@ ${order.user.name} 様
 #foreach (${orderItem} in ${order.orderItemList})
 商品名: ${orderItem.item.name}
 サイズ: ${orderItem.size}
-	#if(${orderItem.size.equals('M')})
+	#if(${orderItem.size} == "M")
 価格: ${orderItem.item.priceM}円
 	#else
 価格: ${orderItem.item.priceL}円
