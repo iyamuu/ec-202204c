@@ -123,7 +123,7 @@ public class SignupController {
 				
 			}
 			
-			return "redirect:/top";
+			return "redirect:/";
 		}
 	}
 
