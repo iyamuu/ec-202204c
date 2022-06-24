@@ -43,7 +43,7 @@
       <div class="container">
         <div class="header">
           <div class="header-left">
-            <a href="top.html">
+            <a th:href="@{/}">
               <img class="logo" src="img/header_logo.png" />
             </a>
           </div>
@@ -51,16 +51,18 @@
           <div class="header-right">
             <a href="item_list.html" th:href="@{/}">商品一覧</a>
             <a href="register_admin.html"  th:href="@{/signup}">会員登録</a>
-            <a href="login.html" th:href="@{/login}" class="login">
+            <a th:href="@{/logout}" id="logout" class="logout">
+            	<i class="fas fa-sign-out-alt"></i>ログアウト
+            </a>
+            <a href="login.html" th:href="@{/login}" id="login" class="login">
               <i class="fas fa-sign-in-alt"></i>ログイン
             </a>
-
-            <a href="order_history.html">注文履歴</a>
           </div>
         </div>
       </div>
     </header>
     <input id="orderId" type="hidden" th:value="${session.orderId}" />
+    <input id="loginUser" type="hidden" th:value="${session.loginUser}" />
     <div class="card">
       <div class="card-content" style="width: 100%">
         <ul
@@ -178,6 +180,11 @@
                   th:object="${confirmForm}"
                   method="post"
                 >
+                                        <input
+                          type="hidden"
+                          name="orderId"
+                          th:value="${session.orderId}"
+                        />
                   <h2 class="page-title">お届け先情報</h2>
                   <div class="order-confirm-delivery-info">
                     <div>
@@ -235,7 +242,7 @@
                         <input
                           id="zipcode"
                           type="text"
-                          maxlength="7"
+                          maxlength="8"
                           name="destinationZipcode"
                           th:field="*{destinationZipcode}"
                         />
@@ -416,7 +423,6 @@
         </ul>
       </div>
     </div>
-
     <script
       src="https://code.jquery.com/jquery-3.6.0.min.js"
       integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="

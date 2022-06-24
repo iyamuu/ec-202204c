@@ -38,6 +38,7 @@ public class TopController {
 	@GetMapping("/")
 	public String index(Integer userId, Model model, @AuthenticationPrincipal final LoginUser loginUser, ConfirmForm confirmForm) {
 		System.out.println("loginUser: " + loginUser);
+		session.setAttribute("loginUser", loginUser);
 		System.out.println("  orderId: " + session.getAttribute("orderId"));
 		if (loginUser == null && session.getAttribute("orderId") == null) {
 //			ゲストユーザかつ初アクセスなら
@@ -90,8 +91,9 @@ public class TopController {
 			}
 //			セッションスコープにorderIdを保存
 			session.setAttribute("orderId", loginOrderId);
+//			セッションスコープにloginUserを保存
+			
 		}
-		
 		return "top_stepper";
 	}
 	
