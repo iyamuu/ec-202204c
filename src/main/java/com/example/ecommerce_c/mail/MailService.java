@@ -45,8 +45,8 @@ public class MailService {
 			// 送信情報設定
 			MimeMessageHelper helper = new MimeMessageHelper(message, true);
 			helper.setFrom("xxxxx@xxx.xx");
-			helper.setTo("sasagawaryuya@gmail.com");
-//			helper.setTo(order.getDestinationEmail());
+//			helper.setTo("自分のメールアドレス"); XXX: debug
+			helper.setTo(order.getDestinationEmail());
 			helper.setSubject(subject);
 			
 			// パラメーター定義
