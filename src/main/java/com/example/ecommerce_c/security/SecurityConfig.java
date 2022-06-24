@@ -28,7 +28,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	public void configure(WebSecurity web) throws Exception {
 		// セキュリティを適用しない
-		web.ignoring().antMatchers("/css/**").antMatchers("/js/**").antMatchers("/img/**");
+		web.ignoring().antMatchers("/css/**").antMatchers("/js/**").antMatchers("/img/**").antMatchers("/callback");
 	}
 
 	@Override

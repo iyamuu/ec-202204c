@@ -28,3 +28,11 @@ server:
   servlet:
     context-path: /ec-202204c
     
+    #Messaging API
+##本番用
+line: 
+  bot:
+    channel-token: +KPSoBi9wKi47GjMQW7aumOsxvBBF4UekaMPIhm8oQDnvl4FgYByPrGYI+QWgvRwA46tWsjSymJ4astzkt8VhccvK+V7AV7wcmL5IHLL9fC8hh13xcco12S/l1hJu8lDNv+neZrqqN8s3PF7SzigngdB04t89/1O/w1cDnyilFU=
+    channel-secret: 2f89bd29ed8ad7f40bf09fb3c52aa3e6
+    handler.path: /callback
+    
