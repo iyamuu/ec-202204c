@@ -34,6 +34,11 @@ function noThing(destroyFeedback) {
   }, 10000);
 }
 
+function itemPrev() {
+	console.log("itemPrev");
+	$('.fixed_btn').css('display','');
+}
+
 $('.step1').on('click', function() {
 	$('.fixed_btn').css('display','');
 });
