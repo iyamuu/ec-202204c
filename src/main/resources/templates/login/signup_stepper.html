@@ -75,7 +75,7 @@
                     </h3>
                     <div class="card">
                       <div class="card-content">
-                        <ul data-method="GET" class="stepper">
+                        <ul data-method="GET" class="stepper linear">
                           <li id="step1" class="step active">
                             <div class="step-title waves-effect waves-dark">
                               お客様情報
@@ -140,6 +140,9 @@
                                       th:errors="*{zipCode}"
                                       class="error-zipCode red-text"
                                     ></label>
+                                    <label
+                                      class="error-zipCode red-text"
+                                    ></label>
                                   </div>
                                   <div class="row">
                                     <div class="input-field col s12">
@@ -161,6 +164,9 @@
                                     <label
                                       th:if="*{#fields.hasErrors('address')}"
                                       th:errors="*{address}"
+                                      class="error-address red-text"
+                                    ></label>
+                                    <label
                                       class="error-address red-text"
                                     ></label>
                                   </div>
@@ -265,7 +271,7 @@
                               </div>
                             </div>
                           </li>
-                          <li class="step" onclick="userCheck()">
+                          <li id="step2" class="step" onclick="userCheck()">
                             <div class="step-title waves-effect waves-dark">
                               お届け先情報入力
                             </div>
@@ -288,7 +294,11 @@
                                   <label class="error-partner-name red-text">
                                   </label>
                                 </div>
+
                                 <div class="row">
+                                  <label for="address_name"
+                                    >お届け先のお名前</label
+                                  >
                                   <input
                                     id="address_name"
                                     name="name"
@@ -297,9 +307,6 @@
                                     placeholder="山田花子"
                                     type="text"
                                   />
-                                  <label for="address_name"
-                                    >お届け先のお名前</label
-                                  >
                                 </div>
 
                                 <!-- 郵便番号 -->
@@ -414,30 +421,31 @@
                                 </div>
                               </div>
 
-                              <!-- 性別 -->
-                              <div class="row">
-                                <div class="input-field col s12">
-                                  <div>
+                              <div class="row col s12">
+                                <div class="col s6">
+                                  <label>
                                     <input
                                       id="man"
-                                      type="radio"
                                       name="gender"
+                                      type="radio"
                                       th:field="*{gender}"
                                       value="男の子"
                                       checked
                                     />
-                                  </div>
-                                  <div>
-                                    <label for="man">男の子</label>
+                                    <span>男の子</span>
+                                  </label>
+                                </div>
+                                <div class="col s6">
+                                  <label>
                                     <input
                                       id="woman"
-                                      type="radio"
                                       name="gender"
+                                      type="radio"
                                       th:field="*{gender}"
                                       value="女の子"
                                     />
-                                    <label for="woman">女の子</label>
-                                  </div>
+                                    <span>女の子</span>
+                                  </label>
                                 </div>
                               </div>
 
@@ -468,7 +476,6 @@
                                   <label for="upper_budget">何円まで</label>
                                 </div>
                               </div>
-
                               <div class="step-actions">
                                 <button
                                   class="waves-effect waves-dark btn blue next-step"

@@ -1,38 +1,38 @@
 /**
  *
  */
-<<<<<<< HEAD
 
-function test(destroyFeedback) {}
-=======
->>>>>>> develop
 function userCheck(destroyFeedback) {
-  let validationResults = [];
-  let next = true;
-  validationResults.push(nameValidation());
-  validationResults.push(emailValidation());
-  validationResults.push(zipCodeValidation());
-  validationResults.push(addressValidation());
-  validationResults.push(telValidation());
-  validationResults.push(passwordValidation());
-  validationResults.push(confirmPasswordValidation());
+	
+	let validationResults = [];
+	let next = true;
+	validationResults.push(nameValidation());
+	validationResults.push(emailValidation());
+	validationResults.push(zipCodeValidation());
+	validationResults.push(addressValidation());
+	validationResults.push(telValidation());
+	validationResults.push(passwordValidation());
+	validationResults.push(confirmPasswordValidation());
+	
+	validationResults.forEach((result) => {
+		if(result === false){
+			$('#step1').addClass("wrong");
+			$('#step2').removeClass("active");
+			$('#step1').addClass("active");
+			next = false;
+			return destroyFeedback(false);
+		}
+	});
+	
+	if (next === true) {
+		console.log("pass");
+		setTimeout(function () {
+    	destroyFeedback(true);
+    	$('#step1').removeClass("wrong");
+  	}, 1500);
 
-  validationResults.forEach((result) => {
-    if (result === false) {
-      $("#step1").addClass("wrong");
-      next = false;
-      return destroyFeedback(false);
-    }
-  });
-
-  if (next === true) {
-    console.log("pass");
-    setTimeout(function () {
-      destroyFeedback(true);
-      $("#step1").removeClass("wrong");
-    }, 1500);
-  }
-
+	}
+ 	
   //フォームのバリデーションをする
 }
 
@@ -166,6 +166,10 @@ function noThing(destroyFeedback) {
     destroyFeedback(true);
   }, 10000);
 }
+
+$('.step2').on('click', function() {
+	console.log("step2が押されたよ")
+});
 
 var stepperDiv = document.querySelector(".stepper");
 console.log(stepperDiv);

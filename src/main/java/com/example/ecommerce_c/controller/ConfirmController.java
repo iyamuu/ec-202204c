@@ -26,6 +26,7 @@ import com.example.ecommerce_c.domain.OrderTransactionStatus;
 import com.example.ecommerce_c.domain.Payment;
 import com.example.ecommerce_c.domain.User;
 import com.example.ecommerce_c.form.ConfirmForm;
+import com.example.ecommerce_c.mail.MailService;
 import com.example.ecommerce_c.security.LoginUser;
 import com.example.ecommerce_c.service.ConfirmService;
 import com.example.ecommerce_c.service.OrderTransactionService;
@@ -43,8 +44,7 @@ public class ConfirmController {
 	@Autowired
 	private ConfirmService service;
 	@Autowired
-	private MailSender sender;
-
+	private MailService mailService;
 	@Autowired
 	private OrderTransactionService orderTransactionService;
 
@@ -121,6 +121,9 @@ public class ConfirmController {
 		Integer paymentMethod = order.getPaymentMethod();
 		if (paymentMethod == 1) {
 			order.setStatus(1); // 未入金
+//			メール送信
+			mailService.sendMail(order);
+
 			service.update(order);
 			return "order_finished";
 		}
@@ -147,14 +150,9 @@ public class ConfirmController {
 			} else { // 決済成功
 				order.setStatus(2);
 				service.update(order);
-
-//				メール送信
-				SimpleMailMessage mail = service.createMail(order.getDestinationEmail());
-				try {
-					sender.send(mail);
-				} catch (MailException e) {
-					e.printStackTrace();
-				}
+				
+//				注文内容確認&入金確認メール
+				mailService.sendMail(order);
 
 				// Line への通知
 				if (loginUser.getLineId() != null) {

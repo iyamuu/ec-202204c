@@ -1,6 +1,7 @@
 package com.example.ecommerce_c.domain;
 
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -78,6 +79,26 @@ public class Order {
 		}
 		totalPrice = sum;
 		return totalPrice;
+	}
+	
+	/**
+	 * 注文日をフォーマットして返す
+	 * 
+	 * @return フォーマットした注文日
+	 */
+	public String formatOrderDate() {
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+		return sdf.format(orderDate);
+	}
+	
+	/**
+	 * 配達日をフォーマットして返す
+	 * 
+	 * @return フォーマットした配達日
+	 */
+	public String formatDeliveryTime() {
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH時");
+		return sdf.format(deliveryTime);
 	}
 
 	public Integer getId() {

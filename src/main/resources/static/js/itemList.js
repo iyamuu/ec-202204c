@@ -237,7 +237,7 @@ function genarateItemCell(item) {
                 </div>
                 <div style="height:3rem">
 	                <a
-	                class="right waves-effect waves-light btn-large amber accent-3 cart_button add_cart_${item.id}"
+	                class="right modal-close waves-effect waves-light btn-large amber accent-3 cart_button add_cart_${item.id}"
 	                style="z-index:0"
 	                onclick="postCart(${item.id})"
 	              	>
