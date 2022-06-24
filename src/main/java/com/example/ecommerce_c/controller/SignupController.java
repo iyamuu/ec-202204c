@@ -45,9 +45,6 @@ public class SignupController {
 	 */
 	@GetMapping("/signup")
 	public String getSignupPage(SignupForm form, Model model) {
-		
-		System.out.println("======================================");
-		System.out.println(form);
 
 		return "login/signup_stepper";
 	}
@@ -111,6 +108,8 @@ public class SignupController {
 		if(lineLoginUser.getUserId() < 0) {  //IDが負の値ならアカウント登録情報はまだ LineIDをformに入れてサインアップページへ
 			SignupForm form = new SignupForm();
 			form.getUserForm().setLineId(lineLoginUser.getLineId());
+			
+			model.addAttribute("signupForm", form);
 			
 			System.out.println("======================================");
 			System.out.println(form);
