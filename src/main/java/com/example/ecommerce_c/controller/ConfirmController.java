@@ -135,6 +135,10 @@ public class ConfirmController {
 		Integer paymentMethod = order.getPaymentMethod();
 		if (paymentMethod == 1) {
 			order.setStatus(1); // 未入金
+			
+			service.update(order);
+			
+			
 //			メール送信
 			mailService.sendMail(order);
 			//Lineで送信
@@ -142,8 +146,6 @@ public class ConfirmController {
 				sendLineMessage(loginUser.getLineId(),order.getId());
 			}
 
-			
-			service.update(order);
 			return "order_finished";
 		}
 
