@@ -324,6 +324,7 @@
                                       placeholder="xxxyyyy"
                                       type="text"
                                       list="zipList"
+                                      th:field="*{zipCode}"
                                     />
                                     <label for="zipCode">宛先の郵便番号</label>
                                   </div>
@@ -341,6 +342,7 @@
                                       id="partnerAddress"
                                       type="text"
                                       name="address"
+                                      th:field="*{address}"
                                       class="form-control"
                                     />
                                     <label for="address">宛先の住所</label>
@@ -359,6 +361,7 @@
                                       id="partnerTel"
                                       type="tel"
                                       name="telephone"
+                                      th:field="*{telephone}"
                                       class="form-control"
                                     />
                                     <label for="tel">宛先の電話番号</label>
