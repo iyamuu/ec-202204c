@@ -137,7 +137,12 @@ public class ConfirmController {
 			order.setStatus(1); // 未入金
 //			メール送信
 			mailService.sendMail(order);
+			//Lineで送信
+			if(loginUser.getLineId() != null) {
+				sendLineMessage(loginUser.getLineId(),order.getId());
+			}
 
+			
 			service.update(order);
 			return "order_finished";
 		}
@@ -167,20 +172,10 @@ public class ConfirmController {
 				
 //				注文内容確認&入金確認メール
 				mailService.sendMail(order);
-
-				// Line への通知
-				if (loginUser.getLineId() != null) {
-					Message message = new FlexMessage("ご注文完了通知", lineMessageService.getCompleteMessage(order.getId()));
-					PushMessage pushMessage = new PushMessage(loginUser.getLineId(), message);
-					
-					BotApiResponse botApiResponse = null;
-					try {
-						botApiResponse = lineMessagingClient.pushMessage(pushMessage).get();
-					} catch (InterruptedException | ExecutionException e) {
-						e.printStackTrace();
-					}
-
-					System.out.println(botApiResponse);
+				
+				//Lineで送信
+				if(loginUser.getLineId() != null) {
+					sendLineMessage(loginUser.getLineId(),order.getId());
 				}
 
 
@@ -188,6 +183,30 @@ public class ConfirmController {
 			}
 		}
 
+	}
+	
+	
+	
+	
+	// Line への通知
+	private void sendLineMessage(String lineId, Integer orderId) {
+			
+			System.out.println("================");
+			System.out.println(lineId);
+			
+			Message message = new FlexMessage("ご注文完了通知", lineMessageService.getCompleteMessage(orderId));
+			PushMessage pushMessage = new PushMessage(lineId, message);
+			
+			BotApiResponse botApiResponse = null;
+			try {
+				botApiResponse = lineMessagingClient.pushMessage(pushMessage).get();
+			} catch (InterruptedException | ExecutionException e) {
+				e.printStackTrace();
+			}
+			System.out.println("================");
+			System.out.println("response");
+			System.out.println(botApiResponse);
+			
 	}
 
 }
