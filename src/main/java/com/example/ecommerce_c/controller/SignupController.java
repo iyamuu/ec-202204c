@@ -21,7 +21,6 @@ import com.example.ecommerce_c.domain.GiftInformation;
 import com.example.ecommerce_c.domain.Payment;
 import com.example.ecommerce_c.domain.User;
 import com.example.ecommerce_c.form.SignupForm;
-import com.example.ecommerce_c.form.UserForm;
 import com.example.ecommerce_c.security.LoginUser;
 import com.example.ecommerce_c.service.SignupService;
 
@@ -88,6 +87,11 @@ public class SignupController {
 		BeanUtils.copyProperties(form.getAddresseeForm(), addressee);
 		BeanUtils.copyProperties(form.getGiftInfoForm(), giftInformation);
 		BeanUtils.copyProperties(form.getPaymentForm(), payment);
+
+		System.out.println("======================================");
+		System.out.println(form.getUserForm());
+		System.out.println("======================================");
+		System.out.println(user);
 		
 		user = signupService.registerUser(user, addressee, giftInformation, payment); // 登録処理、ここでidが付与される
 		return "redirect:/login";
