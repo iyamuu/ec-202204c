@@ -178,6 +178,11 @@
                   th:object="${confirmForm}"
                   method="post"
                 >
+                                        <input
+                          type="hidden"
+                          name="orderId"
+                          th:value="${session.orderId}"
+                        />
                   <h2 class="page-title">お届け先情報</h2>
                   <div class="order-confirm-delivery-info">
                     <div>
@@ -235,7 +240,7 @@
                         <input
                           id="zipcode"
                           type="text"
-                          maxlength="7"
+                          maxlength="8"
                           name="destinationZipcode"
                           th:field="*{destinationZipcode}"
                         />
