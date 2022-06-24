@@ -105,7 +105,7 @@ public class SignupController {
 		}
 		
 		
-		return "redirect:/login";
+		return "redirect:/";
 
 	}
 	
