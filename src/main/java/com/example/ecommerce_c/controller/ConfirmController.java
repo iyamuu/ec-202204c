@@ -7,9 +7,6 @@ import java.util.Date;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mail.MailException;
-import org.springframework.mail.MailSender;
-import org.springframework.mail.SimpleMailMessage;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -135,11 +132,9 @@ public class ConfirmController {
 				service.update(order);
 				System.out.println("tesssssssssss");
 				
-//				注文内容確認メール
-				order.setStatus(1);
-				mailService.sendMail(order);
-//				入金確認メール
+//				注文内容確認&入金確認メール
 				order.setStatus(2);
+				System.out.println(order);
 				mailService.sendMail(order);
 
 				
