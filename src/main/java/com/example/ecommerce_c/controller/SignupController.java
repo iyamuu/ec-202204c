@@ -112,6 +112,9 @@ public class SignupController {
 			
 			return getSignupPage(form, model);
 		}else {                              //IDがあるならそのままログイン
+			System.out.println("=============================");
+			System.out.println(lineLoginUser.getEmail());
+			System.out.println(lineLoginUser.getPassword());
 			try {
 				request.login(lineLoginUser.getEmail(), lineLoginUser.getPassword());
 			}catch (Exception e) {
