@@ -1,5 +1,8 @@
 package com.example.ecommerce_c.form;
 
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Pattern;
+
 /**
  * オーダー情報を出力するコントローラ.
  * 
@@ -8,31 +11,40 @@ package com.example.ecommerce_c.form;
  */
 public class ConfirmForm {
 	/** ID */
-	private Integer id;
+
+	private Integer orderId;
+
 	/** 宛先氏名 */
+	@NotEmpty(message = "宛先氏名を入力してください")
 	private String destinationName;
 	/** 宛先Eメール */
+	@NotEmpty(message = "メールアドレスを入力してください")
 	private String destinationEmail;
 	/** 宛先郵便番号 */
+	@Pattern(regexp = "^[0-9]{3}-[0-9]{4}$", message = "郵便番号を入力してください (ハイフンあり）")
 	private String destinationZipcode;
 	/** 宛先住所 */
+	@NotEmpty(message = "住所を入力してください (建物名まで)")
 	private String destinationAddress;
 	/** 宛先TEL */
+	@Pattern(regexp = "^[0-9]{3}-[0-9]{4}-[0-9]{4}$", message = "電話番号を入力してください (ハイフンあり)")
 	private String destinationTel;
 	/** 配達日時 */
+	@NotEmpty(message = "配達日時を選択してください")
 	private String deliveryDate;
 	/** 配達時間 */
+	@NotEmpty(message = "配達時間を選択してください")
 	private String deliveryTime;
 
 	/** 支払方法 */
 	private Integer paymentMethod;
 
-	public Integer getId() {
-		return id;
+	public Integer getOrderId() {
+		return orderId;
 	}
 
-	public void setId(Integer id) {
-		this.id = id;
+	public void setOrderId(Integer orderId) {
+		this.orderId = orderId;
 	}
 
 	public String getDestinationName() {
@@ -99,12 +111,5 @@ public class ConfirmForm {
 		this.paymentMethod = paymentMethod;
 	}
 
-	@Override
-	public String toString() {
-		return "ConfirmForm [id=" + id + ", destinationName=" + destinationName + ", destinationEmail="
-				+ destinationEmail + ", destinationZipcode=" + destinationZipcode + ", destinationAddress="
-				+ destinationAddress + ", destinationTel=" + destinationTel + ", deliveryDate=" + deliveryDate
-				+ ", deliveryTime=" + deliveryTime + ", paymentMethod=" + paymentMethod + "]";
-	}
 
 }

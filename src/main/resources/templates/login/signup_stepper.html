@@ -35,7 +35,7 @@
   </head>
 
   <body>
-   <header>
+    <header>
       <div class="container">
         <div class="header">
           <div class="header-left">
@@ -45,10 +45,16 @@
           </div>
 
           <div class="header-right">
-          <!-- FIXME: 本来はth:hrefにはuserIdを埋め込むべき。SpringSecurityを導入予定のため雑に実装。 -->
-            <a href="item_list.html" th:href="@{/(userId=${userId})}">商品一覧</a>
+            <!-- FIXME: 本来はth:hrefにはuserIdを埋め込むべき。SpringSecurityを導入予定のため雑に実装。 -->
+            <a href="item_list.html" th:href="@{/(userId=${userId})}"
+              >商品一覧</a
+            >
             <a th:href="@{/signup(userId=${userId})}">会員登録</a>
-            <a href="login.html" th:href="@{/login(userId=${userId})}" class="login">
+            <a
+              href="login.html"
+              th:href="@{/login(userId=${userId})}"
+              class="login"
+            >
               <i class="fas fa-sign-in-alt"></i>ログイン
             </a>
           </div>
@@ -56,16 +62,14 @@
       </div>
     </header>
 
-    <div class="top-wrapper" >
+    <div class="top-wrapper">
       <div class="container signupform">
         <div class="row register-page">
           <form th:action="@{/signup}" method="post" th:object="${signupForm}">
             <div class="section grey lighten-5">
               <div class="container">
                 <div class="row">
-                  <div
-                    class="col s12 "
-                  >
+                  <div class="col s12">
                     <h3 class="light center-align blue-text signup-title">
                       新規登録
                     </h3>
@@ -132,6 +136,8 @@
                                   <!-- 郵便番号 -->
                                   <div>
                                     <label
+                                      th:if="*{#fields.hasErrors('zipCode')}"
+                                      th:errors="*{zipCode}"
                                       class="error-zipCode red-text"
                                     ></label>
                                   </div>
@@ -143,6 +149,7 @@
                                         class="form-control"
                                         placeholder="xxxyyyy"
                                         type="text"
+                                        th:field="*{zipCode}"
                                         list="zipList"
                                       />
                                       <label for="zipCode">郵便番号</label>
@@ -152,6 +159,8 @@
                                   <!-- 住所 -->
                                   <div>
                                     <label
+                                      th:if="*{#fields.hasErrors('address')}"
+                                      th:errors="*{address}"
                                       class="error-address red-text"
                                     ></label>
                                   </div>
@@ -161,6 +170,7 @@
                                         id="address"
                                         type="text"
                                         name="address"
+                                        th:field="*{address}"
                                         class="form-control"
                                       />
                                       <label for="address">住所</label>
@@ -662,7 +672,12 @@
                               登録
                             </div>
                             <div class="step-content">
-                              <button class="btn waves-effect waves-dark blue col s12" type="submit">登録</button>
+                              <button
+                                class="btn waves-effect waves-dark blue col s12"
+                                type="submit"
+                              >
+                                登録
+                              </button>
                             </div>
                           </li>
                         </ul>

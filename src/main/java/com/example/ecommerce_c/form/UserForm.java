@@ -3,8 +3,6 @@ package com.example.ecommerce_c.form;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Pattern;
 
-import org.springframework.stereotype.Component;
-
 /**
  * ユーザ情報のFormクラス.
  * 
@@ -27,6 +25,14 @@ public class UserForm {
 	/** 確認用パスワード */
 	@NotEmpty(message = "上のパスワードと同じパスワードをここに入力してください")
 	private String confirmPassword;
+	
+	/** 郵便番号 */
+	@Pattern(regexp = "^[0-9]{3}-[0-9]{4}$", message = "郵便番号を入力してください (ハイフンあり）")
+	private String zipCode;
+
+	/** 住所 */
+	@NotEmpty(message = "住所を入力してください (建物名まで)")
+	private String address;
 	
 	/** 電話番号 */
 	@Pattern(regexp = "^[0-9]{3}-[0-9]{4}-[0-9]{4}$", message = "電話番号を入力してください (ハイフンあり)")
@@ -77,10 +83,26 @@ public class UserForm {
 		this.confirmPassword = confirmPassword;
 	}
 
+	public String getZipCode() {
+		return zipCode;
+	}
+
+	public void setZipCode(String zipCode) {
+		this.zipCode = zipCode;
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+	
 	@Override
 	public String toString() {
-		return "SignupForm [name=" + name + ", email=" + email + ", password=" + password + ", confirmPassword="
-				+ confirmPassword + ", telephone=" + telephone + "]";
+		return "UserForm [name=" + name + ", email=" + email + ", password=" + password + ", confirmPassword="
+				+ confirmPassword + ", zipCode=" + zipCode + ", address=" + address + ", telephone=" + telephone + "]";
 	}
 
 
