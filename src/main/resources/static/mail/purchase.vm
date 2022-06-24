@@ -1,39 +1,44 @@
-ご注文の確認
-
 ${order.user.name} 様
-
-order:
-=============================
-${order}
-=============================
-
 
 ご注文ありがとうございます。
 
 注文内容：
-商品名	サイズ	価格	数量	オプション	小計
-○○	M/L	△△円	○個	○○　△△円
-				○○　△△円
-				○○　△△円	△△円
+#foreach (${orderItem} in ${order.orderItemList})
+商品名: ${orderItem.item.name}
+サイズ: ${orderItem.size}
+	#if(${orderItem.size.equals('M')})
+価格: ${orderItem.item.priceM}円
+	#else
+価格: ${orderItem.item.priceL}円
+	#end
+数量: ${orderItem.quantity}
+	#foreach(${orderTopping} in ${orderItem.orderToppingList})
+トッピング: ${orderTopping.topping.name}
+	#end
+小計: ${orderItem.getSubTotal()}円
 
+#end
 
-合計  〇点　△△円
-
-支払方法　クレジット	xxxx-xxxx-xxxx-0000
-	　代引き
+合計:	${order.getCalcTotalPrice()}円
+注文日:	${order.formatOrderDate()}
+支払方法: #if(${order.paymentMethod} == 1) 代金引換 #else クレジットカード #end
 
 =======================================
-ご注文を承りました。
-　　発送予定日：yyyy/MM/dd
-配送完了予定日：yyyy/MM/dd
-※発送予定日、配送完了予定日は変更する可能性がございます。
+宛先情報
+氏名:	${order.destinationName}
+住所:	〒${order.destinationZipcode} ${order.destinationAddress}
+TEL:	${order.destinationTel}
+
+配達予定日：${order.formatDeliveryTime()}
+※配達予定日は変更する可能性がございます。
 
 
 またのご利用お待ちしております。
- ~/ec202204c/
+localhost:8080/ec202204c/
 
 =======================================
 ご不明な点がございましたら以下のメールまたは電話にご連絡ください。
 ラクラクトイ
-mail: abc@abc.com
- tel: 000-0000-0000
+mail: xxx@xxx.com
+ tel: xxx-xxxx-xxxx
+ 
