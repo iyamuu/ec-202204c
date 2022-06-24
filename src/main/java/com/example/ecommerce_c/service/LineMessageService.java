@@ -64,6 +64,8 @@ public class LineMessageService {
 		}
 
 		Carousel complateMessage = Carousel.builder().contents(orderItemMessage).build();
+		
+		System.out.println(complateMessage);
 
 		return complateMessage;
 	}
@@ -82,7 +84,12 @@ public class LineMessageService {
 		Box bodyBox = buildOrderCompleteBox(order);
 		Box footerBox = buildFooterBox();
 		
-		Bubble orderComleteBubble = Bubble.builder().header(headerBox).hero(heroBox).body(bodyBox).footer(footerBox).size(BubbleSize.MEGA).build();
+		Bubble orderComleteBubble;
+		if(heroBox == null) {
+			orderComleteBubble = Bubble.builder().header(headerBox).body(bodyBox).footer(footerBox).size(BubbleSize.MEGA).build();
+		}else {
+			orderComleteBubble = Bubble.builder().header(headerBox).hero(heroBox).body(bodyBox).footer(footerBox).size(BubbleSize.MEGA).build();
+		}
 		
 		return orderComleteBubble;
 
@@ -175,7 +182,13 @@ public class LineMessageService {
 		Box bodyBox = buildOrderItemBodyBox(orderitem);
 		Box footerBox = buildFooterBox();
 		
-		Bubble orderItemBubble = Bubble.builder().header(headerBox).hero(heroBox).body(bodyBox).footer(footerBox).size(BubbleSize.MEGA).build();
+		Bubble orderItemBubble;
+		
+		if(headerBox == null) {
+			orderItemBubble = Bubble.builder().header(headerBox).body(bodyBox).footer(footerBox).size(BubbleSize.MEGA).build();
+		}else {
+			orderItemBubble = Bubble.builder().header(headerBox).hero(heroBox).body(bodyBox).footer(footerBox).size(BubbleSize.MEGA).build();
+		}
 		
 		return orderItemBubble;
 	}
