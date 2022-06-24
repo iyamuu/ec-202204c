@@ -21,6 +21,7 @@ import com.example.ecommerce_c.domain.GiftInformation;
 import com.example.ecommerce_c.domain.Payment;
 import com.example.ecommerce_c.domain.User;
 import com.example.ecommerce_c.form.SignupForm;
+import com.example.ecommerce_c.form.UserForm;
 import com.example.ecommerce_c.security.LoginUser;
 import com.example.ecommerce_c.service.SignupService;
 
@@ -107,6 +108,10 @@ public class SignupController {
 		if(lineLoginUser.getUserId() < 0) {  //IDが負の値ならアカウント登録情報はまだ LineIDをformに入れてサインアップページへ
 			SignupForm form = new SignupForm();
 			form.getUserForm().setLineId(lineLoginUser.getLineId());
+			
+			System.out.println("======================================");
+			System.out.println(form);
+			
 			return getSignupPage(form, model);
 		}else {                              //IDがあるならそのままログイン
 			try {
