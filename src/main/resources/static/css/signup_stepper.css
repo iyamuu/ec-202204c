@@ -8,6 +8,10 @@
   font-weight: 500;
 }
 
+.header-right a {
+	font-size: 20px;
+}
+
 .card:hover {
   box-shadow: 0px 10px 35px 0px rgba(0, 0, 0, 0.18);
 }
@@ -19,4 +23,19 @@
 
 .signup-title {
   margin-top: 5rem;
+}
+
+header {
+	height:5rem;
+	background: rgb(236,143,61);
+background: radial-gradient(circle, rgba(236,143,61,0.6222864145658263) 15%, rgba(252,192,70,0.6951155462184874) 73%);
+
+}
+
+.signupform{
+	background: #F9F2ED;
+}
+
+.step-title {
+	font-size: large;
 }

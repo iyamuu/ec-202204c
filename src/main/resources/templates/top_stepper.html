@@ -39,37 +39,37 @@
   <body>
     <!--ヘッダー（共通）-->
 
-    <header>
-      <div class="container" style="display: block">
+	<header>
+      <div class="container">
         <div class="header">
           <div class="header-left">
-            <a href="item_list_toy.html" th:href="@{/top(userId=${userId})}">
-              <img src="img/header_logo.png" class="logo" />
+            <a href="top.html">
+              <img class="logo" src="img/header_logo.png" />
             </a>
           </div>
+
           <div class="header-right">
-            <a href="login.html" th:href="@{/login(userId=${userId})}">
-              ログイン
+            <a href="item_list.html" th:href="@{/}">商品一覧</a>
+            <a href="register_admin.html"  th:href="@{/signup}">会員登録</a>
+            <a href="login.html" th:href="@{/login}" class="login">
+              <i class="fas fa-sign-in-alt"></i>ログイン
             </a>
-            <a href="login.html" th:href="@{/logout}"> ログアウト </a>
-            <a href="order_history.html"> 注文履歴 </a>
-            <a th:href="@{/cart(orderId=${orderId})}">
-              <i class="fas fa-sign-in-alt"></i>カート
-            </a>
-            <input id="orderId" type="hidden" th:value="${session.orderId}" />
+
+            <a href="order_history.html">注文履歴</a>
           </div>
         </div>
       </div>
     </header>
+    <input id="orderId" type="hidden" th:value="${session.orderId}" />
     <div class="card">
       <div class="card-content" style="width: 100%">
         <ul
           class="stepper horizontal linear"
-          style="padding-top: 7rem; height: 700px"
+          style="padding-top: 7rem; height: 1000px"
         >
           <!-- 商品の一覧が表示されるページ（初期ページ） -->
           <li class="step active">
-            <div class="step-title waves-effect" onclick="itemPrev()">
+            <div class="step-title step1 waves-effect">
               商品を探す
             </div>
             <div class="step-content" style="margin-top: 7rem">
@@ -81,7 +81,7 @@
                   <form class="search-form" action="post">
                     <input type="text" id="search-name-input" />
 
-                    <button class="btn search-btn" type="button">
+                    <button class="btn orange search-btn" type="button">
                       <span>検 索</span>
                     </button>
                   </form>
@@ -90,7 +90,7 @@
                 <!--item list-->
                 <div class="item-wrapper col s12">
                   <div class="container">
-                    <div id="itemList" class="items"></div>
+                    <div id="itemList" class="items" style="margin-top:2rem"></div>
                   </div>
                 </div>
               </div>
@@ -99,10 +99,10 @@
               <div class="step-actions" style="position: relative">
                 <!-- Here goes your actions buttons -->
                 <button
-                  class="waves-effect waves-dark next-step btn cart_button fixed_btn"
+                  class="waves-effect waves-light next-step light-blue darken-4 btn-large cart_button fixed_btn"
                   data-feedback="toCart"
                 >
-                  カートの確認へ
+                  <i class="fas lg fa-shopping-cart" data-feedback="toCart"><br />カートへ</i>
                 </button>
               </div>
             </div>
@@ -110,8 +110,7 @@
           <!-- カートの中身を示すページ -->
           <li class="step">
             <div
-              class="step-title waves-effect"
-              onclick="$('.fixed_btn').click"
+              class="step-title waves-effect step2"
             >
               カート内の商品
             </div>
@@ -141,34 +140,31 @@
                       <div id="totalPrice"></div>
                     </div>
 
-                    <div class="row order-confirm-btn">
-                      <form th:action="@{/confirm}" method="get">
-                        <input
-                          type="hidden"
-                          name="orderId"
-                          th:value="${session.orderId}"
-                        />
-                        <button class="btn">注文に進む</button>
-                      </form>
-                    </div>
+                   
                   </div>
                   <!-- end container -->
                 </div>
               </div>
               <!--カートの中身に問題がなければ、このボタンを押すことで購入確認画面へ遷移する-->
               <div class="step-actions" style="position: relative">
-                <button
-                  class="waves-effect waves-dark btn next-step"
-                  data-feedback="toConfirm"
-                >
-                  購入確認画面へ
-                </button>
-                <button
-                  class="waves-effect waves-dark btn-flat previous-step"
-                  onclick="itemPrev()"
-                >
-                  商品一覧画面へ戻る
-                </button>
+                 <div class="row order-confirm-btn">
+                      <form th:action="@{/confirm}" method="get">
+                        <input
+                          type="hidden"
+                          name="orderId"
+                          th:value="${session.orderId}"
+                        />
+                        <button class="btn waves-effect waves-dark btn next-step light-blue darken-4"
+                          data-feedback="toConfirm" >注文に進む</button>
+                      </form>
+                      <button
+	                  class="waves-effect waves-dark btn-flat previous-step"
+	                  onclick="itemPrev()"
+	                >
+	                  商品一覧画面へ戻る
+	                </button>
+                 </div>
+                
               </div>
             </div>
           </li>
@@ -386,8 +382,8 @@
                       </label>
                     </span>
                   </div>
-                  <div class="row order-confirm-btn">
-                    <button class="btn">
+                  <div class="row order-confirm-btn ">
+                    <button class="btn light-blue darken-4 btn-large">
                       <span>この内容で注文する</span>
                     </button>
                   </div>

@@ -35,8 +35,7 @@ public class TopController {
 	 * @param model
 	 * @return 商品一覧画面パース
 	 */
-	@GetMapping("/top")
-
+	@GetMapping("/")
 	public String index(Integer userId, Model model, @AuthenticationPrincipal final LoginUser loginUser, ConfirmForm confirmForm) {
 		System.out.println("loginUser: " + loginUser);
 		System.out.println("  orderId: " + session.getAttribute("orderId"));

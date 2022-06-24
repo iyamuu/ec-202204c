@@ -14,11 +14,12 @@ header {
 .header {
   display: flex; /* ヘッダロゴと右側のリンクを横並びにする */
   /* justify-content: flex-end; 右寄せにしたい場合*/
+  width:100%;
 }
 
 .logo {
   width: 200px;
-  margin-top: 15px;
+  margin-top: 5px;
 }
 
 /* .header-left {

@@ -20,6 +20,29 @@
 .fixed_btn
 {
   position: fixed;
-  bottom: 100px; 
-  right: 10px;
+  bottom: 5rem; 
+  right: 7rem;
+  width: 170px;
+  height: 170px;
+  border-radius: 50%;
+}
+
+header {
+	height:5rem;
+	background: rgb(236,143,61);
+background: radial-gradient(circle, rgba(236,143,61,0.6222864145658263) 15%, rgba(252,192,70,0.6951155462184874) 73%);
+
+}
+
+.header-right a {
+	font-size: 20px;
+}
+
+
+.step-content {
+	background: #F9F2ED;
+}
+
+.step-title {
+	font-size: large;
 }

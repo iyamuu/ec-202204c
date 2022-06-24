@@ -41,7 +41,7 @@
           </div>
 
           <div class="header-right">
-            <a href="item_list.html" th:href="@{/top}">商品一覧</a>
+            <a href="item_list.html" th:href="@{/}">商品一覧</a>
             <a th:href="@{/signup}">会員登録</a>
             <a href="login.html" th:href="@{/login}" class="login">
               <i class="fas fa-sign-in-alt"></i>ログイン
@@ -52,14 +52,14 @@
     </header>
 
     <div class="top-wrapper">
-      <div class="container">
+      <div class="container signupform">
         <div class="row register-page">
           <form th:action="@{/signup}" method="post" th:object="${signupForm}">
             <div class="section grey lighten-5">
               <div class="container">
                 <div class="row">
                   <div
-                    class="col xl4 l6 m10 s12 offset-xl4 offset-l3 offset-m1"
+                    class="col s12 "
                   >
                     <h3 class="light center-align blue-text signup-title">
                       新規登録
@@ -724,12 +724,11 @@
 
                           <li class="step">
                             <div class="step-title waves-effect waves-dark">
-                              完了
+                              登録
                             </div>
                             <div class="step-content">
-                              End!!!!!
                               <div class="step-actions">
-                                <button type="submit">登録</button>
+                                <button class="btn waves-effect waves-dark btn next-step blue col s12" type="submit">登録</button>
                               </div>
                             </div>
                           </li>
