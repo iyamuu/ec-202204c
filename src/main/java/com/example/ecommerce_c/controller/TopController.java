@@ -10,9 +10,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import com.example.ecommerce_c.domain.Addressee;
 import com.example.ecommerce_c.domain.Order;
+import com.example.ecommerce_c.domain.Payment;
 import com.example.ecommerce_c.form.ConfirmForm;
 import com.example.ecommerce_c.security.LoginUser;
+import com.example.ecommerce_c.service.AddresseeService;
+import com.example.ecommerce_c.service.PaymentService;
 import com.example.ecommerce_c.service.TopService;
 
 /**
@@ -28,6 +32,10 @@ public class TopController {
 	private TopService service;
 	@Autowired
 	private HttpSession session;
+	@Autowired
+	private AddresseeService addresseeService;
+	@Autowired
+	private PaymentService paymentService;
 
 	/**
 	 * 商品一覧画面を出力する.
@@ -40,6 +48,11 @@ public class TopController {
 		System.out.println("loginUser: " + loginUser);
 		session.setAttribute("loginUser", loginUser);
 		System.out.println("  orderId: " + session.getAttribute("orderId"));
+		
+		//購入確認formの初期入力
+		setConfirmForm(confirmForm, loginUser);
+		
+		
 		if (loginUser == null && session.getAttribute("orderId") == null) {
 //			ゲストユーザかつ初アクセスなら
 //			重複しないゲスト用ユーザーIDを設定
@@ -105,4 +118,44 @@ public class TopController {
 		return order;
 	}
 
+	
+	/**
+	 * 購入確認画面での初期入力をsetする.
+	 * すでに入力されている（バリデーションでリジェクトされた結果）場合は何もしない
+	 * 
+	 * @return
+	 */
+	private ConfirmForm setConfirmForm(ConfirmForm form, @AuthenticationPrincipal LoginUser loginUser) {
+		
+		if(loginUser != null) {
+			Addressee addressee = addresseeService.getUserAddressee(loginUser.getUserId());
+			Payment payment = paymentService.findOneByUserId(loginUser.getUserId());
+			
+			//宛先情報の初期入力
+			if(form.getDestinationName() == null) {
+				form.setDestinationName(addressee.getName());
+			}
+			if(form.getDestinationEmail() == null) {
+				form.setDestinationEmail(loginUser.getEmail());   //宛先のEmailアドレスなんてない、メールが送られるのはログインユーザのEmailでは？
+			}
+			if(form.getDestinationZipcode() == null) {
+				form.setDestinationZipcode(addressee.getZipCode());
+			}
+			if(form.getDestinationAddress() == null) {
+				form.setDestinationAddress(addressee.getAddress());
+			}
+			if(form.getDestinationTel() == null) {
+				form.setDestinationTel(addressee.getTelephone());
+			}
+			
+			//支払い方法の初期入力 クレジットカード情報がformにない
+			if(form.getPaymentMethod() == null) {
+				form.setPaymentMethod(payment.getPay());
+			}
+			
+		}
+		
+		
+		return form;
+	}
 }
