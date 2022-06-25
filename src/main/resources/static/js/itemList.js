@@ -111,7 +111,7 @@ function genarateItemCell(item) {
               <a
                 class="right waves-effect waves-light btn-large amber accent-3 cart_button add_cart_${item.id}"
                 style="z-index:0"
-                onclick="postCart(${item.id})"
+                onclick="postCart(${item.id}); displayModal()"
               >
                 <i class="material-icons left">add_shopping_cart</i>
                 <span>カートに追加</span></a
