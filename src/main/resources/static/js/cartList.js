@@ -19,7 +19,7 @@ let showOrderItemList = function () {
   })
     .done(function (data) {
       console.log(JSON.stringify(data));
-
+	  
       //テーブルの更新
       let orderItemTable = $("#orderItemTable");
       orderItemTable.empty();
@@ -34,8 +34,15 @@ let showOrderItemList = function () {
   		leftPrice = String(leftPrice).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,");
   		$(".left-price-" + orderItem.item.id).html(leftPrice);
   		$(".right-price-" + orderItem.item.id).html(rightPrice);
-        
       });
+      
+      if (orderItemTable.html() === ``) {
+		$('#noItemMessage').css("display","");
+		$('#stepParchase').css("display","none");
+	  }else {
+		$('#noItemMessage').css("display","none");
+		$('#stepParchase').css("display","");
+	  }
       let totalPrice = data.tax + data.calcTotalPrice;
 
       //消費税の更新

@@ -143,9 +143,9 @@
                             <th>小計</th>
                           </tr>
                         </thead>
-
                         <tbody id="orderItemTable" class="highlight"></tbody>
                       </table>
+                      <h5 id="noItemMessage" style="display:none; text-align:center;">カート内には商品が入っていません。</h5>
                     </div>
 
                     <div class="row cart-total-price">
@@ -167,7 +167,9 @@
                           name="orderId"
                           th:value="${session.orderId}"
                         />
-                        <button class="btn waves-effect waves-dark btn next-step light-blue darken-4"
+                        <button
+                          id="stepParchase" 
+                          class="btn waves-effect waves-dark btn next-step light-blue darken-4"
                           data-feedback="toConfirm" >注文に進む</button>
                       </form>
                       <button
