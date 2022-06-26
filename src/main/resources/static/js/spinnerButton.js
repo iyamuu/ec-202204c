@@ -4,7 +4,6 @@
 
 //個数をプラスする処理
 function spinnerPlus(id) {
-  var add = $(this);
   var sub = $("#modal" + id + " .spinner-sub");
   var el = $("#modal" + id + " .spinner");
 
