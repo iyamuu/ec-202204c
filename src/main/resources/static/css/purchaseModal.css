@@ -1,1 +1,39 @@
 @charset "UTF-8";
+.c-modal {
+    display: none;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+}
+
+
+.c-modal_bg {
+    background: rgba(0, 0, 0, 0.6);
+    height: 100vh;
+    width: 100%;
+}
+
+.c-modal_content {
+    background: #fff;
+    left: 50%;
+    position: absolute;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 10px;
+	align-items: center;
+    justify-content: center;
+    display: flex;
+}
+
+.c-modal_content_inner {
+	font-size: 140%;
+}
+
+._lg {
+	width:40%;
+	height:10%
+}

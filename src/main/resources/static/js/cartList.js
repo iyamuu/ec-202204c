@@ -19,7 +19,7 @@ let showOrderItemList = function () {
   })
     .done(function (data) {
       console.log(JSON.stringify(data));
-
+	  
       //テーブルの更新
       let orderItemTable = $("#orderItemTable");
       orderItemTable.empty();
@@ -34,8 +34,15 @@ let showOrderItemList = function () {
   		leftPrice = String(leftPrice).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,");
   		$(".left-price-" + orderItem.item.id).html(leftPrice);
   		$(".right-price-" + orderItem.item.id).html(rightPrice);
-        
       });
+      
+      if (orderItemTable.html() === ``) {
+		$('#noItemMessage').css("display","");
+		$('#stepParchase').css("display","none");
+	  }else {
+		$('#noItemMessage').css("display","none");
+		$('#stepParchase').css("display","");
+	  }
       let totalPrice = data.tax + data.calcTotalPrice;
 
       //消費税の更新
@@ -95,6 +102,11 @@ let buildItemImgAndNameCell = function (imgpath, itemName) {
 };
 
 let buildPriceAndQuantityCell = function (itemId, price, quantity, orderItemId) {
+	let status;
+  if (quantity === 1) {
+	status = "disabled";	
+  }
+  
   let cell = `<td>
   					<span class="col s12">
                     <span class=" left-price-${itemId}">
@@ -103,9 +115,9 @@ let buildPriceAndQuantityCell = function (itemId, price, quantity, orderItemId) 
                     </span>
                     <br />
                     <span >
-                        <i class="col s2 material-icons"  onclick="subOrderItemQuantity(${orderItemId});" >remove_circle_outline</i>
-                        <label class="col s1" id="item${orderItemId}Quantity"> ${quantity} </label>
-                        <i class="col s2 material-icons" onclick='addOrderItemQuantity(${orderItemId});'>add_circle</i>
+                        <i class="col s2 material-icons ${status}"  id="item${orderItemId}QuantityMinus" onclick="subOrderItemQuantity(${orderItemId})" >remove_circle_outline</i>
+                        <label class="col s1" min="1" id="item${orderItemId}Quantity"> ${quantity} </label>
+                        <i class="col s2 material-icons" onclick='addOrderItemQuantity(${orderItemId})'>add_circle</i>
                     </span>
                 </td>`;
                 
@@ -223,13 +235,16 @@ function updateOrderItem(id, quantity) {
 function addOrderItemQuantity(orderItemId) {
   let quantitySpan = $(`#item${orderItemId}Quantity`);
   let quantity = quantitySpan.text();
-
+  $(`item${orderItemId}QuantityMinus`).removeClass("disabled");
   updateOrderItem(orderItemId, Number(quantity) + 1);
 }
 
 function subOrderItemQuantity(orderItemId) {
   let quantitySpan = $(`#item${orderItemId}Quantity`);
   let quantity = quantitySpan.text();
-
+  if (Number(quantity) !== 1) {
   updateOrderItem(orderItemId, Number(quantity) - 1);
+  }else {
+	$(`item${orderItemId}QuantityMinus`).addClass("disabled");
+}
 }
