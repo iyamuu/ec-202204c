@@ -611,7 +611,7 @@
                                   <label
                                     th:if="*{#fields.hasErrors('cardNumber')}"
                                     th:errors="*{cardNumber}"
-                                    class="error-address"
+                                    class="error-card_number red-text"
                                     >クレジットカード番号を正しく入力してください</label
                                   >
                                 </div>
@@ -635,7 +635,7 @@
                                   <label
                                     th:if="*{#fields.hasErrors('cardExpYear')}"
                                     th:errors="*{cardExpYear}"
-                                    class="error-address"
+                                    class="error-card_exp_year red-text"
                                     >クレジットカードの期限(年)を正しく入力してください</label
                                   >
                                 </div>
@@ -659,7 +659,7 @@
                                   <label
                                     th:if="*{#fields.hasErrors('cardExpMonth')}"
                                     th:errors="*{cardExpMonth}"
-                                    class="error-address"
+                                    class="error-card_exp_month red-text"
                                     >クレジットカードの期限(月)を正しく入力してください</label
                                   >
                                 </div>
@@ -683,7 +683,7 @@
                                   <label
                                     th:if="*{#fields.hasErrors('cardName')}"
                                     th:errors="*{cardName}"
-                                    class="error-address"
+                                    class="error-card_name red-text"
                                     >クレジットカードの名義を正しく入力してください</label
                                   >
                                 </div>
@@ -707,7 +707,7 @@
                                   <label
                                     th:if="*{#fields.hasErrors('cardCvv')}"
                                     th:errors="*{cardCvv}"
-                                    class="error-address"
+                                    class="error-card_cvv red-text"
                                     >クレジットカードのセキュリティコードを正しく入力してください</label
                                   >
                                 </div>
