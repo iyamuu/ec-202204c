@@ -110,5 +110,9 @@ public class TopService {
 		
 		return giftInfoRepository.findOneByUserId(userId);
 	}
+	
+	public Order getFullOrder(int orderId) {
+		return orderRepository.findFullOrderById(orderId);
+	}
 
 }
