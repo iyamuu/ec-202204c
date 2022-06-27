@@ -12,11 +12,6 @@ function toCart(destroyFeedback) {
   }, 1500);
 }
 function toConfirm(destroyFeedback) {
-  console.log("toConfirm");
-  console.log("orderItemTable: " + $("#orderItemTable").text());
-  if($("#orderItemTable").text() !== ``) {
-  	console.log("要素があります");
-  }
   setTimeout(function () {
     destroyFeedback(true);
   }, 1500);
@@ -47,9 +42,23 @@ $('.step2').on('click', function() {
 	$('.fixed_btn').css('display','none');
 	toCart();
 });
-  
+function validationActiveChange() {
+	 var stepper = document.querySelector(".stepper");
+	 var stepperInstace = new MStepper(stepper, {
+  	// options
+  	firstActive: 2, // this is the default
+  	});
+}
+　$('.cart_button').css('display', 'none');
+ let pageVal = $('#currentPage').val();
+ if (pageVal === '') {
+ 	pageVal = 0;
+ 	　$('.cart_button').css('display', '');
+ }
+ 	
+ 
   var stepper = document.querySelector(".stepper");
 var stepperInstace = new MStepper(stepper, {
   // options
-  firstActive: 0, // this is the default
+  firstActive: pageVal, // this is the default
   });

@@ -1,7 +1,6 @@
 package com.example.ecommerce_c.form;
 
 import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
 /**
@@ -38,7 +37,6 @@ public class ConfirmForm {
 	private String deliveryTime;
 
 	/** 支払方法 */
-	@NotNull(message = "支払い方法を選択してください")
 	private Integer paymentMethod;
 	/** クレジットカード番号 payが１なら存在する */
 	private String cardNumber;

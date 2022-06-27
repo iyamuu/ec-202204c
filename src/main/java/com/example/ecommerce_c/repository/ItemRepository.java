@@ -55,14 +55,14 @@ public class ItemRepository {
 		if(giftInformation.getGender() == null) {
 			sql = "select id, name, description, price_m, price_l, image_path, target_age, gender, deleted from items "
 					+ "Where target_age Between :lowerAge And :upperAge And price_m Between :lowerBudget And :upperBudget "
-					+ "order by id offset :from rows fetch next :to rows only;";
+					+ "order by id"/* offset :from rows fetch next :to rows only;"*/;
 			param = new MapSqlParameterSource().addValue("lowerAge", giftInformation.getLowerAge()).addValue("upperAge", giftInformation.getUpperAge())
 					.addValue("lowerBudget", giftInformation.getLowerBudget()).addValue("upperBudget", giftInformation.getUpperBudget())
 					.addValue("from", from).addValue("to", to);
 		}else {
 			sql = "select id, name, description, price_m, price_l, image_path, target_age, gender, deleted from items "
 					+ "Where target_age Between :lowerAge And :upperAge And price_m Between :lowerBudget And :upperBudget And gender=:gender "
-					+ "order by id offset :from rows fetch next :to rows only;";
+					+ "order by id"/* offset :from rows fetch next :to rows only;\"*/;
 			
 			param = new MapSqlParameterSource().addValue("lowerAge", giftInformation.getLowerAge()).addValue("upperAge", giftInformation.getUpperAge())
 					.addValue("lowerBudget", giftInformation.getLowerBudget()).addValue("upperBudget", giftInformation.getUpperBudget()).addValue("gender", giftInformation.getGender())
@@ -83,7 +83,7 @@ public class ItemRepository {
 	 */
 	public List<Item> findByName(Integer from, Integer to, String name) {
 		String sql = "select id, name, description, price_m, price_l, image_path, target_age, gender, deleted" + " from items"
-				+ " where name ilike :name" + " order by id" + " offset :from rows" + " fetch next :to rows only";
+				+ " where name ilike :name" + " order by id" /*+ " offset :from rows" + " fetch next :to rows only"*/;
 		SqlParameterSource param = new MapSqlParameterSource().addValue("name", '%' + name + '%').addValue("from", from)
 				.addValue("to", to);
 
