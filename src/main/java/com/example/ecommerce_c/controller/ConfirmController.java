@@ -8,9 +8,6 @@ import java.util.concurrent.ExecutionException;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mail.MailException;
-import org.springframework.mail.MailSender;
-import org.springframework.mail.SimpleMailMessage;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,8 +21,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.example.ecommerce_c.domain.Order;
 import com.example.ecommerce_c.domain.OrderTransaction;
 import com.example.ecommerce_c.domain.OrderTransactionStatus;
-import com.example.ecommerce_c.domain.Payment;
-import com.example.ecommerce_c.domain.User;
 import com.example.ecommerce_c.form.ConfirmForm;
 import com.example.ecommerce_c.mail.MailService;
 import com.example.ecommerce_c.security.LoginUser;
@@ -37,7 +32,6 @@ import com.linecorp.bot.client.LineMessagingClient;
 import com.linecorp.bot.model.PushMessage;
 import com.linecorp.bot.model.message.FlexMessage;
 import com.linecorp.bot.model.message.Message;
-import com.linecorp.bot.model.message.TextMessage;
 import com.linecorp.bot.model.response.BotApiResponse;
 
 /**
@@ -64,12 +58,9 @@ public class ConfirmController {
 
 	@Autowired
 	private LineMessagingClient lineMessagingClient;
-	
+
 	@Autowired
 	private LineMessageService lineMessageService;
-
-//	@Autowired
-//	private 
 
 	@ModelAttribute
 	ConfirmForm setUpConfirmForm() {
@@ -85,13 +76,6 @@ public class ConfirmController {
 	 */
 	@GetMapping("/confirm")
 	public String showConfirm(int orderId, Model model, ConfirmForm confirmForm) {
-//		Order order = service.searchOrder(orderId);
-
-//		ログインしていなかったらログインページに遷移
-//		if (order.getUserId() == -1) {
-//			return "login/login";
-//		}
-
 //		注文内容
 		model.addAttribute("order", service.getFullOrder(orderId));
 
@@ -108,11 +92,27 @@ public class ConfirmController {
 
 	public String finished(@Validated ConfirmForm form, BindingResult result, Model model,
 			@AuthenticationPrincipal final LoginUser loginUser) {
-		
-		Order order = service.getFullOrder(form.getOrderId());
-		if (result.hasErrors()) {
 
-			System.out.println(form);
+		Order order = service.getFullOrder(form.getOrderId());
+
+		// 現在時刻から３時間後を取得
+		Date nowPlus3hour = new Date(new Date().getTime() + /* 3hour */(3 * 60 * 60 * 1000));
+		// 配達時間を取得
+		try {
+			Date deliveryTime = new SimpleDateFormat("yyyy-MM-dd-hh時")
+					.parse(form.getDeliveryDate() + "-" + form.getDeliveryTime());
+			order.setDeliveryTime(new Timestamp(deliveryTime.getTime()));
+			// 配達時間が今から３時間以内
+			if (nowPlus3hour.after(deliveryTime)) {
+				result.rejectValue("deliveryTime", null, "配達日時は今から３時間以上後の時刻を選択してください");
+			}
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+
+		validation(form, result);
+
+		if (result.hasErrors()) {
 			model.addAttribute("confirmForm", form);
 			return topController.index(order.getUserId(), model, loginUser, form);
 		}
@@ -133,34 +133,31 @@ public class ConfirmController {
 		}
 
 		Integer paymentMethod = order.getPaymentMethod();
-		if (paymentMethod == 1) {
+		if (paymentMethod == 0) {
 			order.setStatus(1); // 未入金
-			
+
 			service.update(order);
-			
-			
+
 //			メール送信
 			mailService.sendMail(order);
-			//Lineで送信
-			if(loginUser.getLineId() != null) {
-				sendLineMessage(loginUser.getLineId(),order.getId());
+			// Lineで送信
+			if (loginUser.getLineId() != null) {
+				sendLineMessage(loginUser.getLineId(), order.getId());
 			}
 
 			return "redirect:/complete";
 		}
 
 		else {
-			Payment payment = paymentService.findOneByUserId(order.getUserId());
 			OrderTransaction orderTransaction = new OrderTransaction();
-
 
 			orderTransaction.setUser_id(order.getUserId());
 			orderTransaction.setAmount(order.getCalcTotalPrice());
 			orderTransaction.setOrder_number(order.getId());
-			orderTransaction.setCard_number(payment.getCardNumber());
-			orderTransaction.setCard_exp_year(payment.getCardExpYear());
-			orderTransaction.setCard_exp_month(payment.getCardExpMonth());
-			orderTransaction.setCard_cvv("111");
+			orderTransaction.setCard_number(form.getCardNumber());
+			orderTransaction.setCard_exp_year(form.getCardExpYear());
+			orderTransaction.setCard_exp_month(form.getCardExpMonth());
+			orderTransaction.setCard_cvv(form.getCardCvv());
 
 			OrderTransactionStatus orderTransactionStatus = orderTransactionService.transacting(orderTransaction);
 
@@ -171,43 +168,77 @@ public class ConfirmController {
 			} else { // 決済成功
 				order.setStatus(2);
 				service.update(order);
-				
+
 //				注文内容確認&入金確認メール
 				mailService.sendMail(order);
-				
-				//Lineで送信
-				if(loginUser.getLineId() != null) {
-					sendLineMessage(loginUser.getLineId(),order.getId());
-				}
 
+				// Lineで送信
+				if (loginUser.getLineId() != null) {
+					sendLineMessage(loginUser.getLineId(), order.getId());
+				}
 
 				return "redirect:/complete";
 			}
 		}
 
 	}
-	
-	
+
 	// Line への通知
 	private void sendLineMessage(String lineId, Integer orderId) {
-			
-			Message message = new FlexMessage("ご注文完了通知", lineMessageService.getCompleteMessage(orderId));
-			PushMessage pushMessage = new PushMessage(lineId, message);
-			
-			BotApiResponse botApiResponse = null;
-			try {
-				botApiResponse = lineMessagingClient.pushMessage(pushMessage).get();
-			} catch (InterruptedException | ExecutionException e) {
-				e.printStackTrace();
-			}
-			System.out.println("================");
-			System.out.println("response");
-			System.out.println(botApiResponse);
-		
-}
+
+		Message message = new FlexMessage("ご注文完了通知", lineMessageService.getCompleteMessage(orderId));
+		PushMessage pushMessage = new PushMessage(lineId, message);
+
+		BotApiResponse botApiResponse = null;
+		try {
+			botApiResponse = lineMessagingClient.pushMessage(pushMessage).get();
+		} catch (InterruptedException | ExecutionException e) {
+			e.printStackTrace();
+		}
+		System.out.println("================");
+		System.out.println("response");
+		System.out.println(botApiResponse);
+
+	}
+
 	@GetMapping("/complete")
 	public String purchase() {
 		return "order_finished";
+	}
+
+	/**
+	 * フォームのバリデーションを行なう.
+	 * 
+	 * @param form
+	 * @param result
+	 */
+	private void validation(ConfirmForm form, BindingResult result) {
+
+		// 支払方法をクレジットカードに指定している場合のみバリデーション
+
+		if (form.getPaymentMethod() != null) {
+			if (form.getPaymentMethod() == 1) { // クレジットカードのとき
+				if (!form.getCardNumber().matches("^[0-9]{14}|^[0-9]{16}")) { // クレジットカードの番号が14桁または16桁ではないとき
+					result.rejectValue("cardNumber", null, "カード番号の形式が正しくありません");
+				}
+
+				if (!form.getCardExpYear().matches("^[0-9]{4}")) { // クレジットカードの有効期限（年）は4桁
+					result.rejectValue("cardExpYear", null, "クレジットカードの有効期限（年）は4桁で入力してください");
+				}
+
+				if (!form.getCardExpMonth().matches("^[0-9]{2}")) { // クレジットカードの有効期限（月）は2桁
+					result.rejectValue("cardExpMonth", null, "クレジットカードの有効期限（年）は2桁で入力してください");
+				}
+
+				if (!form.getCardName().matches("^[a-zA-Z]{5,50}")) { // クレジットカードの名義は半角英字で50桁
+					result.rejectValue("cardName", null, "クレジットカードの名義は半角英字の50桁以内で入力してください");
+				}
+
+				if (!form.getCardCvv().matches("^[0-9]{3}|^[0-9]{4}")) { // クレジットカードのセキュリティコードは３桁または４桁
+					result.rejectValue("cardCvv", null, "クレジットカードのセキュリティコードは３桁または４桁で入力してください");
+				}
+			}
+		}
 	}
 
 }

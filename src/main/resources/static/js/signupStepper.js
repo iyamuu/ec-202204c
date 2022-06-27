@@ -3,36 +3,34 @@
  */
 
 function userCheck(destroyFeedback) {
-	
-	let validationResults = [];
-	let next = true;
-	validationResults.push(nameValidation());
-	validationResults.push(emailValidation());
-	validationResults.push(zipCodeValidation());
-	validationResults.push(addressValidation());
-	validationResults.push(telValidation());
-	validationResults.push(passwordValidation());
-	validationResults.push(confirmPasswordValidation());
-	
-	validationResults.forEach((result) => {
-		if(result === false){
-			$('#step1').addClass("wrong");
-			$('#step2').removeClass("active");
-			$('#step1').addClass("active");
-			next = false;
-			return destroyFeedback(false);
-		}
-	});
-	
-	if (next === true) {
-		console.log("pass");
-		setTimeout(function () {
-    	destroyFeedback(true);
-    	$('#step1').removeClass("wrong");
-  	}, 1500);
+  let validationResults = [];
+  let next = true;
+  validationResults.push(nameValidation());
+  validationResults.push(emailValidation());
+  validationResults.push(zipCodeValidation());
+  validationResults.push(addressValidation());
+  validationResults.push(telValidation());
+  validationResults.push(passwordValidation());
+  validationResults.push(confirmPasswordValidation());
 
-	}
- 	
+  validationResults.forEach((result) => {
+    if (result === false) {
+      $("#step1").addClass("wrong");
+      $("#step2").removeClass("active");
+      $("#step1").addClass("active");
+      next = false;
+      return destroyFeedback(false);
+    }
+  });
+
+  if (next === true) {
+    console.log("pass");
+    setTimeout(function () {
+      destroyFeedback(true);
+      $("#step1").removeClass("wrong");
+    }, 1500);
+  }
+
   //フォームのバリデーションをする
 }
 
@@ -62,8 +60,13 @@ function emailValidation() {
     return false;
   }
   $(".error-mail").text(``);
-
-  if (duplicateCheckEmail(email) === true) {
+	let isDuplicate = "false";
+	duplicateCheckEmail(email).done(function (data) {
+      isDuplicate = JSON.stringify(data);
+    });
+	console.log("duplicate:", isDuplicate);
+  if (isDuplicate === "true") {
+    console.log('nakatootteimasu')
     $(".duplicate-mail").text(`このメールアドレスはすでに登録されています`);
     return false;
   }
@@ -140,15 +143,22 @@ function confirmPasswordValidation() {
 
 //メールアドレスの重複をチェックするAPI
 function duplicateCheckEmail(email) {
+<<<<<<< HEAD
   let hostUrl = `${serverURL}duplicateCheckEmail`;
 
   $.ajax({
+=======
+  let hostUrl = "http://localhost:8080/ec-202204c/duplicateCheckEmail";
+
+  return $.ajax({
+>>>>>>> develop
     url: hostUrl,
     dataType: "json",
     type: "get",
     data: {
       mail: email,
     },
+<<<<<<< HEAD
     async: true,
   })
     .done(function (data) {
@@ -159,6 +169,11 @@ function duplicateCheckEmail(email) {
       console.log("textStatus : " + textStatus);
       console.log("errorThrown : " + errorThrown);
     });
+=======
+    async: false,
+  })
+
+>>>>>>> develop
 }
 
 function noThing(destroyFeedback) {
@@ -167,8 +182,8 @@ function noThing(destroyFeedback) {
   }, 10000);
 }
 
-$('.step2').on('click', function() {
-	console.log("step2が押されたよ")
+$(".step2").on("click", function () {
+  console.log("step2が押されたよ");
 });
 
 var stepperDiv = document.querySelector(".stepper");

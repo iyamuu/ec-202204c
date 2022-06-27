@@ -73,13 +73,12 @@ let buildOrderItemRow = function (orderItem) {
 
   let size = orderItem.size;
   let priceAndQuantityCell = buildPriceAndQuantityCell(
-  	orderItem.item.id,
     size === "M" ? orderItem.item.priceM : orderItem.item.priceL,
     orderItem.quantity,
     orderItem.id
   );
   let toppingCell = buildToppingCell(orderItem.orderToppingList, size);
-  let subTotalCell = buildSubTotalCell(orderItem.item.id, orderItem.subTotal);
+  let subTotalCell = buildSubTotalCell(orderItem.id, orderItem.subTotal);
   let deleeButtonCell = buildDeleeButtonCell(orderItem.id);
 
   row.append(imgAndNameCell);
@@ -101,7 +100,7 @@ let buildItemImgAndNameCell = function (imgpath, itemName) {
   return cell;
 };
 
-let buildPriceAndQuantityCell = function (itemId, price, quantity, orderItemId) {
+let buildPriceAndQuantityCell = function (price, quantity, orderItemId) {
 	let status;
   if (quantity === 1) {
 	status = "disabled";	
@@ -109,7 +108,7 @@ let buildPriceAndQuantityCell = function (itemId, price, quantity, orderItemId) 
   
   let cell = `<td>
   					<span class="col s12">
-                    <span class=" left-price-${itemId}">
+                    <span class=" left-price-${orderItemId}">
                         ${price}
                     </span>円
                     </span>

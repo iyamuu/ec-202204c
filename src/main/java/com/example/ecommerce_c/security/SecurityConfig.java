@@ -34,11 +34,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	public void configure(HttpSecurity http) throws Exception {
 
-		http.authorizeRequests()
-				.antMatchers("/login").permitAll().antMatchers("/signup").permitAll() //ログインページ、サイナップページを許可
-				.antMatchers("/").permitAll().antMatchers("/cart").permitAll()       //一覧画面、カート画面を許可
-				.antMatchers("/getItemByPage").permitAll().antMatchers("/show").permitAll().antMatchers("/add") // RestControllerへも許可
-				.permitAll().antMatchers("/delete").permitAll().antMatchers("/update").permitAll()
+		http.authorizeRequests().antMatchers("/login").permitAll().antMatchers("/signup").permitAll()
+				.antMatchers("/").permitAll().antMatchers("/cart").permitAll() // 一覧画面とカート画面を許可
+				.antMatchers("/getItemByPage").permitAll()						// RestControllerへも許可
+				.antMatchers("/show").permitAll().antMatchers("/duplicateCheckEmail").permitAll()
+				.antMatchers("/add").permitAll().antMatchers("/delete").permitAll().antMatchers("/update").permitAll() 
 				.anyRequest().authenticated().and().formLogin().loginPage("/login").loginProcessingUrl("/login") // ログインボタンのURL
 				.failureForwardUrl("/login?error=true").defaultSuccessUrl("/", false).usernameParameter("email")
 				.passwordParameter("password").and().oauth2Login().loginPage("/login")
