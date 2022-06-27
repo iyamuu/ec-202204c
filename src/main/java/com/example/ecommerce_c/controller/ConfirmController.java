@@ -20,9 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.example.ecommerce_c.domain.Order;
 import com.example.ecommerce_c.domain.OrderTransaction;
 import com.example.ecommerce_c.domain.OrderTransactionStatus;
-import com.example.ecommerce_c.domain.Payment;
 import com.example.ecommerce_c.form.ConfirmForm;
-import com.example.ecommerce_c.form.SignupForm;
 import com.example.ecommerce_c.mail.MailService;
 import com.example.ecommerce_c.security.LoginUser;
 import com.example.ecommerce_c.service.ConfirmService;
@@ -82,16 +80,16 @@ public class ConfirmController {
 			@AuthenticationPrincipal final LoginUser loginUser) {
 
 		Order order = service.getFullOrder(form.getOrderId());
-		
+
 		// 現在時刻から３時間後を取得
-		Date nowPlus3hour = new Date(new Date().getTime() + /*3hour*/(3 * 60 * 60 * 1000));
+		Date nowPlus3hour = new Date(new Date().getTime() + /* 3hour */(3 * 60 * 60 * 1000));
 		// 配達時間を取得
 		try {
 			Date deliveryTime = new SimpleDateFormat("yyyy-MM-dd-hh時")
 					.parse(form.getDeliveryDate() + "-" + form.getDeliveryTime());
 			order.setDeliveryTime(new Timestamp(deliveryTime.getTime()));
 			// 配達時間が今から３時間以内
-			if(nowPlus3hour.after(deliveryTime)) {
+			if (nowPlus3hour.after(deliveryTime)) {
 				result.rejectValue("deliveryTime", null, "配達日時は今から３時間以上後の時刻を選択してください");
 			}
 		} catch (ParseException e) {
@@ -175,27 +173,25 @@ public class ConfirmController {
 
 		// 支払方法をクレジットカードに指定している場合のみバリデーション
 
-		if (form.getPaymentMethod() != null) {
-			if (form.getPaymentMethod() == 1) { // クレジットカードのとき
-				if (!form.getCardNumber().matches("^[0-9]{14}|^[0-9]{16}")) { // クレジットカードの番号が14桁または16桁ではないとき
-					result.rejectValue("cardNumber", null, "カード番号の形式が正しくありません");
-				}
+		if (form.getPaymentMethod() == 1) { // クレジットカードのとき
+			if (!form.getCardNumber().matches("^[0-9]{14}|^[0-9]{16}")) { // クレジットカードの番号が14桁または16桁ではないとき
+				result.rejectValue("cardNumber", null, "カード番号の形式が正しくありません");
+			}
 
-				if (!form.getCardExpYear().matches("^[0-9]{4}")) { // クレジットカードの有効期限（年）は4桁
-					result.rejectValue("cardExpYear", null, "クレジットカードの有効期限（年）は4桁で入力してください");
-				}
+			if (!form.getCardExpYear().matches("^[0-9]{4}")) { // クレジットカードの有効期限（年）は4桁
+				result.rejectValue("cardExpYear", null, "クレジットカードの有効期限（年）は4桁で入力してください");
+			}
 
-				if (!form.getCardExpMonth().matches("^[0-9]{2}")) { // クレジットカードの有効期限（月）は2桁
-					result.rejectValue("cardExpMonth", null, "クレジットカードの有効期限（年）は2桁で入力してください");
-				}
+			if (!form.getCardExpMonth().matches("^[0-9]{2}")) { // クレジットカードの有効期限（月）は2桁
+				result.rejectValue("cardExpMonth", null, "クレジットカードの有効期限（年）は2桁で入力してください");
+			}
 
-				if (!form.getCardName().matches("^[a-zA-Z]{5,50}")) { // クレジットカードの名義は半角英字で50桁
-					result.rejectValue("cardName", null, "クレジットカードの名義は半角英字の50桁以内で入力してください");
-				}
+			if (!form.getCardName().matches("^[a-zA-Z]{5,50}")) { // クレジットカードの名義は半角英字で50桁
+				result.rejectValue("cardName", null, "クレジットカードの名義は半角英字の50桁以内で入力してください");
+			}
 
-				if (!form.getCardCvv().matches("^[0-9]{3}|^[0-9]{4}")) { // クレジットカードのセキュリティコードは３桁または４桁
-					result.rejectValue("cardCvv", null, "クレジットカードのセキュリティコードは３桁または４桁で入力してください");
-				}
+			if (!form.getCardCvv().matches("^[0-9]{3}|^[0-9]{4}")) { // クレジットカードのセキュリティコードは３桁または４桁
+				result.rejectValue("cardCvv", null, "クレジットカードのセキュリティコードは３桁または４桁で入力してください");
 			}
 		}
 	}
