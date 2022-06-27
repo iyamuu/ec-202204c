@@ -37,6 +37,15 @@ public class TopController {
 	 */
 	@GetMapping("/")
 	public String index(Integer userId, Model model, @AuthenticationPrincipal final LoginUser loginUser, ConfirmForm confirmForm) {
+		
+		//donfirmformのオートフィルを行う.
+		if(loginUser != null) {
+			
+		}
+		
+		
+		
+		
 		System.out.println("loginUser: " + loginUser);
 		session.setAttribute("loginUser", loginUser);
 		System.out.println("  orderId: " + session.getAttribute("orderId"));

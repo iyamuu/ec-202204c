@@ -6,6 +6,7 @@ $(function () {
     //入力されたものを検知するにはKeyup
     if ($("#zipCode").val() !== "") {
       let zipCode = $("#zipCode").val().replace("-", "");
+      console.log(zipCode);
       $.ajax({
         url: "https://zipcoda.net/api",
         dataType: "jsonp",
@@ -28,7 +29,6 @@ $(function () {
           });
         })
         .fail(function (XMLHttpRequest, textStatus, errorThrown) {
-          alert("通信が失敗しました");
           console.log("XMLHttpRequest" + XMLHttpRequest);
           console.log("textStatus" + textStatus);
           console.log("errorThrown" + errorThrown);
