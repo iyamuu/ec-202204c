@@ -33,7 +33,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		http.authorizeRequests().antMatchers("/login").permitAll().antMatchers("/signup").permitAll()
 				.antMatchers("/").permitAll().antMatchers("/cart").permitAll() // 一覧画面とカート画面を許可
 				.antMatchers("/getItemByPage").permitAll()
-				.antMatchers("/show").permitAll()
+				.antMatchers("/show").permitAll().antMatchers("/duplicateCheckEmail").permitAll()
 				.antMatchers("/add").permitAll().antMatchers("/delete").permitAll().antMatchers("/update").permitAll() // RestControllerへも許可
 				.anyRequest().authenticated().and().formLogin().loginPage("/login").loginProcessingUrl("/login") // ログインボタンのURL
 				.failureForwardUrl("/login?error=true").defaultSuccessUrl("/", false).usernameParameter("email")
