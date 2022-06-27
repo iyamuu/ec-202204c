@@ -143,22 +143,15 @@ function confirmPasswordValidation() {
 
 //メールアドレスの重複をチェックするAPI
 function duplicateCheckEmail(email) {
-<<<<<<< HEAD
-  let hostUrl = `${serverURL}duplicateCheckEmail`;
-
-  $.ajax({
-=======
   let hostUrl = "http://localhost:8080/ec-202204c/duplicateCheckEmail";
 
   return $.ajax({
->>>>>>> develop
     url: hostUrl,
     dataType: "json",
     type: "get",
     data: {
       mail: email,
     },
-<<<<<<< HEAD
     async: true,
   })
     .done(function (data) {
@@ -169,11 +162,6 @@ function duplicateCheckEmail(email) {
       console.log("textStatus : " + textStatus);
       console.log("errorThrown : " + errorThrown);
     });
-=======
-    async: false,
-  })
-
->>>>>>> develop
 }
 
 function noThing(destroyFeedback) {
