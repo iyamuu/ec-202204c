@@ -133,7 +133,8 @@ public class LineMessageService {
 		Box stateBox = buildDetailBox("注文状態", state.getDescription());
 		
 		//請求金額
-		String price = "¥" + order.getCalcTotalPrice() + "(税込)";
+		Integer totalPrice = order.getCalcTotalPrice() + order.getTax();
+		String price = "¥" + totalPrice + "(税込)";
 		Box priceBox = buildDetailBox("ご請求金額", price);
 		
 		//名前
