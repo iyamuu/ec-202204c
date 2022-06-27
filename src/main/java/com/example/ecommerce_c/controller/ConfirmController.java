@@ -25,7 +25,6 @@ import com.example.ecommerce_c.mail.MailService;
 import com.example.ecommerce_c.security.LoginUser;
 import com.example.ecommerce_c.service.ConfirmService;
 import com.example.ecommerce_c.service.OrderTransactionService;
-import com.example.ecommerce_c.service.PaymentService;
 
 /**
  * 注文確認画面を操作するコントローラー.
@@ -44,11 +43,8 @@ public class ConfirmController {
 	private OrderTransactionService orderTransactionService;
 
 	@Autowired
-	private PaymentService paymentService;
-
-	@Autowired
 	private TopController topController;
-
+	
 	@ModelAttribute
 	ConfirmForm setUpConfirmForm() {
 		return new ConfirmForm();
@@ -100,6 +96,7 @@ public class ConfirmController {
 
 		if (result.hasErrors()) {
 			model.addAttribute("confirmForm", form);
+			model.addAttribute("error", 1);
 			return topController.index(order.getUserId(), model, loginUser, form);
 		}
 
@@ -125,6 +122,7 @@ public class ConfirmController {
 			mailService.sendMail(order);
 
 			service.update(order);
+			model.addAttribute("error", 0);
 			return "redirect:/complete";
 		}
 
@@ -144,6 +142,7 @@ public class ConfirmController {
 			System.out.println(orderTransactionStatus);
 			if (orderTransactionStatus.getStatus().equals("error")) { // 決済失敗した場合
 				result.rejectValue("paymentMethod", null, orderTransactionStatus.getMessage());
+				model.addAttribute("error", 1);
 				return topController.index(order.getUserId(), model, loginUser, form);
 			} else { // 決済成功
 				order.setStatus(2);
@@ -151,7 +150,7 @@ public class ConfirmController {
 
 //				注文内容確認&入金確認メール
 				mailService.sendMail(order);
-
+				model.addAttribute("error", 0);
 				return "redirect:/complete";
 			}
 		}
