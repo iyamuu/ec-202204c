@@ -46,13 +46,13 @@ let showOrderItemList = function () {
       let totalPrice = data.tax + data.calcTotalPrice;
 
       //消費税の更新
-      $("#tax").html(`消費税：¥<span class="tax-price">${data.tax}</span>円`);
+      $("#tax").html(`消費税：¥<span class="tax-price">${data.tax}</span>`);
 	  
 	  var taxPrice = $(".tax-price").html();
 	  taxPrice = String(taxPrice).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,");
 	  $(".tax-price").html(taxPrice);
       //合計金額の更新
-      $("#totalPrice").html(`ご注文金額合計：¥<span class="sum-price">${totalPrice}</span>円 (税込)`);
+      $("#totalPrice").html(`ご注文金額合計：¥<span class="sum-price">${totalPrice}</span> (税込)`);
       var sumPrice = $(".sum-price").html();
 	  sumPrice = String(sumPrice).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,");
 	  $(".sum-price").html(sumPrice);
@@ -107,16 +107,16 @@ let buildPriceAndQuantityCell = function (price, quantity, orderItemId) {
   }
   
   let cell = `<td>
-  					<span class="col s12">
+  					<span class="col s12">¥
                     <span class=" left-price-${orderItemId}">
                         ${price}
-                    </span>円
+                    </span>
                     </span>
                     <br />
                     <span >
-                        <i class="col s2 material-icons ${status}"  id="item${orderItemId}QuantityMinus" onclick="subOrderItemQuantity(${orderItemId})" >remove_circle_outline</i>
+                        <i class="col s2 material-icons ${status} cart-plus"  id="item${orderItemId}QuantityMinus" onclick="subOrderItemQuantity(${orderItemId})" >remove_circle_outline</i>
                         <label class="col s1" min="1" id="item${orderItemId}Quantity"> ${quantity} </label>
-                        <i class="col s2 material-icons" onclick='addOrderItemQuantity(${orderItemId})'>add_circle</i>
+                        <i class="col s2 material-icons cart-minus" onclick='addOrderItemQuantity(${orderItemId})'>add_circle</i>
                     </span>
                 </td>`;
                 
@@ -139,7 +139,7 @@ let buildToppingCell = function (orderToppingList, size) {
                   size === "M"
                     ? orderTopping.topping.priceM
                     : orderTopping.topping.priceL
-                }円
+                }
             </span>
         </li>
         `);
@@ -153,7 +153,7 @@ let buildToppingCell = function (orderToppingList, size) {
 let buildSubTotalCell = function (id, subtotal) {
   let cell = `<td>
                     <span>
-                       ¥<span class="right-price-${id}"> ${subtotal}</span>円
+                       ¥<span class="right-price-${id}"> ${subtotal}</span>
                     </span>
                 </td>`;
 
