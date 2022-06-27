@@ -37,7 +37,6 @@ function getItemByName(name) {
 　   name = name.replace(/[Ａ-Ｚａ-ｚ０-９]/g, function(s) {
         return String.fromCharCode(s.charCodeAt(0) - 0xFEE0);
     });
-	console.log("name:", name);
   let hostUrl = "http://localhost:8080/ec-202204c/getItemByPage";
   $.ajax({
     url: hostUrl,
