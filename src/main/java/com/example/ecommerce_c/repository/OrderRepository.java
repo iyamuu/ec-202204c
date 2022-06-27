@@ -84,7 +84,7 @@ public class OrderRepository {
 //				ユーザードメインを作成
 				User user = new User();
 				user.setId(order.getUserId());
-				user.setName("user_name");
+				user.setName(rs.getString("user_name"));
 				user.setEmail(rs.getString("user_email"));
 				user.setPassword(rs.getString("user_password"));
 				user.setTelephone(rs.getString("user_telephone"));
