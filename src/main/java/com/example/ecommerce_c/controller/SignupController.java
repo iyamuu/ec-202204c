@@ -55,21 +55,10 @@ public class SignupController {
 	 */
 	@PostMapping("/signup")
 	public String registerUser(@Validated SignupForm form, BindingResult result, Model model, HttpServletRequest request) {
+
 		
-
-		// emailの重複チェック、存在していればバリデーション結果にエラーを追加
-		User existsUser = signupService.checkSameMailAddress(form.getUserForm().getEmail());
-		if (existsUser != null) {
-			result.rejectValue("userForm.email", null, "このメールアドレスは既に存在しています");
-		}
-
-		// パスワードと確認用パスワードの一致チェック
-		String password = form.getUserForm().getPassword();
-		String confirmPassword = form.getUserForm().getConfirmPassword();
-		if (!password.equals(confirmPassword)) {
-			result.rejectValue("userForm.confirmPassword", null, "パスワードが一致していません");
-		}
-
+		validation(form, result);
+		
 		if (result.hasErrors()) {
 			return getSignupPage(form, model);
 		}
@@ -110,6 +99,23 @@ public class SignupController {
 		
 		return "redirect:/";
 
+	}
+	
+	
+	
+	private void validation(SignupForm form, BindingResult result) {
+		// emailの重複チェック、存在していればバリデーション結果にエラーを追加
+		User existsUser = signupService.checkSameMailAddress(form.getUserForm().getEmail());
+		if (existsUser != null) {
+			result.rejectValue("userForm.email", null, "このメールアドレスは既に存在しています");
+		}
+
+		// パスワードと確認用パスワードの一致チェック
+		String password = form.getUserForm().getPassword();
+		String confirmPassword = form.getUserForm().getConfirmPassword();
+		if (!password.equals(confirmPassword)) {
+			result.rejectValue("userForm.confirmPassword", null, "パスワードが一致していません");
+		}
 	}
 
 }
