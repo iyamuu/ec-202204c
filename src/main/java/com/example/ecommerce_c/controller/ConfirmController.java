@@ -7,9 +7,6 @@ import java.util.Date;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mail.MailException;
-import org.springframework.mail.MailSender;
-import org.springframework.mail.SimpleMailMessage;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,7 +21,6 @@ import com.example.ecommerce_c.domain.Order;
 import com.example.ecommerce_c.domain.OrderTransaction;
 import com.example.ecommerce_c.domain.OrderTransactionStatus;
 import com.example.ecommerce_c.domain.Payment;
-import com.example.ecommerce_c.domain.User;
 import com.example.ecommerce_c.form.ConfirmForm;
 import com.example.ecommerce_c.mail.MailService;
 import com.example.ecommerce_c.security.LoginUser;
@@ -54,9 +50,6 @@ public class ConfirmController {
 	@Autowired
 	private TopController topController;
 
-//	@Autowired
-//	private 
-
 	@ModelAttribute
 	ConfirmForm setUpConfirmForm() {
 		return new ConfirmForm();
@@ -71,13 +64,6 @@ public class ConfirmController {
 	 */
 	@GetMapping("/confirm")
 	public String showConfirm(int orderId, Model model, ConfirmForm confirmForm) {
-//		Order order = service.searchOrder(orderId);
-
-//		ログインしていなかったらログインページに遷移
-//		if (order.getUserId() == -1) {
-//			return "login/login";
-//		}
-
 //		注文内容
 		model.addAttribute("order", service.getFullOrder(orderId));
 
@@ -94,6 +80,21 @@ public class ConfirmController {
 	public String finished(@Validated ConfirmForm form, BindingResult result, Model model,
 			@AuthenticationPrincipal final LoginUser loginUser) {
 		Order order = service.getFullOrder(form.getOrderId());
+		
+		// 現在時刻から３時間後を取得
+		Date nowPlus3hour = new Date(new Date().getTime() + /*3hour*/(3 * 60 * 60 * 1000));
+		// 配達時間を取得
+		try {
+			Date deliveryTime = new SimpleDateFormat("yyyy-MM-dd-hh時")
+					.parse(form.getDeliveryDate() + "-" + form.getDeliveryTime());
+			order.setDeliveryTime(new Timestamp(deliveryTime.getTime()));
+			// 配達時間が今から３時間以内
+			if(nowPlus3hour.after(deliveryTime)) {
+				result.rejectValue("deliveryTime", null, "配達日時は今から３時間以上後の時刻を選択してください");
+			}
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
 
 		if (result.hasErrors()) {
 			// どこのパースを返せばいいのか.
