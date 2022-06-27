@@ -85,6 +85,7 @@
                     <button class="btn orange search-btn" type="button">
                       <span>検 索</span>
                     </button>
+                    <input id="currentPage" th:value="${currentPage}" value="0" type="hidden"></input>
                   </form>
                 </div>
 
@@ -526,7 +527,7 @@
                   </div>
 
                   <div class="row order-confirm-btn">
-                    <button class="btn light-blue darken-4 btn-large">
+                    <button class="btn light-blue darken-4 btn-large confirm-btn">
                       <span>この内容で注文する</span>
                     </button>
                   </div>
