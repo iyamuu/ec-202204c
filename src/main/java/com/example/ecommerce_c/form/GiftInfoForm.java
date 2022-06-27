@@ -1,6 +1,6 @@
 package com.example.ecommerce_c.form;
 
-import org.springframework.stereotype.Component;
+import javax.validation.constraints.NotNull;
 
 /**
  * 絞り込み情報に関するformクラス
@@ -12,14 +12,19 @@ import org.springframework.stereotype.Component;
 public class GiftInfoForm {
 	
 	/** 年齢の下限 */
+	@NotNull(message = "対象の年齢を指定してください")
 	private Integer lowerAge;
 	/** 年齢の上限 */
+	@NotNull(message = "対象の年齢を指定してください")
 	private Integer upperAge;
 	/** 性別 */
+	@NotNull(message = "男の子か女の子かを指定してください")
 	private String gender;
 	/** 予算の下限 */
+	@NotNull(message = "ご予算を教えてください")
 	private Integer lowerBudget;
 	/** 予算の上限 */
+	@NotNull(message = "ご予算を教えてください")
 	private Integer upperBudget;
 
 	public Integer getLowerAge() {

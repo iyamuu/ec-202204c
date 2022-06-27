@@ -96,6 +96,7 @@
                                     <label class="error-name red-text"></label>
                                   </div>
                                   <div class="row">
+                                    <label for="name">氏名</label>
                                     <input
                                       type="text"
                                       id="name"
@@ -104,7 +105,6 @@
                                       placeholder="山田太郎"
                                       th:field="*{name}"
                                     />
-                                    <label for="name">氏名</label>
                                   </div>
 
                                   <!-- メールアドレス -->
@@ -290,7 +290,7 @@
                                 <label
                                   th:if="*{#fields.hasErrors('name')}"
                                   th:errors="*{name}"
-                                  class="error-zipCode"
+                                  class="error-partner-name red-text"
                                   >お届け先のお名前を入力してください</label
                                 >
                               </div>
@@ -318,6 +318,8 @@
                                 <!-- 郵便番号 -->
                                 <div>
                                   <label
+                                    th:if="*{#fields.hasErrors('zipCode')}"
+                                    th:errors="*{zipCode}"
                                     class="error-partner-zipCode red-text"
                                   ></label>
                                 </div>
@@ -342,6 +344,8 @@
                                 <!-- 住所 -->
                                 <div>
                                   <label
+                                    th:if="*{#fields.hasErrors('address')}"
+                                    th:errors="*{address}"
                                     class="error-partner-address red-text"
                                   ></label>
                                 </div>
@@ -361,6 +365,8 @@
                                 <!-- 電話番号 -->
                                 <div>
                                   <label
+                                    th:if="*{#fields.hasErrors('telephone')}"
+                                    th:errors="*{telephone}"
                                     class="error-partner-telephone red-text"
                                   ></label>
                                 </div>
@@ -402,13 +408,20 @@
 
                           <li class="step">
                             <div class="step-title waves-effect waves-dark">
-                              プレゼントを贈るお相手の情報
+                              プレゼントを贈るお孫さんの情報
                             </div>
                             <div
                               class="step-content"
                               th:object="${signupForm.giftInfoForm}"
                             >
                               <!-- 年齢の下限 -->
+                              <div>
+                                <label
+                                  th:if="*{#fields.hasErrors('lowerAge')}"
+                                  th:errors="*{lowerAge}"
+                                  class="error-lower_age red-text"
+                                ></label>
+                              </div>
                               <div class="row">
                                 <div class="input-field col s12">
                                   <input
@@ -418,11 +431,20 @@
                                     class="form-control"
                                     type="number"
                                   />
-                                  <label for="lower_age">何歳から</label>
+                                  <label for="lower_age"
+                                    >対象年齢：何歳から</label
+                                  >
                                 </div>
                               </div>
 
                               <!-- 年齢の上限 -->
+                              <div>
+                                <label
+                                  th:if="*{#fields.hasErrors('upperAge')}"
+                                  th:errors="*{upperAge}"
+                                  class="error-upper_age red-text"
+                                ></label>
+                              </div>
                               <div class="row">
                                 <div class="input-field col s12">
                                   <input
@@ -432,10 +454,19 @@
                                     class="form-control"
                                     type="number"
                                   />
-                                  <label for="upper_age">何歳まで</label>
+                                  <label for="upper_age"
+                                    >対象年齢：何歳まで</label
+                                  >
                                 </div>
                               </div>
 
+                              <div>
+                                <label
+                                  th:if="*{#fields.hasErrors('gender')}"
+                                  th:errors="*{gender}"
+                                  class="error-gender red-text"
+                                ></label>
+                              </div>
                               <div class="row col s12">
                                 <div class="col s6">
                                   <label>
@@ -465,6 +496,13 @@
                               </div>
 
                               <!-- 予算の下限 -->
+                              <div>
+                                <label
+                                  th:if="*{#fields.hasErrors('lowerBudget')}"
+                                  th:errors="*{lowerBudget}"
+                                  class="error-lower_budget red-text"
+                                ></label>
+                              </div>
                               <div class="row">
                                 <div class="input-field col s12">
                                   <input
@@ -474,11 +512,20 @@
                                     class="form-control"
                                     type="number"
                                   />
-                                  <label for="lower_budget">何円から</label>
+                                  <label for="lower_budget"
+                                    >ご予算：何円から</label
+                                  >
                                 </div>
                               </div>
 
                               <!-- 予算の上限 -->
+                              <div>
+                                <label
+                                  th:if="*{#fields.hasErrors('upperBudget')}"
+                                  th:errors="*{upperBudget}"
+                                  class="error-upper_budget red-text"
+                                ></label>
+                              </div>
                               <div class="row">
                                 <div class="input-field col s12">
                                   <input
@@ -488,7 +535,9 @@
                                     class="form-control"
                                     type="number"
                                   />
-                                  <label for="upper_budget">何円まで</label>
+                                  <label for="upper_budget"
+                                    >ご予算：何円まで</label
+                                  >
                                 </div>
                               </div>
                               <div class="step-actions">
@@ -518,16 +567,15 @@
                               th:object="${signupForm.paymentForm}"
                             >
                               <!-- 支払い方法 -->
+                              <div>
+                                <label
+                                  th:if="*{#fields.hasErrors('pay')}"
+                                  th:errors="*{pay}"
+                                  class="error-pay red-text"
+                                  >支払方法を選択してください</label
+                                >
+                              </div>
                               <div class="row">
-                                <div>
-                                  <label
-                                    th:if="*{#fields.hasErrors('pay')}"
-                                    th:errors="*{pay}"
-                                    class="error-address"
-                                    >支払方法を選択してください</label
-                                  >
-                                </div>
-
                                 <div class="input-field col s12">
                                   <div class="col s6">
                                     <label>
@@ -735,6 +783,7 @@
       integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
       crossorigin="anonymous"
     ></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
     <script th:src="@{/js/zipcode.js}"></script>
     <script th:src="@{/js/signupStepper.js}"></script>
   </body>
