@@ -76,13 +76,7 @@ function getInitialItemList() {
     .done(function (data) {
       $("#itemList").empty();
       data.forEach((item) => genarateItemCell(item));
-      $("#itemList").append(`
-      <div class="modalBox" id="submitModal">
-      	<div class="modalInner">
-      		カートに追加しました
-      	</div>
-      </div>
-      `);
+      
     })
     .fail(function (XMLHttpRequest, textStatus, errorThrown) {
       console.log("XMLHttpRequest : " + XMLDocument);
@@ -105,7 +99,7 @@ function genarateItemCell(item) {
                 >
               </h3>
               <div class="col s12" style="margin-bottom:10%">
-                <span class="flow-text left">¥ <span class='price-${item.id}'>${item.priceM}</span>円（税抜)</span>
+                <span class="flow-text left">¥ <span class='price-${item.id}'>${item.priceM}</span>（税抜)</span>
               </div>
               <div>
               <a
@@ -136,11 +130,11 @@ function genarateItemCell(item) {
 			   		<form style="margin-bottom:3rem">
 						<label class="col s6">
 							<input name="size" type="radio" value="M" checked />
-							<span>M ¥ <span class="price-m-modal-${item.id}">${item.priceM}円（税抜）</span>
+							<span>M ¥ <span class="price-m-modal-${item.id}">${item.priceM}（税抜）</span>
 						</label>
 						<label class="col s6">
 							<input name="size" type="radio" value="L" />
-							<span>L ¥ <span class="price-l-modal-${item.id}">${item.priceL}</span>円（税抜）</span>
+							<span>L ¥ <span class="price-l-modal-${item.id}">${item.priceL}</span>（税抜）</span>
 						</label>
 					</form>
 				</div>

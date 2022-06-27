@@ -27,3 +27,11 @@
 .order-confirm-btn {
   text-align: center;
 }
+
+.cart-plus:hover {
+  cursor: pointer;
+}
+
+.cart-minus:hover {
+	cursor: pointer;
+}
