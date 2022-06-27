@@ -392,20 +392,130 @@
                   <div class="row order-confirm-payment-method">
                     <span>
                       <label class="order-confirm-payment-method-radio">
-                        <input
-                          name="paymentMethod"
-                          type="radio"
-                          value="1"
-                          checked="checked"
-                        />
+                        <input name="paymentMethod" type="radio" value="0" />
                         <span>代金引換</span>
                       </label>
                       <label class="order-confirm-payment-method-radio">
-                        <input name="paymentMethod" type="radio" value="2" />
+                        <input name="paymentMethod" type="radio" value="1" />
                         <span>クレジットカード</span>
                       </label>
                     </span>
                   </div>
+
+                  <!-- クレジットカードクレジットカードの番号 -->
+                  <div class="row">
+                    <div>
+                      <label
+                        th:if="*{#fields.hasErrors('cardNumber')}"
+                        th:errors="*{cardNumber}"
+                        class="error-card_number red-text"
+                        >クレジットカード番号を正しく入力してください</label
+                      >
+                    </div>
+                    <div class="input-field col s12">
+                      <input
+                        id="card_number"
+                        name="cardNumber"
+                        th:field="*{cardNumber}"
+                        class="form-control"
+                        type="number"
+                      />
+                      <label for="card_number">クレジットカード番号</label>
+                    </div>
+                  </div>
+
+                  <!-- クレジットカードの期限(年) -->
+                  <div class="row">
+                    <div>
+                      <label
+                        th:if="*{#fields.hasErrors('cardExpYear')}"
+                        th:errors="*{cardExpYear}"
+                        class="error-card_exp_year red-text"
+                        >クレジットカードの期限(年)を正しく入力してください</label
+                      >
+                    </div>
+                    <div class="input-field col s12">
+                      <input
+                        id="card_exp_year"
+                        type="number"
+                        name="cardExpYear"
+                        th:field="*{cardExpYear}"
+                        class="form-control"
+                      />
+                      <label for="card_exp_year"
+                        >クレジットカードの期限 (年)</label
+                      >
+                    </div>
+                  </div>
+
+                  <!-- クレジットカードの期限(月) -->
+                  <div class="row">
+                    <div>
+                      <label
+                        th:if="*{#fields.hasErrors('cardExpMonth')}"
+                        th:errors="*{cardExpMonth}"
+                        class="error-card_exp_month red-text"
+                        >クレジットカードの期限(月)を正しく入力してください</label
+                      >
+                    </div>
+                    <div class="input-field col s12">
+                      <input
+                        id="card_exp_month"
+                        type="number"
+                        name="cardExpMonth"
+                        th:field="*{cardExpMonth}"
+                        class="form-control"
+                      />
+                      <label for="card_exp_month">クレジットカード (月)</label>
+                    </div>
+                  </div>
+
+                  <!-- クレジットカードの名義 -->
+                  <div class="row">
+                    <div>
+                      <label
+                        th:if="*{#fields.hasErrors('cardName')}"
+                        th:errors="*{cardName}"
+                        class="error-card_name red-text"
+                        >クレジットカードの名義を正しく入力してください</label
+                      >
+                    </div>
+                    <div class="input-field col s12">
+                      <input
+                        id="card_name"
+                        type="text"
+                        name="cardName"
+                        th:field="*{cardName}"
+                        class="form-control"
+                      />
+                      <label for="card_name">クレジットカードの名義</label>
+                    </div>
+                  </div>
+
+                  <!-- クレジットカードのセキュリティコード -->
+                  <div class="row">
+                    <div>
+                      <label
+                        th:if="*{#fields.hasErrors('cardCvv')}"
+                        th:errors="*{cardCvv}"
+                        class="error-card_cvv red-text"
+                        >クレジットカードのセキュリティコードを正しく入力してください</label
+                      >
+                    </div>
+                    <div class="input-field col s12">
+                      <input
+                        id="card_cvv"
+                        type="number"
+                        name="cardCvv"
+                        th:field="*{cardCvv}"
+                        class="form-control"
+                      />
+                      <label for="card_cvv"
+                        >クレジットカードのセキュリティコード</label
+                      >
+                    </div>
+                  </div>
+
                   <div class="row order-confirm-btn">
                     <button class="btn light-blue darken-4 btn-large">
                       <span>この内容で注文する</span>

@@ -97,6 +97,12 @@ public class SignupController {
 
 	}
 
+	/**
+	 * フォームのバリデーションを行なう.
+	 * 
+	 * @param form
+	 * @param result
+	 */
 	private void validation(SignupForm form, BindingResult result) {
 		// emailの重複チェック、存在していればバリデーション結果にエラーを追加
 		User existsUser = signupService.checkSameMailAddress(form.getUserForm().getEmail());
