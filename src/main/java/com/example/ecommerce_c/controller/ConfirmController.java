@@ -96,7 +96,7 @@ public class ConfirmController {
 
 		if (result.hasErrors()) {
 			model.addAttribute("confirmForm", form);
-			model.addAttribute("error", 1);
+			model.addAttribute("currentPage", 2);
 			return topController.index(order.getUserId(), model, loginUser, form);
 		}
 
@@ -122,7 +122,7 @@ public class ConfirmController {
 			mailService.sendMail(order);
 
 			service.update(order);
-			model.addAttribute("error", 0);
+			model.addAttribute("currentPage", 0);
 			return "redirect:/complete";
 		}
 
@@ -142,7 +142,7 @@ public class ConfirmController {
 			System.out.println(orderTransactionStatus);
 			if (orderTransactionStatus.getStatus().equals("error")) { // 決済失敗した場合
 				result.rejectValue("paymentMethod", null, orderTransactionStatus.getMessage());
-				model.addAttribute("error", 1);
+				model.addAttribute("currentPage", 2);
 				return topController.index(order.getUserId(), model, loginUser, form);
 			} else { // 決済成功
 				order.setStatus(2);
@@ -150,7 +150,7 @@ public class ConfirmController {
 
 //				注文内容確認&入金確認メール
 				mailService.sendMail(order);
-				model.addAttribute("error", 0);
+				model.addAttribute("currentPage", 0);
 				return "redirect:/complete";
 			}
 		}
