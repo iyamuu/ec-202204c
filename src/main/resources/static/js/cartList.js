@@ -114,9 +114,9 @@ let buildPriceAndQuantityCell = function (price, quantity, orderItemId) {
                     </span>
                     <br />
                     <span >
-                        <i class="col s2 material-icons ${status}"  id="item${orderItemId}QuantityMinus" onclick="subOrderItemQuantity(${orderItemId})" >remove_circle_outline</i>
+                        <i class="col s2 material-icons ${status} cart-plus"  id="item${orderItemId}QuantityMinus" onclick="subOrderItemQuantity(${orderItemId})" >remove_circle_outline</i>
                         <label class="col s1" min="1" id="item${orderItemId}Quantity"> ${quantity} </label>
-                        <i class="col s2 material-icons" onclick='addOrderItemQuantity(${orderItemId})'>add_circle</i>
+                        <i class="col s2 material-icons cart-minus" onclick='addOrderItemQuantity(${orderItemId})'>add_circle</i>
                     </span>
                 </td>`;
                 
