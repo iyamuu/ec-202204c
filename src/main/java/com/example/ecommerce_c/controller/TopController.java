@@ -150,9 +150,24 @@ public class TopController {
 				form.setDestinationTel(addressee.getTelephone());
 			}
 			
-			//支払い方法の初期入力 クレジットカード情報がformにない
+			//支払い方法の初期入力
 			if(form.getPaymentMethod() == null) {
 				form.setPaymentMethod(payment.getPay());
+			}
+			if(form.getCardNumber() == null) {
+				form.setCardNumber(payment.getCardNumber());
+			}
+			if(form.getCardExpYear() == null) {
+				form.setCardExpYear(payment.getCardExpYear());
+			}
+			if(form.getCardExpMonth() == null) {
+				form.setCardExpMonth(payment.getCardExpMonth());
+			}
+			if(form.getCardName() == null) {
+				form.setCardName(payment.getCardName());
+			}
+			if(form.getCardCvv() == null) {
+				form.setCardCvv(payment.getCardCvv());
 			}
 			
 		}

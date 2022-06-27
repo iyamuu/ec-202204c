@@ -1,6 +1,7 @@
 package com.example.ecommerce_c.form;
 
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
 /**
@@ -37,7 +38,18 @@ public class ConfirmForm {
 	private String deliveryTime;
 
 	/** 支払方法 */
+	@NotNull(message = "支払い方法を選択してください")
 	private Integer paymentMethod;
+	/** クレジットカード番号 payが１なら存在する */
+	private String cardNumber;
+	/** クレジットカードの期限(年) payが１なら存在する */
+	private String cardExpYear;
+	/** クレジットカードの期限(月) payが１なら存在する */
+	private String cardExpMonth;
+	/** クレジットカードの名義 payが１なら存在する */
+	private String cardName;
+	/** クレジットカードのセキュリティコード payが１なら存在する */
+	private String cardCvv;
 
 	public Integer getOrderId() {
 		return orderId;
@@ -109,6 +121,64 @@ public class ConfirmForm {
 
 	public void setPaymentMethod(Integer paymentMethod) {
 		this.paymentMethod = paymentMethod;
+	}
+
+	public String getCardNumber() {
+		return cardNumber;
+	}
+
+	public void setCardNumber(String cardNumber) {
+		this.cardNumber = cardNumber;
+	}
+
+	public String getCardExpYear() {
+		return cardExpYear;
+	}
+
+	public void setCardExpYear(String cardExpYear) {
+		this.cardExpYear = cardExpYear;
+	}
+
+	public String getCardExpMonth() {
+		return cardExpMonth;
+	}
+
+	public void setCardExpMonth(String cardExpMonth) {
+		this.cardExpMonth = cardExpMonth;
+	}
+
+	public String getCardName() {
+		return cardName;
+	}
+
+	public void setCardName(String cardName) {
+		this.cardName = cardName;
+	}
+
+	public String getCardCvv() {
+		return cardCvv;
+	}
+
+	public void setCardCvv(String cardCvv) {
+		this.cardCvv = cardCvv;
+	}
+
+	@Override
+	public String toString() {
+		return "ConfirmForm [orderId=" + orderId + ", destinationName=" + destinationName + ", destinationEmail="
+				+ destinationEmail + ", destinationZipcode=" + destinationZipcode + ", destinationAddress="
+				+ destinationAddress + ", destinationTel=" + destinationTel + ", deliveryDate=" + deliveryDate
+				+ ", deliveryTime=" + deliveryTime + ", paymentMethod=" + paymentMethod + ", cardNumber=" + cardNumber
+				+ ", cardExpYear=" + cardExpYear + ", cardExpMonth=" + cardExpMonth + ", cardName=" + cardName
+				+ ", cardCvv=" + cardCvv + ", getOrderId()=" + getOrderId() + ", getDestinationName()="
+				+ getDestinationName() + ", getDestinationEmail()=" + getDestinationEmail()
+				+ ", getDestinationZipcode()=" + getDestinationZipcode() + ", getDestinationAddress()="
+				+ getDestinationAddress() + ", getDestinationTel()=" + getDestinationTel() + ", getDeliveryDate()="
+				+ getDeliveryDate() + ", getDeliveryTime()=" + getDeliveryTime() + ", getPaymentMethod()="
+				+ getPaymentMethod() + ", getCardNumber()=" + getCardNumber() + ", getCardExpYear()=" + getCardExpYear()
+				+ ", getCardExpMonth()=" + getCardExpMonth() + ", getCardName()=" + getCardName() + ", getCardCvv()="
+				+ getCardCvv() + ", getClass()=" + getClass() + ", hashCode()=" + hashCode() + ", toString()="
+				+ super.toString() + "]";
 	}
 
 
