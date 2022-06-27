@@ -49,11 +49,14 @@ function validationActiveChange() {
   	firstActive: 2, // this is the default
   	});
 }
-
+　$('.cart_button').css('display', 'none');
  let pageVal = $('#currentPage').val();
  if (pageVal === '') {
  	pageVal = 0;
+ 	　$('.cart_button').css('display', '');
  }
+ 	
+ 
   var stepper = document.querySelector(".stepper");
 var stepperInstace = new MStepper(stepper, {
   // options
