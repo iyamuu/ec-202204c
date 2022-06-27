@@ -40,7 +40,7 @@
   <body>
     <!--ヘッダー（共通）-->
 
-	<header>
+    <header>
       <div class="container">
         <div class="header">
           <div class="header-left">
@@ -51,9 +51,9 @@
 
           <div class="header-right">
             <a href="item_list.html" th:href="@{/}">商品一覧</a>
-            <a href="register_admin.html"  th:href="@{/signup}">会員登録</a>
+            <a href="register_admin.html" th:href="@{/signup}">会員登録</a>
             <a th:href="@{/logout}" id="logout" class="logout">
-            	<i class="fas fa-sign-out-alt"></i>ログアウト
+              <i class="fas fa-sign-out-alt"></i>ログアウト
             </a>
             <a href="login.html" th:href="@{/login}" id="login" class="login">
               <i class="fas fa-sign-in-alt"></i>ログイン
@@ -72,9 +72,7 @@
         >
           <!-- 商品の一覧が表示されるページ（初期ページ） -->
           <li class="step active">
-            <div class="step-title step1 waves-effect">
-              商品を探す
-            </div>
+            <div class="step-title step1 waves-effect">商品を探す</div>
             <div class="step-content" style="margin-top: 7rem">
               <div class="row">
                 <div
@@ -90,20 +88,23 @@
                   </form>
                 </div>
 
-				
-				<div id="modal01" class="c-modal js-modal">
-		          <div class="c-modal_bg js-modal-close"></div>
-        		  <div class="c-modal_content _lg amber accent-3">
-              		<div class="c-modal_content_inner ">
-                  		カートに追加されました
-              		</div>
-          		  </div>
-        		</div>
-        		
+                <div id="modal01" class="c-modal js-modal">
+                  <div class="c-modal_bg js-modal-close"></div>
+                  <div class="c-modal_content _lg amber accent-3">
+                    <div class="c-modal_content_inner">
+                      カートに追加されました
+                    </div>
+                  </div>
+                </div>
+
                 <!--item list-->
                 <div class="item-wrapper col s12">
                   <div class="container">
-                    <div id="itemList" class="items" style="margin-top:2rem"></div>
+                    <div
+                      id="itemList"
+                      class="items"
+                      style="margin-top: 2rem"
+                    ></div>
                   </div>
                 </div>
               </div>
@@ -115,18 +116,16 @@
                   class="waves-effect waves-light next-step light-blue darken-4 btn-large cart_button fixed_btn"
                   data-feedback="toCart"
                 >
-                  <i class="fas lg fa-shopping-cart" data-feedback="toCart"><br />カートへ</i>
+                  <i class="fas lg fa-shopping-cart" data-feedback="toCart"
+                    ><br />カートへ</i
+                  >
                 </button>
               </div>
             </div>
           </li>
           <!-- カートの中身を示すページ -->
           <li class="step">
-            <div
-              class="step-title waves-effect step2"
-            >
-              カート内の商品
-            </div>
+            <div class="step-title waves-effect step2">カート内の商品</div>
             <div class="step-content" style="margin-top: 7rem">
               <div class="row">
                 <div class="top-wrapper">
@@ -145,41 +144,46 @@
                         </thead>
                         <tbody id="orderItemTable" class="highlight"></tbody>
                       </table>
-                      <h5 id="noItemMessage" style="display:none; text-align:center;">カート内には商品が入っていません。</h5>
+                      <h5
+                        id="noItemMessage"
+                        style="display: none; text-align: center"
+                      >
+                        カート内には商品が入っていません。
+                      </h5>
                     </div>
 
                     <div class="row cart-total-price">
                       <div id="tax"></div>
                       <div id="totalPrice"></div>
                     </div>
-
-                   
                   </div>
                   <!-- end container -->
                 </div>
               </div>
               <!--カートの中身に問題がなければ、このボタンを押すことで購入確認画面へ遷移する-->
               <div class="step-actions" style="position: relative">
-                 <div class="row order-confirm-btn">
-                      <form th:action="@{/confirm}" method="get">
-                        <input
-                          type="hidden"
-                          name="orderId"
-                          th:value="${session.orderId}"
-                        />
-                        <button
-                          id="stepParchase" 
-                          class="btn waves-effect waves-dark btn next-step light-blue darken-4"
-                          data-feedback="toConfirm" >注文に進む</button>
-                      </form>
-                      <button
-	                  class="waves-effect waves-dark btn-flat previous-step"
-	                  onclick="itemPrev()"
-	                >
-	                  商品一覧画面へ戻る
-	                </button>
-                 </div>
-                
+                <div class="row order-confirm-btn">
+                  <form th:action="@{/confirm}" method="get">
+                    <input
+                      type="hidden"
+                      name="orderId"
+                      th:value="${session.orderId}"
+                    />
+                    <button
+                      id="stepParchase"
+                      class="btn waves-effect waves-dark btn next-step light-blue darken-4"
+                      data-feedback="toConfirm"
+                    >
+                      注文に進む
+                    </button>
+                  </form>
+                  <button
+                    class="waves-effect waves-dark btn-flat previous-step"
+                    onclick="itemPrev()"
+                  >
+                    商品一覧画面へ戻る
+                  </button>
+                </div>
               </div>
             </div>
           </li>
@@ -193,11 +197,11 @@
                   th:object="${confirmForm}"
                   method="post"
                 >
-                                        <input
-                          type="hidden"
-                          name="orderId"
-                          th:value="${session.orderId}"
-                        />
+                  <input
+                    type="hidden"
+                    name="orderId"
+                    th:value="${session.orderId}"
+                  />
                   <h2 class="page-title">お届け先情報</h2>
                   <div class="order-confirm-delivery-info">
                     <div>
@@ -253,16 +257,16 @@
                     <div class="row">
                       <div class="input-field">
                         <input
-                          id="zipcode"
+                          id="zipCode"
                           type="text"
-                          maxlength="8"
                           name="destinationZipcode"
                           th:field="*{destinationZipcode}"
+                          placeholder="xxxyyyy"
+                          list="zipList"
                         />
-                        <label for="zipcode">郵便番号</label>
-                        <button class="btn" type="button">
-                          <span>住所検索</span>
-                        </button>
+                        <label for="zipCode"
+                          >郵便番号 (ハイフンは自動で入力されます)</label
+                        >
                       </div>
                     </div>
 
@@ -402,7 +406,7 @@
                       </label>
                     </span>
                   </div>
-                  <div class="row order-confirm-btn ">
+                  <div class="row order-confirm-btn">
                     <button class="btn light-blue darken-4 btn-large">
                       <span>この内容で注文する</span>
                     </button>
@@ -436,6 +440,9 @@
         </ul>
       </div>
     </div>
+
+    <datalist id="zipList"> </datalist>
+
     <script
       src="https://code.jquery.com/jquery-3.6.0.min.js"
       integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
@@ -443,6 +450,7 @@
     ></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script src="js/zipcode.js"></script>
     <script src="js/itemList.js"></script>
     <script src="js/postCart.js"></script>
     <script src="js/spinnerButton.js"></script>

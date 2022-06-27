@@ -155,7 +155,10 @@
                                         th:field="*{zipCode}"
                                         list="zipList"
                                       />
-                                      <label for="zipCode">郵便番号</label>
+                                      <label for="zipCode"
+                                        >郵便番号
+                                        (ハイフンは自動で入力されます)</label
+                                      >
                                     </div>
                                   </div>
 
@@ -203,8 +206,11 @@
                                         th:field="*{telephone}"
                                         name="telephone"
                                         class="form-control"
+                                        placeholder="090-xxxx-xxxx"
                                       />
-                                      <label for="tel">電話番号</label>
+                                      <label for="tel"
+                                        >電話番号 (ハイフンあり)</label
+                                      >
                                     </div>
                                   </div>
 
@@ -324,8 +330,12 @@
                                       placeholder="xxxyyyy"
                                       type="text"
                                       list="zipList"
+                                      th:field="*{zipCode}"
                                     />
-                                    <label for="zipCode">宛先の郵便番号</label>
+                                    <label for="zipCode"
+                                      >宛先の郵便番号
+                                      (ハイフンは自動で入力されます)
+                                    </label>
                                   </div>
                                 </div>
 
@@ -342,6 +352,7 @@
                                       type="text"
                                       name="address"
                                       class="form-control"
+                                      th:field="*{address}"
                                     />
                                     <label for="address">宛先の住所</label>
                                   </div>
@@ -360,8 +371,12 @@
                                       type="tel"
                                       name="telephone"
                                       class="form-control"
+                                      placeholder="090-xxxx-xxxx"
+                                      th:field="*{telephone}"
                                     />
-                                    <label for="tel">宛先の電話番号</label>
+                                    <label for="tel"
+                                      >宛先の電話番号 (ハイフンあり)</label
+                                    >
                                   </div>
                                 </div>
                               </div>
