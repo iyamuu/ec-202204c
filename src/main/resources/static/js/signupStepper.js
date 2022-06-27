@@ -59,8 +59,14 @@ function emailValidation() {
     return false;
   }
   $(".error-mail").text(``);
-
-  if (duplicateCheckEmail(email) === true) {
+	console.log('kokotootteimasu');
+	let isDuplicate = "false";
+	duplicateCheckEmail(email).done(function (data) {
+      isDuplicate = JSON.stringify(data);
+    });
+	console.log("duplicate:", isDuplicate);
+  if (isDuplicate === "true") {
+    console.log('nakatootteimasu')
     $(".duplicate-mail").text(`このメールアドレスはすでに登録されています`);
     return false;
   }
@@ -139,26 +145,16 @@ function confirmPasswordValidation() {
 function duplicateCheckEmail(email) {
   let hostUrl = "http://localhost:8080/ec-202204c/duplicateCheckEmail";
 
-  $.ajax({
+  return $.ajax({
     url: hostUrl,
     dataType: "json",
     type: "get",
     data: {
       mail: email,
     },
-    async: true,
+    async: false,
   })
-    .done(function (data) {
-      let result = JSON.stringify(data);
-      console.log(result);
-      console.log(typeof result);
-      return JSON.stringify(data);
-    })
-    .fail(function (XMLHttpRequest, textStatus, errorThrown) {
-      console.log("XMLHttpRequest : " + XMLDocument);
-      console.log("textStatus : " + textStatus);
-      console.log("errorThrown : " + errorThrown);
-    });
+
 }
 
 function noThing(destroyFeedback) {
