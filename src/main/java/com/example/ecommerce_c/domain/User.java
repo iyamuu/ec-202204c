@@ -22,6 +22,8 @@ public class User {
 	private String address;
 	/** 電話番号 */
 	private String telephone;
+	/** Line ID */
+	private String lineId;
 
 	public Integer getId() {
 		return id;
@@ -63,6 +65,15 @@ public class User {
 		this.telephone = telephone;
 	}
 
+
+	public String getLineId() {
+		return lineId;
+	}
+
+	public void setLineId(String lineId) {
+		this.lineId = lineId;
+	}
+
 	public String getZipCode() {
 		return zipCode;
 	}
@@ -82,7 +93,8 @@ public class User {
 	@Override
 	public String toString() {
 		return "User [id=" + id + ", name=" + name + ", email=" + email + ", password=" + password + ", zipCode="
-				+ zipCode + ", address=" + address + ", telephone=" + telephone + "]";
+				+ zipCode + ", address=" + address + ", telephone=" + telephone + ", lineId=" + lineId + "]";
 	}
+
 
 }

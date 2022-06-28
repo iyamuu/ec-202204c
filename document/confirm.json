@@ -1,0 +1,153 @@
+{
+  "type": "bubble",
+  "size": "mega",
+  "header": {
+    "type": "box",
+    "layout": "vertical",
+    "contents": [
+      {
+        "type": "text",
+        "text": "〇〇様",
+        "color": "#ffffff",
+        "size": "lg"
+      },
+      {
+        "type": "text",
+        "text": "ご注文ありがとうございます。",
+        "color": "#ffffff",
+        "size": "lg"
+      }
+    ],
+    "justifyContent": "center",
+    "alignItems": "center",
+    "backgroundColor": "#ff8c00"
+  },
+  "hero": {
+    "type": "image",
+    "url": "https://ec-202204c-toy.herokuapp.com/ec-202204c/img/14.jpg",
+    "size": "5xl"
+  },
+  "body": {
+    "type": "box",
+    "layout": "vertical",
+    "contents": [
+      {
+        "type": "box",
+        "layout": "horizontal",
+        "contents": [
+          {
+            "type": "text",
+            "text": "商品名",
+            "flex": 1
+          },
+          {
+            "type": "text",
+            "text": "ラジコン",
+            "flex": 2,
+            "wrap": true
+          }
+        ]
+      },
+      {
+        "type": "box",
+        "layout": "horizontal",
+        "contents": [
+          {
+            "type": "text",
+            "text": "数量",
+            "flex": 1
+          },
+          {
+            "type": "text",
+            "text": "2個",
+            "flex": 2,
+            "wrap": true
+          }
+        ]
+      },
+      {
+        "type": "box",
+        "layout": "horizontal",
+        "contents": [
+          {
+            "type": "text",
+            "text": "オプション",
+            "flex": 1
+          },
+          {
+            "type": "text",
+            "text": "単三乾電池",
+            "flex": 2,
+            "wrap": true
+          }
+        ]
+      },
+      {
+        "type": "box",
+        "layout": "horizontal",
+        "contents": [
+          {
+            "type": "text",
+            "text": "ご請求額",
+            "flex": 1
+          },
+          {
+            "type": "text",
+            "text": "¥ 4,500円",
+            "flex": 2,
+            "wrap": true
+          }
+        ]
+      },
+      {
+        "type": "box",
+        "layout": "horizontal",
+        "contents": [
+          {
+            "type": "text",
+            "text": "支払い方法",
+            "flex": 1
+          },
+          {
+            "type": "text",
+            "text": "クレジットカード",
+            "flex": 2,
+            "wrap": true
+          }
+        ]
+      },
+      {
+        "type": "box",
+        "layout": "horizontal",
+        "contents": [
+          {
+            "type": "text",
+            "text": "発送予定日",
+            "flex": 1
+          },
+          {
+            "type": "text",
+            "text": "yyyy/MM/dd  HH時",
+            "flex": 2,
+            "wrap": true
+          }
+        ]
+      }
+    ]
+  },
+  "footer": {
+    "type": "box",
+    "layout": "vertical",
+    "contents": [
+      {
+        "type": "text",
+        "text": "またのご利用をお待ちしております",
+        "color": "#ffffff",
+        "size": "md"
+      }
+    ],
+    "backgroundColor": "#ff8c00",
+    "justifyContent": "center",
+    "alignItems": "center"
+  }
+}

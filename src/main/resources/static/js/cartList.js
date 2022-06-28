@@ -9,7 +9,7 @@ $(function () {
 //注文一覧の表示  合計金額の変更も行う
 let showOrderItemList = function () {
   let orderId = $("#orderId").val();
-  let showUrl = "http://localhost:8080/ec-202204c/show?orderId=" + orderId;
+  let showUrl = serverURL + "show?orderId=" + orderId;
 
   $.ajax({
     url: showUrl,
@@ -178,7 +178,7 @@ let buildDeleeButtonCell = function (orderItemId) {
  */
 
 function deleteOrderItem(id) {
-  let hostUrl = `http://localhost:8080/ec-202204c/delete?orderItemId=${id}`;
+  let hostUrl = `${serverURL}delete?orderItemId=${id}`;
 
   console.log(hostUrl);
   $.ajax({
@@ -204,7 +204,7 @@ function deleteOrderItem(id) {
 
 function updateOrderItem(id, quantity) {
   let xsrf = $.cookie("XSRF-TOKEN");
-  let hostUrl = "http://localhost:8080/ec-202204c/update";
+  let hostUrl = `${serverURL}update`;
 
   $.ajax({
     url: hostUrl,
@@ -221,7 +221,6 @@ function updateOrderItem(id, quantity) {
     async: true,
   })
     .done(function (data) {
-      // $(`#item${id}Quantity`).text(data.quantity);
       showOrderItemList();
     })
     .fail(function (XMLHttpRequest, textStatus, errorThrown) {

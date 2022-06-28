@@ -1,6 +1,7 @@
 /**
  *
  */
+
 function userCheck(destroyFeedback) {
   let validationResults = [];
   let next = true;
@@ -59,7 +60,6 @@ function emailValidation() {
     return false;
   }
   $(".error-mail").text(``);
-	console.log('kokotootteimasu');
 	let isDuplicate = "false";
 	duplicateCheckEmail(email).done(function (data) {
       isDuplicate = JSON.stringify(data);
@@ -152,9 +152,16 @@ function duplicateCheckEmail(email) {
     data: {
       mail: email,
     },
-    async: false,
+    async: true,
   })
-
+    .done(function (data) {
+      return JSON.stringify(data);
+    })
+    .fail(function (XMLHttpRequest, textStatus, errorThrown) {
+      console.log("XMLHttpRequest : " + XMLDocument);
+      console.log("textStatus : " + textStatus);
+      console.log("errorThrown : " + errorThrown);
+    });
 }
 
 function noThing(destroyFeedback) {

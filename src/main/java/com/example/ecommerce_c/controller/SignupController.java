@@ -6,6 +6,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -20,6 +21,7 @@ import com.example.ecommerce_c.domain.GiftInformation;
 import com.example.ecommerce_c.domain.Payment;
 import com.example.ecommerce_c.domain.User;
 import com.example.ecommerce_c.form.SignupForm;
+import com.example.ecommerce_c.security.LoginUser;
 import com.example.ecommerce_c.service.SignupService;
 
 /**
@@ -62,8 +64,7 @@ public class SignupController {
 		if (result.hasErrors()) {
 			return getSignupPage(form, model);
 		}
-
-		// ログイン状態なら一度ログアウトさせる
+		//ログイン状態なら一度ログアウトさせる
 		SecurityContext context = SecurityContextHolder.getContext();
 		Authentication authentication = context.getAuthentication();
 		if (authentication instanceof AnonymousAuthenticationToken == false) {
@@ -95,6 +96,21 @@ public class SignupController {
 
 		return "redirect:/";
 
+	}
+	
+	
+	@GetMapping("/line_signup")
+	public String signupFromLine(@AuthenticationPrincipal LoginUser lineLoginUser, Model model, HttpServletRequest request) {
+		
+		if(lineLoginUser.getUserId() < 0) {  //IDが負の値ならアカウント登録情報はまだ LineIDをformに入れてサインアップページへ
+			SignupForm form = new SignupForm();
+			form.getUserForm().setLineId(lineLoginUser.getLineId());
+			model.addAttribute("signupForm", form);
+			return getSignupPage(form, model);
+		}else {                              //IDがあるならそのままログイン
+			
+			return "redirect:/";
+		}
 	}
 
 	/**

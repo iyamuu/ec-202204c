@@ -37,6 +37,9 @@ public class UserForm {
 	/** 電話番号 */
 	@Pattern(regexp = "^[0-9]{3}-[0-9]{4}-[0-9]{4}$", message = "電話番号を入力してください (ハイフンあり)")
 	private String telephone;
+	
+	/** Line ID (Lineからログインしたユーザのみ持っている) */
+	private String lineId;
 
 	public UserForm() {
 		// TODO Auto-generated constructor stub
@@ -83,6 +86,14 @@ public class UserForm {
 		this.confirmPassword = confirmPassword;
 	}
 
+	public String getLineId() {
+		return lineId;
+	}
+
+	public void setLineId(String lineId) {
+		this.lineId = lineId;
+	}
+	
 	public String getZipCode() {
 		return zipCode;
 	}
@@ -98,11 +109,12 @@ public class UserForm {
 	public void setAddress(String address) {
 		this.address = address;
 	}
-	
+
 	@Override
 	public String toString() {
 		return "UserForm [name=" + name + ", email=" + email + ", password=" + password + ", confirmPassword="
-				+ confirmPassword + ", zipCode=" + zipCode + ", address=" + address + ", telephone=" + telephone + "]";
+				+ confirmPassword + ", zipCode=" + zipCode + ", address=" + address + ", telephone=" + telephone
+				+ ", lineId=" + lineId + "]";
 	}
 
 

@@ -4,6 +4,7 @@ import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.concurrent.ExecutionException;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +25,14 @@ import com.example.ecommerce_c.form.ConfirmForm;
 import com.example.ecommerce_c.mail.MailService;
 import com.example.ecommerce_c.security.LoginUser;
 import com.example.ecommerce_c.service.ConfirmService;
+import com.example.ecommerce_c.service.LineMessageService;
 import com.example.ecommerce_c.service.OrderTransactionService;
+import com.example.ecommerce_c.service.PaymentService;
+import com.linecorp.bot.client.LineMessagingClient;
+import com.linecorp.bot.model.PushMessage;
+import com.linecorp.bot.model.message.FlexMessage;
+import com.linecorp.bot.model.message.Message;
+import com.linecorp.bot.model.response.BotApiResponse;
 
 /**
  * 注文確認画面を操作するコントローラー.
@@ -44,7 +52,13 @@ public class ConfirmController {
 
 	@Autowired
 	private TopController topController;
-	
+
+	@Autowired
+	private LineMessagingClient lineMessagingClient;
+
+	@Autowired
+	private LineMessageService lineMessageService;
+
 	@ModelAttribute
 	ConfirmForm setUpConfirmForm() {
 		return new ConfirmForm();
@@ -72,6 +86,7 @@ public class ConfirmController {
 	 * @return 注文完了画面
 	 */
 	@PostMapping("/purchase")
+
 	public String finished(@Validated ConfirmForm form, BindingResult result, Model model,
 			@AuthenticationPrincipal final LoginUser loginUser) {
 
@@ -118,11 +133,19 @@ public class ConfirmController {
 		Integer paymentMethod = order.getPaymentMethod();
 		if (paymentMethod == 0) {
 			order.setStatus(1); // 未入金
+
+			service.update(order);
+
 //			メール送信
 			mailService.sendMail(order);
+			// Lineで送信
+			if (loginUser.getLineId() != null) {
+				sendLineMessage(loginUser.getLineId(), order.getId());
+			}
 
 			service.update(order);
 			model.addAttribute("currentPage", 0);
+			
 			return "redirect:/complete";
 		}
 
@@ -150,10 +173,35 @@ public class ConfirmController {
 
 //				注文内容確認&入金確認メール
 				mailService.sendMail(order);
+
+				// Lineで送信
+				if (loginUser.getLineId() != null) {
+					sendLineMessage(loginUser.getLineId(), order.getId());
+				}
+
 				model.addAttribute("currentPage", 0);
+
 				return "redirect:/complete";
 			}
 		}
+
+	}
+
+	// Line への通知
+	private void sendLineMessage(String lineId, Integer orderId) {
+
+		Message message = new FlexMessage("ご注文完了通知", lineMessageService.getCompleteMessage(orderId));
+		PushMessage pushMessage = new PushMessage(lineId, message);
+
+		BotApiResponse botApiResponse = null;
+		try {
+			botApiResponse = lineMessagingClient.pushMessage(pushMessage).get();
+		} catch (InterruptedException | ExecutionException e) {
+			e.printStackTrace();
+		}
+		System.out.println("================");
+		System.out.println("response");
+		System.out.println(botApiResponse);
 
 	}
 

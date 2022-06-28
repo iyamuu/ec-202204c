@@ -1,16 +1,19 @@
 package com.example.ecommerce_c.security;
 
 import java.util.Collection;
+import java.util.Map;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 
 import com.example.ecommerce_c.domain.User;
 
-public class LoginUser implements UserDetails {
+public class LoginUser implements UserDetails, OAuth2User {
 
 	private static final long serialVersionUID = 1L;
 	
+
 	private User user;
 	private final Collection<GrantedAuthority> authorities;
 	
@@ -18,6 +21,15 @@ public class LoginUser implements UserDetails {
 		super();
 		this.user = user;
 		this.authorities = authorities;
+	}
+	
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
 	}
 	
 	public Integer getUserId() {
@@ -30,6 +42,10 @@ public class LoginUser implements UserDetails {
 	
 	public String getTelephone() {
 		return user.getTelephone();
+	}
+	
+	public String getLineId() {
+		return user.getLineId();
 	}
 
 	@Override
@@ -69,6 +85,26 @@ public class LoginUser implements UserDetails {
 	@Override
 	public boolean isEnabled() {
 		return true;
+	}
+
+
+	@Override
+	public Map<String, Object> getAttributes() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+	@Override
+	public String getName() {
+		// TODO Auto-generated method stub
+		return this.user.getName();
+	}
+
+
+	@Override
+	public String toString() {
+		return "LoginUser [user=" + user + ", authorities=" + authorities + "]";
 	}
 
 }

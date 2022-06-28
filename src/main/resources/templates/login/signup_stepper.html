@@ -355,8 +355,8 @@
                                       id="partnerAddress"
                                       type="text"
                                       name="address"
-                                      class="form-control"
                                       th:field="*{address}"
+                                      class="form-control"
                                     />
                                     <label for="address">宛先の住所</label>
                                   </div>
@@ -376,9 +376,9 @@
                                       id="partnerTel"
                                       type="tel"
                                       name="telephone"
+                                      th:field="*{telephone}"
                                       class="form-control"
                                       placeholder="090-xxxx-xxxx"
-                                      th:field="*{telephone}"
                                     />
                                     <label for="tel"
                                       >宛先の電話番号 (ハイフンあり)</label
@@ -762,6 +762,11 @@
                 </div>
               </div>
             </div>
+            <input
+              type="text"
+              th:field="${signupForm.userForm.lineId}"
+              hidden
+            />
           </form>
         </div>
       </div>
@@ -783,6 +788,8 @@
       integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
       crossorigin="anonymous"
     ></script>
+    <!-- jsファイル -->
+    <script src="js/config.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
     <script th:src="@{/js/zipcode.js}"></script>
     <script th:src="@{/js/signupStepper.js}"></script>

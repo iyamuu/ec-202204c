@@ -22,6 +22,12 @@ public class SignupForm {
 	/** 支払い情報 */
 	@Valid
 	private PaymentForm paymentForm;
+	
+	 public SignupForm() {
+		 this.userForm = new UserForm();
+		 this.addresseeForm = new AddresseeForm();
+		 this.giftInfoForm = new GiftInfoForm();
+	 }
 
 	public UserForm getUserForm() {
 		return userForm;

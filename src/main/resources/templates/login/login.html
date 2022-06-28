@@ -47,7 +47,11 @@
           <!-- FIXME: 本来はth:hrefにはuserIdを埋め込むべき。SpringSecurityを導入予定のため雑に実装。 -->
             <a href="item_list.html" th:href="@{/(userId=${userId})}">商品一覧</a>
             <a th:href="@{/signup(userId=${userId})}">会員登録</a>
-            <a href="login.html" th:href="@{/login(userId=${userId})}" class="login">
+            <a
+              href="login.html"
+              th:href="@{/login(userId=${userId})}"
+              class="login"
+            >
               <i class="fas fa-sign-in-alt"></i>ログイン
             </a>
           </div>
@@ -68,7 +72,7 @@
               th:object="${loginForm}"
               method="post"
             >
-            <input type="hidden" name="guestUserId" th:value="${userId}">
+              <input type="hidden" name="guestUserId" th:value="${userId}" />
               <div>
                 <label
                   th:if="${#fields.hasErrors('email')}"
@@ -118,7 +122,7 @@
               </div>
             </form>
             <div class="row login-btn">
-            <form th:action="@{/}" method="post">
+            <form th:action="@{/oauth2/authorization/line}" method="GET">
                 	<button class="btn  light-green accent-3" style="margin:auto; width:80%;" type="submit">
                 		<span><i class="fab fa-line fa-4x line-green "></i>&emsp;LINEでログイン</span>
                 	</button>

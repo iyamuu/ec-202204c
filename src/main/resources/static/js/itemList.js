@@ -33,11 +33,16 @@ $("#search-name-input").keypress(function (e) {
 //検索
 function getItemByName(name) {
   let xsrf = $.cookie("XSRF-TOKEN");
+<<<<<<< HEAD
+
+  let hostUrl = `${serverURL}getItemByPage`;
+=======
   	//全角を半角に直す
 　   name = name.replace(/[Ａ-Ｚａ-ｚ０-９]/g, function(s) {
         return String.fromCharCode(s.charCodeAt(0) - 0xFEE0);
     });
   let hostUrl = "http://localhost:8080/ec-202204c/getItemByPage";
+>>>>>>> develop
   $.ajax({
     url: hostUrl,
     type: "post",
@@ -62,7 +67,7 @@ function getItemByName(name) {
 function getInitialItemList() {
   let xsrf = $.cookie("XSRF-TOKEN");
 
-  let hostUrl = "http://localhost:8080/ec-202204c/getItemByPage";
+  let hostUrl = `${serverURL}getItemByPage`;
 
   $.ajax({
     url: hostUrl,
